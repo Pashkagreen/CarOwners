@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "610045614526",
+    "project_id": "carowners-97d56",
+    "storage_bucket": "carowners-97d56.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:610045614526:android:7c7f775937c45f65dec1ef",
+        "android_client_info": {
+          "package_name": "com.carowners"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "610045614526-0hjna3q3qj62sasm9l6luf1vavaqnjo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carowners",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "610045614526-t6u3me7jdkq8jtke5kqsq1lki79tsaru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQTWYAv5acv36goa50SrVoLrzKoJAXy7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "610045614526-t6u3me7jdkq8jtke5kqsq1lki79tsaru.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "610045614526-v2cfra78e9sp6sq6nsh0c1ils0j785cm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.CarOwners"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

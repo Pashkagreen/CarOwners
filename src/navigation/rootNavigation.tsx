@@ -1,8 +1,10 @@
 import * as React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import AuthStackScreens from './authStack/authStack';
-import MainStackScreens from './mainStack/mainStack';
+import AuthStackScreens, { AuthStackNavigationProp } from './authStack/authStack';
+import MainStackScreens, { MainStackNavigationProp } from './mainStack/mainStack';
+
+export type RootStackNavigationProp = AuthStackNavigationProp | MainStackNavigationProp
 
 function RootNavigation(): JSX.Element {
   const RootStack = createNativeStackNavigator();

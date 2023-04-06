@@ -4,6 +4,7 @@ import History from './main/history/historyContainer'
 import Profile from './main/profile/profileContainer'
 import MyGarage from './main/myGarage/myGarageContainer'
 import AddVehicle from './main/addVehicle/addVehicleContainer'
+import Onboarding from './auth/onboarding/onboardingView'
 
 export {
   Login, 
@@ -11,5 +12,6 @@ export {
   History,
   Profile,
   MyGarage,
-  AddVehicle
+  AddVehicle,
+  Onboarding
 }

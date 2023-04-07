@@ -1,5 +1,8 @@
 import React, {memo} from 'react';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PhoneInputComponent from 'react-native-phone-input';
+
 import {
   Background,
   Logo,
@@ -8,6 +11,7 @@ import {
   TextInput,
   BackButton,
 } from '../../../components/index';
+import PhoneInput from '../../../components/PhoneInput';
 import {theme} from '../../../core/theme';
 import {Navigation} from '../../../types';
 
@@ -22,61 +26,72 @@ interface ILoginProps {
   setPhoneNumber: React.Dispatch<React.SetStateAction<validateObject>>;
   setCode: React.Dispatch<React.SetStateAction<validateObject>>;
   onLoginPressed: () => void;
+  //PhoneInputProps
+  inputRef: React.Ref<PhoneInputComponent>;
+  errorText?: string;
+  initialCountry: string;
+  onSelectCountry: (iso2: string) => void;
+  onChangePhoneNumber: (phone: string) => void;
 }
 
-function LoginView({
+const LoginView = ({
   navigation,
   phoneNumber,
   code,
+  initialCountry,
+  inputRef,
+  onSelectCountry,
+  onChangePhoneNumber,
   setPhoneNumber,
   setCode,
   onLoginPressed,
-}: ILoginProps): JSX.Element {
+}: ILoginProps): JSX.Element => {
   return (
-    <Background>
-      <BackButton goBack={() => navigation.navigate('Onboarding')} />
-      <Logo />
-      <Header>Welcome back.</Header>
-      <TextInput
-        label="Phone number"
-        keyboardType="phone-pad"
-        returnKeyType="next"
-        value={phoneNumber.value}
-        onChangeText={text => setPhoneNumber({value: text, error: ''})}
-        error={!!phoneNumber.error}
-        errorText={phoneNumber.error}
-        autoCapitalize="none"
-        autoComplete="email"
-        textContentType="emailAddress"
-      />
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps="handled"
+      showsVerticalScrollIndicator={false}>
+      <Background>
+        <BackButton goBack={() => navigation.navigate('Onboarding')} />
+        <Logo />
+        <Header>Welcome back.</Header>
 
-      <TextInput
-        label="Code"
-        returnKeyType="done"
-        value={code.value}
-        onChangeText={text => setCode({value: text, error: ''})}
-        error={!!code.error}
-        errorText={code.error}
-        secureTextEntry
-      />
+        <PhoneInput
+          inputRef={inputRef}
+          initialCountry={initialCountry || undefined}
+          value={phoneNumber.value}
+          onSelectCountry={onSelectCountry}
+          onChange={onChangePhoneNumber}
+          errorText={phoneNumber.error}
+        />
 
-      <View style={styles.forgotPassword}>
-        <Text style={styles.label}>Forgot your password?</Text>
-      </View>
+        <TextInput
+          label="Code"
+          returnKeyType="done"
+          value={code.value}
+          onChangeText={text => setCode({value: text, error: ''})}
+          error={!!code.error}
+          errorText={code.error}
+          secureTextEntry
+        />
 
-      <Button mode="contained" onPress={onLoginPressed}>
-        Login
-      </Button>
+        <View style={styles.forgotPassword}>
+          <Text style={styles.label}>Forgot your password?</Text>
+        </View>
 
-      <View style={styles.row}>
-        <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
-          <Text style={styles.link}>Sign up</Text>
-        </TouchableOpacity>
-      </View>
-    </Background>
+        <Button mode="contained" onPress={onLoginPressed}>
+          Login
+        </Button>
+
+        <View style={styles.row}>
+          <Text style={styles.label}>Don’t have an account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+            <Text style={styles.link}>Sign up</Text>
+          </TouchableOpacity>
+        </View>
+      </Background>
+    </KeyboardAwareScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   forgotPassword: {

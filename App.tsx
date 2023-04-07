@@ -7,7 +7,7 @@ import {theme} from './src/core/theme';
 import {StoreProvider, rootStore, trunk} from './src/store';
 import Loader from './src/components/Loader';
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const [isStoreLoaded, setIsStoreLoaded] = useState(false);
 
   useEffect(() => {
@@ -30,6 +30,6 @@ function App(): JSX.Element {
       </Provider>
     </StoreProvider>
   );
-}
+};
 
 export default App;

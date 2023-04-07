@@ -35,7 +35,7 @@ interface IRegistrationProps {
   onChangePhoneNumber: (phone: string) => void;
 }
 
-function RegistrationView({
+const RegistrationView = ({
   navigation,
   username,
   phoneNumber,
@@ -48,7 +48,7 @@ function RegistrationView({
   setCode,
   setUsername,
   onSignUpPressed,
-}: IRegistrationProps): JSX.Element {
+}: IRegistrationProps): JSX.Element => {
   return (
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
@@ -104,7 +104,7 @@ function RegistrationView({
       </Background>
     </KeyboardAwareScrollView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   label: {

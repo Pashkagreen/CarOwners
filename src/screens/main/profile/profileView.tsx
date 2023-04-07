@@ -1,11 +1,12 @@
+import {memo} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
-function ProfileView(): JSX.Element {
+const ProfileView = (): JSX.Element => {
   return (
     <SafeAreaView>
       <Text>Profile</Text>
     </SafeAreaView>
   );
-}
+};
 
-export default ProfileView;
+export default memo(ProfileView);

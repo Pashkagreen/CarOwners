@@ -1,6 +1,7 @@
-import {SafeAreaView, StatusBar, Text} from 'react-native';
+import {memo} from 'react';
+import {SafeAreaView, Text} from 'react-native';
 
-function AddVehicleView(): JSX.Element {
+const AddVehicleView = (): JSX.Element => {
   return (
     <>
       <SafeAreaView>
@@ -8,6 +9,6 @@ function AddVehicleView(): JSX.Element {
       </SafeAreaView>
     </>
   );
-}
+};
 
-export default AddVehicleView;
+export default memo(AddVehicleView);

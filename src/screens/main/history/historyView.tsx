@@ -1,11 +1,12 @@
+import {memo} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
-function HistoryView(): JSX.Element {
+const HistoryView = (): JSX.Element => {
   return (
     <SafeAreaView>
       <Text>History</Text>
     </SafeAreaView>
   );
-}
+};
 
-export default HistoryView;
+export default memo(HistoryView);

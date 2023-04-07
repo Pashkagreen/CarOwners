@@ -1,11 +1,12 @@
+import {memo} from 'react';
 import {SafeAreaView, Text} from 'react-native';
 
-function MyGarageView(): JSX.Element {
+const MyGarageView = (): JSX.Element => {
   return (
     <SafeAreaView>
       <Text>My garage</Text>
     </SafeAreaView>
   );
-}
+};
 
-export default MyGarageView;
+export default memo(MyGarageView);

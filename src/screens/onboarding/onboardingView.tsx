@@ -12,7 +12,7 @@ type Props = {
   navigation: Navigation;
 };
 
-const Onboarding = ({navigation}: Props) => (
+const Onboarding = ({navigation}: Props): JSX.Element => (
   <Background>
     <Logo />
     <Header>Car Owners</Header>

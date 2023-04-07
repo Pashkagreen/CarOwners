@@ -9,7 +9,7 @@ type Props = {
   navigation: Navigation;
 };
 
-function OnboardingContainer({navigation}: Props): JSX.Element {
+const OnboardingContainer = ({navigation}: Props): JSX.Element => {
   const {user} = useStore();
 
   const getUserCountry = async () => {
@@ -24,6 +24,6 @@ function OnboardingContainer({navigation}: Props): JSX.Element {
   }, []);
 
   return <OnboardingView navigation={navigation} />;
-}
+};
 
 export default observer(OnboardingContainer);

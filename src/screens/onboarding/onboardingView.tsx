@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Background, Logo, Header, Button, Paragraph } from '../../../components/index';
-import { Navigation } from '../../../types';
+import { Background, Logo, Header, Button, Paragraph } from '../../components/index';
+import { Navigation } from '../../types';
 
 type Props = {
   navigation: Navigation;

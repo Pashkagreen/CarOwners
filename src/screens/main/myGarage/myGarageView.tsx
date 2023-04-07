@@ -1,10 +1,11 @@
-import { SafeAreaView, Text } from 'react-native';
+import {SafeAreaView, Text} from 'react-native';
 
-function MyGarageView (): JSX.Element {
-
-  return <SafeAreaView>
-    <Text>My garage</Text>
-  </SafeAreaView>;
-};
+function MyGarageView(): JSX.Element {
+  return (
+    <SafeAreaView>
+      <Text>My garage</Text>
+    </SafeAreaView>
+  );
+}
 
 export default MyGarageView;

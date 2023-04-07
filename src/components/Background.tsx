@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import {
   ImageBackground,
   StyleSheet,
-  KeyboardAvoidingView,
+  View,
 } from 'react-native';
 
 type Props = {
@@ -15,9 +15,9 @@ const Background = ({ children }: Props) => (
     resizeMode="repeat"
     style={styles.background}
   >
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <View style={styles.container}>
       {children}
-    </KeyboardAvoidingView>
+    </View>
   </ImageBackground>
 );
 

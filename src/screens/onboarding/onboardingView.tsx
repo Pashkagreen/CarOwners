@@ -1,12 +1,18 @@
-import React, { memo } from 'react';
-import { Background, Logo, Header, Button, Paragraph } from '../../components/index';
-import { Navigation } from '../../types';
+import React, {memo} from 'react';
+import {
+  Background,
+  Logo,
+  Header,
+  Button,
+  Paragraph,
+} from '../../components/index';
+import {Navigation} from '../../types';
 
 type Props = {
   navigation: Navigation;
 };
 
-const Onboarding = ({ navigation }: Props) => (
+const Onboarding = ({navigation}: Props) => (
   <Background>
     <Logo />
     <Header>Car Owners</Header>
@@ -17,10 +23,7 @@ const Onboarding = ({ navigation }: Props) => (
     <Button mode="contained" onPress={() => navigation.navigate('Login')}>
       Login
     </Button>
-    <Button
-      mode="outlined"
-      onPress={() => navigation.navigate('Registration')}
-    >
+    <Button mode="outlined" onPress={() => navigation.navigate('Registration')}>
       Sign Up
     </Button>
   </Background>

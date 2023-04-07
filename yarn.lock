@@ -1716,6 +1716,11 @@
     opencollective-postinstall "^2.0.1"
     superstruct "^0.6.2"
 
+"@react-native-picker/picker@^2.4.9":
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.4.9.tgz#a07b01a03aee5675beac3e2c4fdb7b5707d42019"
+  integrity sha512-Bo1yIliSxDuCp42Q1CXNo+DAk8NfqTp/eQI/6kkzsTit/k1LWYYYDhiZd7AO9113IuXbHb7PyJwyqprFMPSB/A==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -1914,6 +1919,21 @@
   version "15.7.5"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
+
+"@types/react-native-phone-input@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@types/react-native-phone-input/-/react-native-phone-input-0.2.2.tgz#f744168290b446e59abd74194eb9a2f1b86e2b0d"
+  integrity sha512-jlfkiS6Qq9pkE386D/kM7Az6mEE4X2Cbuz/K5esDTESYCXUh7tQ+CWvAyCDiC/0vjnieUC/BjFbDky/ld5QrRg==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
+"@types/react-native@*":
+  version "0.71.5"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.71.5.tgz#229bc670433f97fe1e03d62758d4fccf34a07714"
+  integrity sha512-Tp5druh7DGwNDvWYH09PCE++hbH4zYz0OOvGFb3/QFIFKXgfezaT/txJeKlBkbiqs45QJzllp9S0qo0WpWyijA==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-test-renderer@^18.0.0":
   version "18.0.0"
@@ -3819,6 +3839,11 @@ globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
+google-libphonenumber@^3.2.31:
+  version "3.2.32"
+  resolved "https://registry.yarnpkg.com/google-libphonenumber/-/google-libphonenumber-3.2.32.tgz#63c48a9c247b64a3bc2eec21bdf3fcfbf2e148c0"
+  integrity sha512-mcNgakausov/B/eTgVeX8qc8IwWjRrupk9UzZZ/QDEvdh5fAjE7Aa211bkZpZj42zKkeS6MTT8avHUwjcLxuGQ==
+
 gopd@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/gopd/-/gopd-1.0.1.tgz"
@@ -4945,6 +4970,11 @@ levn@^0.4.1:
     prelude-ls "^1.2.1"
     type-check "~0.4.0"
 
+libphonenumber-js@^1.10.26:
+  version "1.10.26"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.26.tgz#3e6604357b3434b0005f85778b44153f4fadeecd"
+  integrity sha512-oB3l4J5gEhMV+ymmlIjWedsbCpsNRqbEZ/E/MpN2QVyinKNra6DcuXywxSk/72M3DZDoH/6kzurOq1erznBMwQ==
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.npmjs.org/lines-and-columns/-/lines-and-columns-1.2.4.tgz"
@@ -5979,7 +6009,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@*, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@*, prop-types@^15.6.2, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -6080,6 +6110,19 @@ react-native-gradle-plugin@^0.71.17:
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.17.tgz"
   integrity sha512-OXXYgpISEqERwjSlaCiaQY6cTY5CH6j73gdkWpK0hedxtiWMWgH+i5TOi4hIGYitm9kQBeyDu+wim9fA8ROFJA==
 
+react-native-iphone-x-helper@^1.0.3:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz#20c603e9a0e765fd6f97396638bdeb0e5a60b010"
+  integrity sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg==
+
+react-native-keyboard-aware-scroll-view@^0.9.5:
+  version "0.9.5"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.9.5.tgz#e2e9665d320c188e6b1f22f151b94eb358bf9b71"
+  integrity sha512-XwfRn+T/qBH9WjTWIBiJD2hPWg0yJvtaEw6RtPCa5/PYHabzBaWxYBOl0usXN/368BL1XktnZPh8C2lmTpOREA==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-iphone-x-helper "^1.0.3"
+
 react-native-paper@^5.6.0:
   version "5.6.0"
   resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.6.0.tgz"
@@ -6088,6 +6131,15 @@ react-native-paper@^5.6.0:
     "@callstack/react-theme-provider" "^3.0.8"
     color "^3.1.2"
     use-latest-callback "^0.1.5"
+
+react-native-phone-input@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/react-native-phone-input/-/react-native-phone-input-1.3.5.tgz#4686a5c1a9189875645895866776e980eb0b0c32"
+  integrity sha512-8iTGHAzgiyG1kjMiL4UsbwB+LpkmpGF95LSnqX81PgFvGsT07MCz/sFL9VBwXnuq6fEF/nbvSiN7ACaYci1uVw==
+  dependencies:
+    google-libphonenumber "^3.2.31"
+    lodash "^4.17.21"
+    prop-types "^15.8.1"
 
 react-native-public-ip@^1.0.2:
   version "1.0.2"

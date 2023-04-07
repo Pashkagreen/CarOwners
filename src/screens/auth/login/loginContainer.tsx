@@ -1,24 +1,23 @@
-
-import { useState } from 'react';
-import { phoneNumberValidator, codeValidator } from '../../../core/utils';
+import {useState} from 'react';
+import {phoneNumberValidator, codeValidator} from '../../../core/utils';
 import LoginView from './loginView';
-import { Navigation } from '../../../types';
+import {Navigation} from '../../../types';
 
 type Props = {
   navigation: Navigation;
 };
 
 function LoginContainer({navigation}: Props): JSX.Element {
-  const [phoneNumber, setPhoneNumber] = useState({ value: '', error: '' });
-  const [code, setCode] = useState({ value: '', error: '' });
+  const [phoneNumber, setPhoneNumber] = useState({value: '', error: ''});
+  const [code, setCode] = useState({value: '', error: ''});
 
   const onLoginPressed = () => {
     const phoneNumberError = phoneNumberValidator(phoneNumber.value);
     const codeError = codeValidator(code.value);
 
     if (phoneNumberError || codeError) {
-      setPhoneNumber({ ...phoneNumber, error: phoneNumberError });
-      setCode({ ...code, error: codeError });
+      setPhoneNumber({...phoneNumber, error: phoneNumberError});
+      setCode({...code, error: codeError});
       return;
     }
 
@@ -26,7 +25,7 @@ function LoginContainer({navigation}: Props): JSX.Element {
   };
 
   return (
-    <LoginView 
+    <LoginView
       navigation={navigation}
       code={code}
       phoneNumber={phoneNumber}
@@ -35,6 +34,6 @@ function LoginContainer({navigation}: Props): JSX.Element {
       onLoginPressed={onLoginPressed}
     />
   );
-};
+}
 
 export default LoginContainer;

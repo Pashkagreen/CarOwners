@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import {makeAutoObservable} from 'mobx';
 
 interface IUser {
   uid: string;
@@ -24,7 +24,7 @@ export class UserStore {
   }
 
   updateUserCountry(country: string) {
-    this.user = {...this.user, countryCode: country}
+    this.user = {...this.user, countryCode: country};
   }
 
   clearUser() {
@@ -32,9 +32,7 @@ export class UserStore {
       uid: '',
       username: '',
       phoneNumber: '',
-      countryCode: ''
+      countryCode: '',
     };
   }
 }
-
-

@@ -6,12 +6,4 @@ import Logo from './Logo';
 import Paragraph from './Paragraph';
 import TextInput from './TextInput';
 
-export {
-  BackButton,
-  Background,
-  Button,
-  Header,
-  Logo,
-  Paragraph,
-  TextInput
-}
+export {BackButton, Background, Button, Header, Logo, Paragraph, TextInput};

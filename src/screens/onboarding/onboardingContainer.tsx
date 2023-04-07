@@ -1,9 +1,12 @@
 import {useEffect} from 'react';
+
+import {observer} from 'mobx-react-lite';
+
+import {getUserCurrentCountry} from '../../core/utils';
+
+import {useStore} from '../../store';
 import {Navigation} from '../../types';
 import OnboardingView from './onboardingView';
-import {getUserCurrentCountry} from '../../core/utils';
-import {observer} from 'mobx-react-lite';
-import {useStore} from '../../store';
 
 type Props = {
   navigation: Navigation;

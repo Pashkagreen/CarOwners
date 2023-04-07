@@ -1,5 +1,5 @@
-import Background from './Background';
 import BackButton from './BackButton';
+import Background from './Background';
 import Button from './Button';
 import Header from './Header';
 import Logo from './Logo';

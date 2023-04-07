@@ -1,18 +1,21 @@
 import React, {memo} from 'react';
-import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import PhoneInputComponent from 'react-native-phone-input';
+
 import {
-  Background,
-  Logo,
-  Header,
-  Button,
-  TextInput,
   BackButton,
+  Background,
+  Button,
+  Header,
+  Logo,
+  TextInput,
 } from '../../../components/index';
+import PhoneInput from '../../../components/PhoneInput';
+
 import {theme} from '../../../core/theme';
 import {Navigation} from '../../../types';
-import PhoneInput from '../../../components/PhoneInput';
-import PhoneInputComponent from 'react-native-phone-input';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 type validateObject = {
   value: string;
@@ -44,67 +47,61 @@ const RegistrationView = ({
   inputRef,
   onSelectCountry,
   onChangePhoneNumber,
-  setPhoneNumber,
   setCode,
   setUsername,
   onSignUpPressed,
-}: IRegistrationProps): JSX.Element => {
-  return (
-    <KeyboardAwareScrollView
-      keyboardShouldPersistTaps="handled"
-      showsVerticalScrollIndicator={false}>
-      <Background>
-        <BackButton goBack={() => navigation.navigate('Onboarding')} />
+}: IRegistrationProps): JSX.Element => (
+  <KeyboardAwareScrollView
+    keyboardShouldPersistTaps="handled"
+    showsVerticalScrollIndicator={false}>
+    <Background>
+      <BackButton goBack={() => navigation.navigate('Onboarding')} />
 
-        <Logo />
+      <Logo />
 
-        <Header>Create Account</Header>
+      <Header>Create Account</Header>
 
-        <TextInput
-          label="Name"
-          returnKeyType="next"
-          value={username.value}
-          onChangeText={text => setUsername({value: text, error: ''})}
-          error={!!username.error}
-          errorText={username.error}
-        />
+      <TextInput
+        error={!!username.error}
+        errorText={username.error}
+        label="Name"
+        returnKeyType="next"
+        value={username.value}
+        onChangeText={text => setUsername({value: text, error: ''})}
+      />
 
-        <PhoneInput
-          inputRef={inputRef}
-          initialCountry={initialCountry || undefined}
-          value={phoneNumber.value}
-          onSelectCountry={onSelectCountry}
-          onChange={onChangePhoneNumber}
-          errorText={phoneNumber.error}
-        />
+      <PhoneInput
+        errorText={phoneNumber.error}
+        initialCountry={initialCountry || undefined}
+        inputRef={inputRef}
+        value={phoneNumber.value}
+        onChange={onChangePhoneNumber}
+        onSelectCountry={onSelectCountry}
+      />
 
-        <TextInput
-          label="Code"
-          returnKeyType="done"
-          value={code.value}
-          onChangeText={text => setCode({value: text, error: ''})}
-          error={!!code.error}
-          errorText={code.error}
-          secureTextEntry
-        />
+      <TextInput
+        secureTextEntry
+        error={!!code.error}
+        errorText={code.error}
+        label="Code"
+        returnKeyType="done"
+        value={code.value}
+        onChangeText={text => setCode({value: text, error: ''})}
+      />
 
-        <Button
-          mode="contained"
-          onPress={onSignUpPressed}
-          style={styles.button}>
-          Sign Up
-        </Button>
+      <Button mode="contained" style={styles.button} onPress={onSignUpPressed}>
+        Sign Up
+      </Button>
 
-        <View style={styles.row}>
-          <Text style={styles.label}>Already have an account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.link}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </Background>
-    </KeyboardAwareScrollView>
-  );
-};
+      <View style={styles.row}>
+        <Text style={styles.label}>Already have an account? </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.link}>Login</Text>
+        </TouchableOpacity>
+      </View>
+    </Background>
+  </KeyboardAwareScrollView>
+);
 
 const styles = StyleSheet.create({
   label: {
@@ -118,8 +115,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   link: {
-    fontWeight: 'bold',
     color: theme.colors.primary,
+    fontWeight: 'bold',
   },
 });
 

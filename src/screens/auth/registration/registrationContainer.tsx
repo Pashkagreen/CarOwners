@@ -1,12 +1,14 @@
 import {useRef, useState} from 'react';
-import {observer} from 'mobx-react-lite';
 import {Keyboard} from 'react-native';
-import parsePhoneNumberFromString, {CountryCode} from 'libphonenumber-js';
 
-import RegistrationView from './registrationView';
-import {phoneNumberValidator, codeValidator} from '../../../core/utils';
-import {Navigation} from '../../../types';
+import parsePhoneNumberFromString, {CountryCode} from 'libphonenumber-js';
+import {observer} from 'mobx-react-lite';
+
+import {codeValidator, phoneNumberValidator} from '../../../core/utils';
+
 import {useStore} from '../../../store';
+import {Navigation} from '../../../types';
+import RegistrationView from './registrationView';
 
 type Props = {
   navigation: Navigation;
@@ -49,7 +51,7 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
     //To Do
     const usernameError = codeValidator(username.value);
 
-    if (phoneNumberError || codeError || usernameError) {
+    if (phoneNumberError || codeError || usernameError || isValidPhoneNumber) {
       setPhoneNumber({...phoneNumber, error: phoneNumberError});
       setCode({...code, error: codeError});
       setUsername({...username, error: usernameError});
@@ -61,17 +63,17 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
 
   return (
     <RegistrationView
-      inputRef={inputRef}
-      initialCountry={initialCountry}
-      navigation={navigation}
       code={code}
+      initialCountry={initialCountry}
+      inputRef={inputRef}
+      navigation={navigation}
       phoneNumber={phoneNumber}
-      username={username}
-      onSelectCountry={onSelectCountry}
-      onChangePhoneNumber={onChangePhoneNumber}
-      setUsername={setUsername}
       setCode={setCode}
       setPhoneNumber={setPhoneNumber}
+      setUsername={setUsername}
+      username={username}
+      onChangePhoneNumber={onChangePhoneNumber}
+      onSelectCountry={onSelectCountry}
       onSignUpPressed={onSignUpPressed}
     />
   );

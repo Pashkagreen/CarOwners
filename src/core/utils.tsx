@@ -1,8 +1,6 @@
 import publicIP from 'react-native-public-ip';
 
 export const phoneNumberValidator = (phone: string): string => {
-  const re = /\S+@\S+\.\S+/;
-
   if (!phone || phone.length <= 0) return 'Phone number cannot be empty.';
   return '';
 };

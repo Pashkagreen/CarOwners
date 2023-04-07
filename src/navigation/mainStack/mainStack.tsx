@@ -1,10 +1,10 @@
 import * as React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import MyGarageStackScreens from '../mainStack/myGarageStack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {History, Profile} from '../../screens/index';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import MyGarageStackScreens from '../mainStack/myGarageStack';
 
 export type MainStackParams = {
   MyGarageStack: undefined;
@@ -22,9 +22,9 @@ const MainStackScreens = (): JSX.Element => (
     screenOptions={{
       headerShown: false,
     }}>
-    <BottomTab.Screen name="MyGarageStack" component={MyGarageStackScreens} />
-    <BottomTab.Screen name="History" component={History} />
-    <BottomTab.Screen name="Profile" component={Profile} />
+    <BottomTab.Screen component={MyGarageStackScreens} name="MyGarageStack" />
+    <BottomTab.Screen component={History} name="History" />
+    <BottomTab.Screen component={Profile} name="Profile" />
   </BottomTab.Navigator>
 );
 

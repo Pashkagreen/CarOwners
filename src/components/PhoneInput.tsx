@@ -1,6 +1,8 @@
 import React, {memo, useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+
 import PhoneInputComponent from 'react-native-phone-input';
+
 import {theme} from '../core/theme';
 
 export interface PhoneInputInterface {
@@ -24,9 +26,9 @@ const PhoneInput = ({
   initialCountry,
   value = '',
   uniqueKey,
-  onChange = () => {},
-  onSelectCountry = () => {},
-  onSubmitEditing = () => {},
+  onChange,
+  onSelectCountry,
+  onSubmitEditing,
 }: PhoneInputProps) => {
   const [focused, setFocused] = useState(false);
   const styles = getStyles(focused);
@@ -46,16 +48,13 @@ const PhoneInput = ({
   return (
     <View style={styles.container}>
       <PhoneInputComponent
-        allowZeroAfterCountryCode={true}
         ref={inputRef}
+        allowZeroAfterCountryCode={true}
+        flagStyle={notShowFlag ? styles.noFlag : styles.flagIcon}
         initialCountry={initialCountry}
         initialValue={value}
-        style={styles.input}
-        textStyle={styles.textStyle}
-        onSelectCountry={onSelectCountry}
-        onChangePhoneNumber={_onChange}
-        flagStyle={notShowFlag ? styles.noFlag : styles.flagIcon}
         offset={16}
+        style={styles.input}
         textProps={{
           keyboardType: 'phone-pad',
           textContentType: 'none',
@@ -64,6 +63,9 @@ const PhoneInput = ({
           onBlur: handleBlur,
           onFocus: handleFocus,
         }}
+        textStyle={styles.textStyle}
+        onChangePhoneNumber={_onChange}
+        onSelectCountry={onSelectCountry}
       />
       {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
     </View>
@@ -73,19 +75,19 @@ const PhoneInput = ({
 const getStyles = (focused: boolean) =>
   StyleSheet.create({
     container: {
-      width: '100%',
       marginVertical: 12,
+      width: '100%',
     },
     input: {
       backgroundColor: theme.colors.surface,
-      padding: 16,
-      borderWidth: focused ? 2 : 1,
-      borderRadius: 4,
       borderColor: focused ? theme.colors.primary : theme.colors.outline,
+      borderRadius: 4,
+      borderWidth: focused ? 2 : 1,
+      padding: 16,
     },
     error: {
-      fontSize: 14,
       color: theme.colors.error,
+      fontSize: 14,
       paddingHorizontal: 4,
       paddingTop: 4,
     },
@@ -96,10 +98,10 @@ const getStyles = (focused: boolean) =>
       fontSize: 16,
     },
     flagWrapper: {
-      paddingLeft: 8,
       '@media android': {
         paddingBottom: 4,
       },
+      paddingLeft: 8,
     },
     noFlag: {
       height: 0,

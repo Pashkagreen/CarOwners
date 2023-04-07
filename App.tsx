@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {Provider} from 'react-native-paper';
 
-import RootNavigation from './src/navigation/rootNavigation';
-import {theme} from './src/core/theme';
-import {StoreProvider, rootStore, trunk} from './src/store';
+import {NavigationContainer} from '@react-navigation/native';
+import {Provider as PaperProvider} from 'react-native-paper';
+
 import Loader from './src/components/Loader';
+
+import {theme} from './src/core/theme';
+import RootNavigation from './src/navigation/rootNavigation';
+import {rootStore, StoreProvider, trunk} from './src/store';
 
 const App = (): JSX.Element => {
   const [isStoreLoaded, setIsStoreLoaded] = useState(false);
@@ -23,11 +25,11 @@ const App = (): JSX.Element => {
     <Loader />
   ) : (
     <StoreProvider value={rootStore}>
-      <Provider theme={theme}>
+      <PaperProvider theme={theme}>
         <NavigationContainer>
           <RootNavigation />
         </NavigationContainer>
-      </Provider>
+      </PaperProvider>
     </StoreProvider>
   );
 };

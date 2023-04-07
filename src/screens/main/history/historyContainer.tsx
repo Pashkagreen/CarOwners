@@ -1,7 +1,5 @@
 import HistoryView from './historyView';
 
-const HistoryContainer = (): JSX.Element => {
-  return <HistoryView />;
-};
+const HistoryContainer = (): JSX.Element => <HistoryView />;
 
 export default HistoryContainer;

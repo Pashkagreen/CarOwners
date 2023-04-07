@@ -1,10 +1,11 @@
 import * as React from 'react';
+
 import {
-  NativeStackNavigationProp,
   createNativeStackNavigator,
+  NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 
-import {MyGarage, AddVehicle} from '../../screens/index';
+import {AddVehicle, MyGarage} from '../../screens/index';
 
 export type MyGarageStackParams = {
   MyGarage: undefined;
@@ -21,8 +22,8 @@ const MyGarageStackScreens = (): JSX.Element => (
     screenOptions={{
       headerShown: false,
     }}>
-    <MyGarageStack.Screen name="MyGarage" component={MyGarage} />
-    <MyGarageStack.Screen name="AddVehicle" component={AddVehicle} />
+    <MyGarageStack.Screen component={MyGarage} name="MyGarage" />
+    <MyGarageStack.Screen component={AddVehicle} name="AddVehicle" />
   </MyGarageStack.Navigator>
 );
 

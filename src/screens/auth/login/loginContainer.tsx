@@ -1,11 +1,14 @@
 import {useRef, useState} from 'react';
-import {phoneNumberValidator, codeValidator} from '../../../core/utils';
-import LoginView from './loginView';
-import {Navigation} from '../../../types';
-import {observer} from 'mobx-react-lite';
-import {useStore} from '../../../store';
 import {Keyboard} from 'react-native';
+
 import parsePhoneNumberFromString, {CountryCode} from 'libphonenumber-js';
+import {observer} from 'mobx-react-lite';
+
+import {codeValidator, phoneNumberValidator} from '../../../core/utils';
+
+import {useStore} from '../../../store';
+import {Navigation} from '../../../types';
+import LoginView from './loginView';
 
 type Props = {
   navigation: Navigation;
@@ -28,7 +31,7 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
     const phoneNumberError = phoneNumberValidator(phoneNumber.value);
     const codeError = codeValidator(code.value);
 
-    if (phoneNumberError || codeError) {
+    if (phoneNumberError || codeError || !isValidPhoneNumber) {
       setPhoneNumber({...phoneNumber, error: phoneNumberError});
       setCode({...code, error: codeError});
       return;
@@ -55,16 +58,16 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
 
   return (
     <LoginView
-      inputRef={inputRef}
-      initialCountry={initialCountry}
-      navigation={navigation}
       code={code}
+      initialCountry={initialCountry}
+      inputRef={inputRef}
+      navigation={navigation}
       phoneNumber={phoneNumber}
-      onSelectCountry={onSelectCountry}
-      onChangePhoneNumber={onChangePhoneNumber}
       setCode={setCode}
       setPhoneNumber={setPhoneNumber}
+      onChangePhoneNumber={onChangePhoneNumber}
       onLoginPressed={onLoginPressed}
+      onSelectCountry={onSelectCountry}
     />
   );
 };

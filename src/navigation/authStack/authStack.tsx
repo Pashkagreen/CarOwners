@@ -1,7 +1,9 @@
 import * as React from 'react';
+
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Login, Registration, Onboarding} from '../../screens/index';
+
+import {Login, Onboarding, Registration} from '../../screens/index';
 
 export type AuthStackParams = {
   Login: undefined;
@@ -19,9 +21,9 @@ const AuthStackScreens = (): JSX.Element => (
     screenOptions={{
       headerShown: false,
     }}>
-    <AuthStack.Screen name="Onboarding" component={Onboarding} />
-    <AuthStack.Screen name="Login" component={Login} />
-    <AuthStack.Screen name="Registration" component={Registration} />
+    <AuthStack.Screen component={Onboarding} name="Onboarding" />
+    <AuthStack.Screen component={Login} name="Login" />
+    <AuthStack.Screen component={Registration} name="Registration" />
   </AuthStack.Navigator>
 );
 

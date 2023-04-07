@@ -1,8 +1,7 @@
-import MyGarageView from './myGarageView';
 import {observer} from 'mobx-react-lite';
 
-const MyGarageContainer = (): JSX.Element => {
-  return <MyGarageView />;
-};
+import MyGarageView from './myGarageView';
+
+const MyGarageContainer = (): JSX.Element => <MyGarageView />;
 
 export default observer(MyGarageContainer);

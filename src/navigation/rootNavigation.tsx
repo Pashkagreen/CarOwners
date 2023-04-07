@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import AuthStackScreens, {AuthStackNavigationProp} from './authStack/authStack';
@@ -16,8 +17,8 @@ function RootNavigation(): JSX.Element {
       screenOptions={{
         headerShown: false,
       }}>
-      <RootStack.Screen name="Auth" component={AuthStackScreens} />
-      <RootStack.Screen name="Main" component={MainStackScreens} />
+      <RootStack.Screen component={AuthStackScreens} name="Auth" />
+      <RootStack.Screen component={MainStackScreens} name="Main" />
     </RootStack.Navigator>
   );
 }

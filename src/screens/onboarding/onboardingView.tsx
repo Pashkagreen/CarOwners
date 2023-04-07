@@ -1,11 +1,13 @@
 import React, {memo} from 'react';
+
 import {
   Background,
-  Logo,
-  Header,
   Button,
+  Header,
+  Logo,
   Paragraph,
 } from '../../components/index';
+
 import {Navigation} from '../../types';
 
 type Props = {

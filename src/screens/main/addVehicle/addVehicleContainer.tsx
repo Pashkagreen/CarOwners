@@ -1,7 +1,5 @@
 import AddVehicleView from './addVehicleView';
 
-const AddVehicleContainer = (): JSX.Element => {
-  return <AddVehicleView />;
-};
+const AddVehicleContainer = (): JSX.Element => <AddVehicleView />;
 
 export default AddVehicleContainer;

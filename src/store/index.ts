@@ -1,7 +1,9 @@
 import {createContext, useContext} from 'react';
-import {UserStore} from './UserStore';
-import {AsyncTrunk} from 'mobx-sync';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {AsyncTrunk} from 'mobx-sync';
+
+import {UserStore} from './UserStore';
 
 export class RootStore {
   user: UserStore;

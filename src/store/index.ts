@@ -6,10 +6,10 @@ import {AsyncTrunk} from 'mobx-sync';
 import {UserStore} from './UserStore';
 
 export class RootStore {
-  user: UserStore;
+  userStore: UserStore;
 
   constructor() {
-    this.user = new UserStore();
+    this.userStore = new UserStore();
   }
 }
 

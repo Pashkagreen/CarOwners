@@ -17,7 +17,7 @@ import PhoneInput from '../../../components/PhoneInput';
 import {theme} from '../../../core/theme';
 import {Navigation} from '../../../types';
 
-type validateObject = {
+export type validateObject = {
   value: string;
   error: string;
 };
@@ -25,9 +25,13 @@ interface ILoginProps {
   navigation: Navigation;
   phoneNumber: validateObject;
   code: validateObject;
+  loading: boolean;
+  otpLoading: boolean;
+  isLoginAvailable: boolean;
   setPhoneNumber: React.Dispatch<React.SetStateAction<validateObject>>;
   setCode: React.Dispatch<React.SetStateAction<validateObject>>;
-  onLoginPressed: () => void;
+  login: () => void;
+  sendOTPCode: () => void;
   //PhoneInputProps
   inputRef: React.Ref<PhoneInputComponent>;
   errorText?: string;
@@ -42,10 +46,14 @@ const LoginView = ({
   code,
   initialCountry,
   inputRef,
+  loading,
+  otpLoading,
+  isLoginAvailable,
   onSelectCountry,
   onChangePhoneNumber,
   setCode,
-  onLoginPressed,
+  login,
+  sendOTPCode,
 }: ILoginProps): JSX.Element => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -64,22 +72,23 @@ const LoginView = ({
         onSelectCountry={onSelectCountry}
       />
 
-      <TextInput
-        secureTextEntry
-        error={!!code.error}
-        errorText={code.error}
-        label="Code"
-        returnKeyType="done"
-        value={code.value}
-        onChangeText={text => setCode({value: text, error: ''})}
-      />
+      {isLoginAvailable && (
+        <TextInput
+          secureTextEntry
+          error={!!code.error}
+          errorText={code.error}
+          label="Code"
+          returnKeyType="done"
+          value={code.value}
+          onChangeText={text => setCode(prev => ({...prev, value: text}))}
+        />
+      )}
 
-      <View style={styles.forgotPassword}>
-        <Text style={styles.label}>Forgot your password?</Text>
-      </View>
-
-      <Button mode="contained" onPress={onLoginPressed}>
-        Login
+      <Button
+        loading={isLoginAvailable ? loading : otpLoading}
+        mode="contained"
+        onPress={isLoginAvailable ? login : sendOTPCode}>
+        {isLoginAvailable ? 'Login' : 'Send OTP'}
       </Button>
 
       <View style={styles.row}>
@@ -93,11 +102,6 @@ const LoginView = ({
 );
 
 const styles = StyleSheet.create({
-  forgotPassword: {
-    alignItems: 'flex-end',
-    marginBottom: 24,
-    width: '100%',
-  },
   row: {
     flexDirection: 'row',
     marginTop: 4,

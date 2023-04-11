@@ -13,12 +13,12 @@ type Props = {
 };
 
 const OnboardingContainer = ({navigation}: Props): JSX.Element => {
-  const {user} = useStore();
+  const {userStore} = useStore();
 
   const getUserCountry = async () => {
     const country = await getUserCurrentCountry();
     if (country) {
-      user.updateUserCountry(country);
+      userStore.updateUserCountry(country);
     }
   };
 

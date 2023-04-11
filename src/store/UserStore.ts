@@ -1,10 +1,19 @@
 import {makeAutoObservable} from 'mobx';
 
-interface IUser {
+export interface IUser {
   uid: string;
   username: string;
   phoneNumber: string;
   countryCode: string;
+  isAuthorized: boolean;
+  email: string;
+}
+
+export interface IUserUpdate {
+  uid: string;
+  username: string;
+  phoneNumber: string;
+  email?: string;
 }
 
 export class UserStore {
@@ -12,14 +21,16 @@ export class UserStore {
     uid: '',
     username: '',
     phoneNumber: '',
+    email: '',
     countryCode: '',
+    isAuthorized: false,
   };
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  updateUser(newUserInfo: IUser) {
+  updateUser(newUserInfo: IUserUpdate) {
     this.user = {...this.user, ...newUserInfo};
   }
 
@@ -27,12 +38,18 @@ export class UserStore {
     this.user = {...this.user, countryCode: country};
   }
 
+  updateAuthStatus(isAuthorized: boolean) {
+    this.user = {...this.user, isAuthorized: isAuthorized};
+  }
+
   clearUser() {
     this.user = {
       uid: '',
       username: '',
       phoneNumber: '',
+      email: '',
       countryCode: '',
+      isAuthorized: false,
     };
   }
 }

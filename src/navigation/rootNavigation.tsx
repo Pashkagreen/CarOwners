@@ -1,7 +1,9 @@
 import * as React from 'react';
 
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {observer} from 'mobx-react-lite';
 
+import {useStore} from '../store';
 import AuthStackScreens, {AuthStackNavigationProp} from './authStack/authStack';
 import MainStackScreens, {MainStackNavigationProp} from './mainStack/mainStack';
 
@@ -11,16 +13,27 @@ export type RootStackNavigationProp =
 
 function RootNavigation(): JSX.Element {
   const RootStack = createNativeStackNavigator();
+  const {userStore} = useStore();
+  let isAuthorized = userStore.user.isAuthorized;
 
   return (
     <RootStack.Navigator
       screenOptions={{
         headerShown: false,
       }}>
-      <RootStack.Screen component={AuthStackScreens} name="Auth" />
-      <RootStack.Screen component={MainStackScreens} name="Main" />
+      {isAuthorized ? (
+        <>
+          <RootStack.Screen component={MainStackScreens} name="Main" />
+          <RootStack.Screen component={AuthStackScreens} name="Auth" />
+        </>
+      ) : (
+        <>
+          <RootStack.Screen component={AuthStackScreens} name="Auth" />
+          <RootStack.Screen component={MainStackScreens} name="Main" />
+        </>
+      )}
     </RootStack.Navigator>
   );
 }
 
-export default RootNavigation;
+export default observer(RootNavigation);

@@ -3,11 +3,12 @@ import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {History, Profile} from '../../screens/index';
-import MyGarageStackScreens from '../mainStack/myGarageStack';
+import {MyBottomNavigation, TabBarIcon} from '../../components';
+
+import bottomBarConfig from '../../core/bottomBarConfig';
 
 export type MainStackParams = {
-  MyGarageStack: undefined;
+  MyGarage: undefined;
   History: undefined;
   Profile: undefined;
 };
@@ -21,10 +22,19 @@ const MainStackScreens = (): JSX.Element => (
   <BottomTab.Navigator
     screenOptions={{
       headerShown: false,
-    }}>
-    <BottomTab.Screen component={MyGarageStackScreens} name="MyGarageStack" />
-    <BottomTab.Screen component={History} name="History" />
-    <BottomTab.Screen component={Profile} name="Profile" />
+    }}
+    tabBar={props => <MyBottomNavigation {...props} />}>
+    {Object.values(bottomBarConfig).map(bottomBar => (
+      <BottomTab.Screen
+        key={bottomBar.screenName}
+        component={bottomBar.component}
+        name={bottomBar.screenName as any}
+        options={{
+          tabBarLabel: bottomBar.screenName,
+          tabBarIcon: props => <TabBarIcon name={bottomBar.icon} {...props} />,
+        }}
+      />
+    ))}
   </BottomTab.Navigator>
 );
 

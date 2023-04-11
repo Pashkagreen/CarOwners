@@ -2,15 +2,16 @@ import React, {memo} from 'react';
 import {ImageBackground, StyleSheet, View} from 'react-native';
 
 type Props = {
+  style?: any;
   children: React.ReactNode;
 };
 
-const Background = ({children}: Props) => (
+const Background = ({children, style = {}}: Props) => (
   <ImageBackground
     resizeMode="repeat"
     source={require('../assets/background_dot.png')}
     style={styles.background}>
-    <View style={styles.container}>{children}</View>
+    <View style={[styles.container, style]}>{children}</View>
   </ImageBackground>
 );
 

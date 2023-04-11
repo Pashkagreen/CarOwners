@@ -1,27 +1,26 @@
 import React, {memo} from 'react';
-import {Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import {hitSlop, theme} from '../core/theme';
 
 type Props = {
   goBack: () => void;
 };
 
 const BackButton = ({goBack}: Props) => (
-  <TouchableOpacity style={styles.container} onPress={goBack}>
-    <Image source={require('../assets/arrow_back.png')} style={styles.image} />
+  <TouchableOpacity hitSlop={hitSlop} style={styles.container} onPress={goBack}>
+    <Icon color={theme.colors.black} name="arrow-left" size={24} />
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   container: {
-    left: 10,
+    left: 14,
     position: 'absolute',
     top: 10 + getStatusBarHeight(),
-  },
-  image: {
-    height: 24,
-    width: 24,
   },
 });
 

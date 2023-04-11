@@ -1,3 +1,4 @@
+import {MessageOptions, showMessage} from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
 
 export const phoneNumberValidator = (phone: string): string => {
@@ -7,7 +8,7 @@ export const phoneNumberValidator = (phone: string): string => {
 
 export const codeValidator = (code: string): string => {
   if (!code || code.length <= 0) return 'Code cannot be empty.';
-
+  if (!code || code.length < 6) return 'Code should contain 6 numbers';
   return '';
 };
 
@@ -25,8 +26,26 @@ export const getUserCurrentCountry = async (): Promise<string> => {
     const url = `http://api.ipstack.com/${publicIpAddress}?access_key=${ACCESS_KEY}&format=1`;
     res = await fetch(url);
     res = await res.json();
+    if (res.error) {
+      return '';
+    }
+
     return res.country_code.toLowerCase();
   } catch (err) {
+    console.error(err);
     return '';
   }
+};
+
+export const flashMessage = ({
+  message,
+  description,
+  type,
+}: MessageOptions): void => {
+  showMessage({
+    message: message,
+    description: description,
+    type: type,
+    duration: 1800,
+  });
 };

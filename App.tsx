@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
+import FlashMessage from 'react-native-flash-message';
 import {Provider as PaperProvider} from 'react-native-paper';
 
 import Loader from './src/components/Loader';
@@ -29,6 +30,7 @@ const App = (): JSX.Element => {
         <NavigationContainer>
           <RootNavigation />
         </NavigationContainer>
+        <FlashMessage position="top" />
       </PaperProvider>
     </StoreProvider>
   );

@@ -26,6 +26,10 @@ interface IRegistrationProps {
   phoneNumber: validateObject;
   code: validateObject;
   username: validateObject;
+  loading: boolean;
+  otpLoading: boolean;
+  isSignUpAvailable: boolean;
+  sendOTPCode: () => void;
   setUsername: React.Dispatch<React.SetStateAction<validateObject>>;
   setPhoneNumber: React.Dispatch<React.SetStateAction<validateObject>>;
   setCode: React.Dispatch<React.SetStateAction<validateObject>>;
@@ -45,6 +49,10 @@ const RegistrationView = ({
   code,
   initialCountry,
   inputRef,
+  loading,
+  otpLoading,
+  isSignUpAvailable,
+  sendOTPCode,
   onSelectCountry,
   onChangePhoneNumber,
   setCode,
@@ -79,18 +87,24 @@ const RegistrationView = ({
         onSelectCountry={onSelectCountry}
       />
 
-      <TextInput
-        secureTextEntry
-        error={!!code.error}
-        errorText={code.error}
-        label="Code"
-        returnKeyType="done"
-        value={code.value}
-        onChangeText={text => setCode({value: text, error: ''})}
-      />
+      {isSignUpAvailable && (
+        <TextInput
+          secureTextEntry
+          error={!!code.error}
+          errorText={code.error}
+          label="Code"
+          returnKeyType="done"
+          value={code.value}
+          onChangeText={text => setCode({value: text, error: ''})}
+        />
+      )}
 
-      <Button mode="contained" style={styles.button} onPress={onSignUpPressed}>
-        Sign Up
+      <Button
+        loading={isSignUpAvailable ? loading : otpLoading}
+        mode="contained"
+        style={styles.button}
+        onPress={isSignUpAvailable ? onSignUpPressed : sendOTPCode}>
+        {isSignUpAvailable ? 'Sign Up' : 'Send OTP'}
       </Button>
 
       <View style={styles.row}>

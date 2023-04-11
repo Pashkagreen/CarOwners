@@ -54,7 +54,11 @@ const ProfileContainer = (): JSX.Element => {
         });
       }
     } catch (err) {
-      console.log(err);
+      flashMessage({
+        message: 'Error!',
+        type: 'danger',
+        description: 'Unknown error occured.',
+      });
     }
     setLoading(false);
   };

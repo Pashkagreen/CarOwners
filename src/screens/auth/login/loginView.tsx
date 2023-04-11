@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -115,4 +115,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(LoginView);
+export default LoginView;

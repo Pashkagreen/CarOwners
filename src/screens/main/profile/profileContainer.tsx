@@ -15,15 +15,15 @@ const ProfileContainer = (): JSX.Element => {
   const {userStore} = useStore();
 
   const [username, setUsername] = useState(userStore.user.username);
-  const [email, setEmail] = useState(userStore.user.email || '-');
+  const [email, setEmail] = useState(userStore.user.email);
 
   const flashRef = useRef();
 
   const [loading, setLoading] = useState(false);
 
   const logOut = async (): Promise<void> => {
-    userStore.clearUser();
     await Account.removeAccessToken();
+    userStore.clearUser();
   };
 
   const updateInfo = async (): Promise<void> => {
@@ -55,9 +55,8 @@ const ProfileContainer = (): JSX.Element => {
       }
     } catch (err) {
       console.log(err);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (

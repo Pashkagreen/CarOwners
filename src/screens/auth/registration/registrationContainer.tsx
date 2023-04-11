@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState} from 'react';
+import {useRef, useState} from 'react';
 import {Keyboard} from 'react-native';
 
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import parsePhoneNumberFromString, {CountryCode} from 'libphonenumber-js';
 import {observer} from 'mobx-react-lite';
 
@@ -10,6 +10,7 @@ import UserService from '../../../services/user';
 
 import {
   codeValidator,
+  flashMessage,
   nameValidator,
   phoneNumberValidator,
 } from '../../../core/utils';
@@ -80,6 +81,7 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
       if (usernameError || phoneNumberError || !isValidPhoneNumber) {
         setOtpLoading(false);
         setPhoneNumber(prev => ({...prev, error: phoneNumberError}));
+        setUsername(prev => ({...prev, error: usernameError}));
         return;
       }
 
@@ -95,10 +97,9 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
         setIsSignUpAvailable(true);
       }
     } catch (error) {
-      console.log(error);
-    } finally {
-      setOtpLoading(false);
+      flashMessage({type: 'danger', message: 'Internal error occured!'});
     }
+    setOtpLoading(false);
   };
 
   const onSignUpPressed = async () => {
@@ -116,52 +117,38 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
 
       await confirm?.confirm(code.value);
 
-      //after success confirm, we login on the back-end side
       const uid = await Account.getUid();
 
       if (uid) {
-        const {data} = await UserService.registration({
-          uid,
-          phoneNumber: phoneNumber.value,
-          username: username.value,
-        });
+        const token = await Account.getToken();
 
-        if (data.accessToken) {
-          await Account.setAccessToken(data.accessToken);
+        if (token) {
+          await Account.setAccessToken(token);
+          const {data} = await UserService.registration({
+            phoneNumber: phoneNumber.value,
+            username: username.value,
+          });
+
           const userData = {
-            uid,
+            uid: data.uid,
             username: data.username,
             phoneNumber: data.phoneNumber,
           };
           userStore.updateUser(userData);
           userStore.updateAuthStatus(true);
-          navigation.navigate('Main');
         }
       }
     } catch (error: any) {
-      console.log('error', error);
       if (error.code === 'auth/invalid-verification-code') {
+        setLoading(false);
         setCode(prev => ({...prev, error: 'Invalid SMS-code'}));
         return;
+      } else {
+        flashMessage({type: 'danger', message: 'Internal error occured!'});
       }
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
-
-  const onAuthStateChanged = (firebaseUser: FirebaseAuthTypes.User | null) => {
-    if (firebaseUser) {
-      // Some Android devices can automatically process the verification code (OTP) message, and the user would NOT need to enter the code.
-      // Actually, if he/she tries to enter it, he/she will get an error message because the code was already used in the background.
-      // In this function, make sure you hide the component(s) for entering the code and/or navigate away from this screen.
-      // It is also recommended to display a message to the user informing him/her that he/she has successfully logged in.
-    }
-  };
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
 
   return (
     <RegistrationView

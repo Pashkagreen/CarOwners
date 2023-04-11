@@ -1,4 +1,3 @@
-import {memo} from 'react';
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 
 import {Text, TextInput} from 'react-native-paper';
@@ -99,7 +98,7 @@ const AddVehicleView = ({
   </SafeAreaView>
 );
 
-export default memo(AddVehicleView);
+export default AddVehicleView;
 
 const styles = StyleSheet.create({
   container: {

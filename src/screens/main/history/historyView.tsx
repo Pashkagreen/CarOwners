@@ -1,12 +1,9 @@
-import {memo} from 'react';
 import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 
 import FlashMessage from 'react-native-flash-message';
 import {ActivityIndicator, Text} from 'react-native-paper';
 
 import {Background, HistoryCard} from '../../../components';
-
-import {formatDateFromSeconds} from '../../../core/utils';
 
 import {theme} from '../../../core/theme';
 
@@ -51,7 +48,7 @@ const HistoryView = ({
   </>
 );
 
-export default memo(HistoryView);
+export default HistoryView;
 
 const styles = StyleSheet.create({
   container: {

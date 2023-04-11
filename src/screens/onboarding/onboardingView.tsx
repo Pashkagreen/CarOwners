@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 
 import {
   Background,
@@ -31,4 +31,4 @@ const Onboarding = ({navigation}: Props): JSX.Element => (
   </Background>
 );
 
-export default memo(Onboarding);
+export default Onboarding;

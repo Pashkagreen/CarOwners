@@ -1,9 +1,9 @@
 import {http} from './http';
 
 export type User = {
-  uid: string;
-  username: string;
-  phoneNumber: string;
+  uid?: string;
+  username?: string;
+  phoneNumber?: string;
   email?: string;
 };
 
@@ -14,14 +14,8 @@ class UserService {
     });
   }
 
-  static async getUserData(): Promise<User> {
+  static async getUserData(): Promise<any> {
     return await http.get<User, any>('/users/getInfo');
-  }
-
-  static async login(uid: string): Promise<any> {
-    return await http.post('/users/login', {
-      uid,
-    });
   }
 
   static async registration(user: User): Promise<any> {

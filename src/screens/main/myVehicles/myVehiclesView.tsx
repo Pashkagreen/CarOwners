@@ -1,4 +1,3 @@
-import {memo} from 'react';
 import {
   FlatList,
   RefreshControl,
@@ -80,7 +79,7 @@ const MyVehiclesView = ({
   </SafeAreaView>
 );
 
-export default memo(MyVehiclesView);
+export default MyVehiclesView;
 
 const styles = StyleSheet.create({
   container: {

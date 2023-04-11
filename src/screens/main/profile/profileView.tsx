@@ -1,4 +1,3 @@
-import {memo} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 
 import FlashMessage from 'react-native-flash-message';
@@ -88,7 +87,7 @@ const ProfileView = ({
   </>
 );
 
-export default memo(ProfileView);
+export default ProfileView;
 
 const styles = StyleSheet.create({
   container: {

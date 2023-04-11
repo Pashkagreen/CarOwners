@@ -22,9 +22,8 @@ const HistoryContainer = (): JSX.Element => {
       }
     } catch (err) {
       flashMessage({message: 'Error!', type: 'danger'});
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   useFocusEffect(

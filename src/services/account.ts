@@ -10,6 +10,14 @@ export class Account {
     return null;
   }
 
+  static async getToken(): Promise<string | null> {
+    const token = await auth().currentUser?.getIdToken();
+    if (token) {
+      return token;
+    }
+    return null;
+  }
+
   static async signInWithPhoneNumber(
     phone: string,
   ): Promise<FirebaseAuthTypes.ConfirmationResult> {

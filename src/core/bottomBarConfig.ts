@@ -3,7 +3,7 @@ import screens from '../screens';
 
 export default {
   MyGarage: {
-    screenName: 'MyGarage',
+    screenName: 'MyPark',
     component: MyGarageStackScreens,
     icon: 'home',
     size: 24,

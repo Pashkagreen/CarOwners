@@ -1,4 +1,6 @@
-import {useEffect, useRef, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
+
+import {useFocusEffect} from '@react-navigation/native';
 
 import VehiclesService from '../../../services/vehicles';
 
@@ -24,9 +26,12 @@ const HistoryContainer = (): JSX.Element => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    loadHistory();
-  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      loadHistory();
+    }, []),
+  );
 
   return <HistoryView flashRef={flashRef} items={items} loading={loading} />;
 };

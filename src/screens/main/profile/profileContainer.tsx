@@ -9,14 +9,9 @@ import UserService from '../../../services/user';
 import {flashMessage} from '../../../core/utils';
 
 import {useStore} from '../../../store';
-import {Navigation} from '../../../types';
 import ProfileView from './profileView';
 
-type Props = {
-  navigation: Navigation;
-};
-
-const ProfileContainer = ({navigation}: Props): JSX.Element => {
+const ProfileContainer = (): JSX.Element => {
   const {userStore} = useStore();
 
   const [username, setUsername] = useState(userStore.user.username);
@@ -29,7 +24,6 @@ const ProfileContainer = ({navigation}: Props): JSX.Element => {
   const logOut = async (): Promise<void> => {
     userStore.clearUser();
     await Account.removeAccessToken();
-    navigation.navigate('Auth');
   };
 
   const updateInfo = async (): Promise<void> => {

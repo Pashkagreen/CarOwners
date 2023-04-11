@@ -49,3 +49,13 @@ export const flashMessage = ({
     duration: 1800,
   });
 };
+
+export const formatDateFromSeconds = (seconds: number): string => {
+  const date = new Date(seconds * 1000); // convert to milliseconds
+  const day = date.getDate().toString().padStart(2, '0'); // get day and pad with leading zero if necessary
+  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // get month (adding 1 because January is 0) and pad with leading zero if necessary
+  const year = date.getFullYear().toString(); // get full year
+  const hours = date.getHours().toString().padStart(2, '0'); // get hours and pad with leading zero if necessary
+  const minutes = date.getMinutes().toString().padStart(2, '0'); // get minutes and pad with leading zero if necessary
+  return `${day}/${month}/${year} ${hours}:${minutes}`; // concatenate and return the formatted date string
+};

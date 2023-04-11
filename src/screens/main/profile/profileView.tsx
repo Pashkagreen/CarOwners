@@ -57,17 +57,19 @@ const ProfileView = ({
             <View style={styles.infoItem}>
               <Text variant="titleSmall">Username: </Text>
               <TextInput
+                mode="outlined"
                 style={styles.inputBlock}
                 value={username}
-                onChangeText={text => setUsername(text)}
+                onChangeText={setUsername}
               />
             </View>
             <View style={styles.infoItem}>
               <Text variant="titleSmall">Email: </Text>
               <TextInput
+                mode="outlined"
                 style={styles.inputBlock}
                 value={email}
-                onChangeText={text => setEmail(text)}
+                onChangeText={setEmail}
               />
             </View>
           </View>
@@ -117,7 +119,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   inputBlock: {
-    width: '60%',
+    width: '100%',
   },
   headerText: {
     color: theme.colors.secondary,

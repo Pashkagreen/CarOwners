@@ -104,7 +104,7 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
           };
           userStore.updateUser(userData);
           userStore.updateAuthStatus(true);
-          navigation.navigate('Main');
+          // navigation.navigate('Main');
         }
       }
     } catch (error: any) {

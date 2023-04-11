@@ -22,7 +22,7 @@ export class UserStore {
     username: '',
     phoneNumber: '',
     email: '',
-    countryCode: '',
+    countryCode: 'us',
     isAuthorized: false,
   };
 
@@ -48,7 +48,7 @@ export class UserStore {
       username: '',
       phoneNumber: '',
       email: '',
-      countryCode: '',
+      countryCode: 'us',
       isAuthorized: false,
     };
   }

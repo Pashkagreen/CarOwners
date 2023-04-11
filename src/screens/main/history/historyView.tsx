@@ -4,7 +4,9 @@ import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import {ActivityIndicator, Text} from 'react-native-paper';
 
-import {Background} from '../../../components';
+import {Background, HistoryCard} from '../../../components';
+
+import {formatDateFromSeconds} from '../../../core/utils';
 
 import {theme} from '../../../core/theme';
 
@@ -30,8 +32,18 @@ const HistoryView = ({
           <View style={styles.loaderContainer}>
             <ActivityIndicator />
           </View>
+        ) : items.length ? (
+          <FlatList
+            key={({item}) => item.id}
+            data={items}
+            renderItem={({item}) => <HistoryCard item={item} />}
+            showsVerticalScrollIndicator={false}
+            style={styles.flatContainer}
+          />
         ) : (
-          <FlatList data={items} renderItem={() => <View />} />
+          <View style={styles.loaderContainer}>
+            <Text variant="headlineSmall">No history provided.</Text>
+          </View>
         )}
       </Background>
       <FlashMessage ref={flashRef} position="top" />
@@ -46,6 +58,11 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flex: 1,
     justifyContent: 'space-between',
+  },
+  flatContainer: {
+    flex: 1,
+    marginTop: 16,
+    width: '100%',
   },
   loaderContainer: {
     alignItems: 'center',

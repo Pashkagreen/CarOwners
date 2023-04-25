@@ -79,7 +79,10 @@ export class VehiclesStore {
       });
     } catch (e) {
       this.updateState('error');
-      flashMessage({message: 'Error!', type: 'danger'});
+      flashMessage({
+        type: 'danger',
+        message: 'Unknown error occured!',
+      });
     }
 
     this.updateState('done');

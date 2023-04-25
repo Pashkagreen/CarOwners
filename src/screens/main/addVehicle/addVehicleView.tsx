@@ -1,48 +1,36 @@
 import {StyleSheet, View} from 'react-native';
 
+import {Controller} from 'react-hook-form';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Text, TextInput} from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {BackButton, Background, Button} from '../../../components';
+import {BackButton, Background, Button, TextInput} from '../../../components';
 
 import {hitSlop, theme} from '../../../core/theme';
 import {fetchState} from '../../../store/VehiclesStore';
+import {FormData} from './addVehicleContainer';
 
 interface AddVehiclesInterface {
-  brand?: string;
-  model?: string;
-  year?: string;
-  mileage?: string;
-  price?: string;
+  control: any;
+  onSubmit: (data: FormData) => void;
+  handleSubmit: any;
   loading: fetchState;
   isEdit: boolean | undefined;
-  createVehicle: () => void;
-  updateVehicle: () => void;
-  setBrand: (text: string) => void;
-  setModel: (text: string) => void;
-  setYear: (text: string) => void;
-  setMileage: (text: string) => void;
-  setPrice: (text: string) => void;
   goBack: () => void;
+  vehicleInfo: any;
+  errors: any;
 }
 
 const AddVehicleView = ({
-  brand,
-  model,
-  year,
-  mileage,
-  price,
+  control,
+  onSubmit,
+  handleSubmit,
+  vehicleInfo,
   loading,
   isEdit,
-  createVehicle,
-  updateVehicle,
-  setBrand,
-  setModel,
-  setYear,
-  setMileage,
-  setPrice,
   goBack,
+  errors,
 }: AddVehiclesInterface): JSX.Element => {
   const insets = useSafeAreaInsets();
   const styles = getStyles(insets);
@@ -59,42 +47,96 @@ const AddVehicleView = ({
           </Text>
           <BackButton goBack={goBack} />
         </View>
-        <TextInput
-          label="Brand"
-          mode="outlined"
-          style={styles.inputBlock}
-          value={brand}
-          onChangeText={setBrand}
+        <Controller
+          control={control}
+          defaultValue={isEdit ? vehicleInfo?.brand : ''}
+          name="brand"
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              error={errors?.brand}
+              errorText={errors?.brand?.message}
+              label="Brand"
+              mode="outlined"
+              style={styles.inputBlock}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          )}
+          rules={{
+            required: true,
+          }}
         />
-        <TextInput
-          label="Model"
-          mode="outlined"
-          style={styles.inputBlock}
-          value={model}
-          onChangeText={setModel}
+        <Controller
+          control={control}
+          defaultValue={isEdit ? vehicleInfo?.model : ''}
+          name="model"
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              error={errors?.model}
+              errorText={errors?.model?.message}
+              label="Model"
+              mode="outlined"
+              style={styles.inputBlock}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          )}
         />
-        <TextInput
-          label="Year"
-          mode="outlined"
-          style={styles.inputBlock}
-          value={year}
-          onChangeText={setYear}
+        <Controller
+          control={control}
+          defaultValue={isEdit ? vehicleInfo?.year : ''}
+          name="year"
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              error={errors?.year}
+              errorText={errors?.year?.message}
+              keyboardType="number-pad"
+              label="Year"
+              mode="outlined"
+              style={styles.inputBlock}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          )}
         />
-        <TextInput
-          keyboardType="number-pad"
-          label="Mileage"
-          mode="outlined"
-          style={styles.inputBlock}
-          value={mileage}
-          onChangeText={setMileage}
+        <Controller
+          control={control}
+          defaultValue={isEdit ? vehicleInfo?.mileage : ''}
+          name="mileage"
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              error={errors?.mileage}
+              errorText={errors?.mileage?.message}
+              keyboardType="number-pad"
+              label="Mileage"
+              mode="outlined"
+              style={styles.inputBlock}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          )}
         />
-        <TextInput
-          keyboardType="numeric"
-          label="Price"
-          mode="outlined"
-          style={styles.inputBlock}
-          value={price}
-          onChangeText={setPrice}
+        <Controller
+          control={control}
+          defaultValue={isEdit ? vehicleInfo?.price : ''}
+          name="price"
+          render={({field: {onChange, onBlur, value}}) => (
+            <TextInput
+              error={errors?.price}
+              errorText={errors?.price?.message}
+              keyboardType="number-pad"
+              label="Price"
+              mode="outlined"
+              style={styles.inputBlock}
+              value={value}
+              onBlur={onBlur}
+              onChangeText={onChange}
+            />
+          )}
         />
         <View />
         <Button
@@ -102,7 +144,7 @@ const AddVehicleView = ({
           loading={loading === 'pending' ? true : false}
           mode="contained"
           style={styles.btn}
-          onPress={isEdit ? updateVehicle : createVehicle}>
+          onPress={handleSubmit(onSubmit)}>
           {isEdit ? 'Update vehicle info' : 'Create a vehicle'}
         </Button>
       </Background>
@@ -116,6 +158,7 @@ const getStyles = (insets: any) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      flexGrow: 1,
     },
     headerContainer: {
       alignItems: 'flex-end',
@@ -131,7 +174,6 @@ const getStyles = (insets: any) =>
       marginLeft: 14,
     },
     inputBlock: {
-      marginTop: 16,
       width: '100%',
     },
     background: {

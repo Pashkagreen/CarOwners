@@ -8,13 +8,13 @@ import {observer} from 'mobx-react-lite';
 import {Account} from '../../../services/account';
 import UserService from '../../../services/user';
 
+import {flashMessage} from '../../../core/utils';
+
 import {
   codeValidator,
-  flashMessage,
   nameValidator,
   phoneNumberValidator,
-} from '../../../core/utils';
-
+} from '../../../core/validators';
 import {useStore} from '../../../store';
 import {Navigation} from '../../../types';
 import {validateObject} from '../login/loginView';
@@ -46,9 +46,9 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
   const [code, setCode] = useState<validateObject>({value: '', error: ''});
 
   //loading state
-  const [loading, setLoading] = useState<boolean>(false);
-  const [otpLoading, setOtpLoading] = useState<boolean>(false);
-  const [isSignUpAvailable, setIsSignUpAvailable] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
+  const [otpLoading, setOtpLoading] = useState(false);
+  const [isSignUpAvailable, setIsSignUpAvailable] = useState(false);
 
   const [confirm, setConfirm] =
     useState<FirebaseAuthTypes.ConfirmationResult>();

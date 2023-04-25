@@ -1,7 +1,9 @@
-import {useEffect, useState} from 'react';
-
+import {yupResolver} from '@hookform/resolvers/yup';
 import {RouteProp} from '@react-navigation/native';
+import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
 
+import {vehiclesSchema} from '../../../core/validators';
 import {ParamList} from '../../../navigation/rootNavigation';
 import {useStore} from '../../../store';
 import {Navigation} from '../../../types';
@@ -12,42 +14,34 @@ type Props = {
   route: RouteProp<ParamList, 'AddVehicle'>;
 };
 
+export type FormData = yup.InferType<typeof vehiclesSchema>;
+
 const AddVehicleContainer = ({navigation, route}: Props): JSX.Element => {
   const isEdit = route.params?.isEdit;
   const vehicleInfo = route.params?.vehicleInfo;
 
   const {vehiclesStore} = useStore();
 
-  //vehicleInfo
-  const [brand, setBrand] = useState<string | undefined>('');
-  const [model, setModel] = useState<string | undefined>('');
-  const [year, setYear] = useState<string | undefined>('');
-  const [mileage, setMileage] = useState<string | undefined>('');
-  const [price, setPrice] = useState<string | undefined>('');
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<FormData>({
+    mode: 'onSubmit',
+    resolver: yupResolver(vehiclesSchema),
+  });
 
-  const createVehicle = async (): Promise<void> => {
-    const newData = {
-      brand,
-      model,
-      year,
-      mileage,
-      price,
-    };
+  const onSubmit = (data: FormData) => {
+    isEdit ? updateVehicle(data) : createVehicle(data);
+  };
 
+  const createVehicle = async (newData: any): Promise<void> => {
     await vehiclesStore.createVehicle(newData);
 
     goBack();
   };
 
-  const updateVehicle = async (): Promise<void> => {
-    const newData = {
-      brand,
-      model,
-      year,
-      mileage,
-      price,
-    };
-
+  const updateVehicle = async (newData: any): Promise<void> => {
     await vehiclesStore.updateVehicle(vehicleInfo?.id, newData);
 
     goBack();
@@ -57,33 +51,16 @@ const AddVehicleContainer = ({navigation, route}: Props): JSX.Element => {
     navigation.goBack();
   };
 
-  useEffect(() => {
-    if (isEdit) {
-      setBrand(vehicleInfo?.brand);
-      setModel(vehicleInfo?.model);
-      setMileage(vehicleInfo?.mileage);
-      setPrice(vehicleInfo?.price);
-      setYear(vehicleInfo?.year);
-    }
-  }, [isEdit]);
-
   return (
     <AddVehicleView
-      brand={brand}
-      createVehicle={createVehicle}
+      control={control}
+      errors={errors}
       goBack={goBack}
+      handleSubmit={handleSubmit}
       isEdit={isEdit}
       loading={vehiclesStore.state}
-      mileage={mileage}
-      model={model}
-      price={price}
-      setBrand={setBrand}
-      setMileage={setMileage}
-      setModel={setModel}
-      setPrice={setPrice}
-      setYear={setYear}
-      updateVehicle={updateVehicle}
-      year={year}
+      vehicleInfo={vehicleInfo}
+      onSubmit={onSubmit}
     />
   );
 };

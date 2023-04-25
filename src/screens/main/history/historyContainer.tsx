@@ -18,8 +18,6 @@ const HistoryContainer = (): JSX.Element => {
     }, []),
   );
 
-  console.log(vehiclesStore.history);
-
   return (
     <HistoryView items={vehiclesStore.history} loading={vehiclesStore.state} />
   );

@@ -1,23 +1,6 @@
 import {MessageOptions, showMessage} from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
 
-export const phoneNumberValidator = (phone: string): string => {
-  if (!phone || phone.length <= 0) return 'Phone number cannot be empty.';
-  return '';
-};
-
-export const codeValidator = (code: string): string => {
-  if (!code || code.length <= 0) return 'Code cannot be empty.';
-  if (!code || code.length < 6) return 'Code should contain 6 numbers';
-  return '';
-};
-
-export const nameValidator = (name: string): string => {
-  if (!name || name.length <= 0) return 'Name cannot be empty.';
-
-  return '';
-};
-
 export const getUserCurrentCountry = async (): Promise<string> => {
   let res;
   try {
@@ -32,7 +15,6 @@ export const getUserCurrentCountry = async (): Promise<string> => {
 
     return res.country_code.toLowerCase();
   } catch (err) {
-    console.error(err);
     return '';
   }
 };

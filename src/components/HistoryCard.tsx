@@ -33,7 +33,7 @@ const HistoryCard = ({item}: any) => (
     {item.data.delete && (
       <View>
         <Text>Deleted at: </Text>
-        <Text style={{color: theme.colors.primary}} variant="titleMedium">
+        <Text style={{color: theme.colors.primary}} variant="titleSmall">
           {formatDateFromSeconds(item.data.delete._seconds)}
         </Text>
       </View>

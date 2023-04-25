@@ -10,19 +10,18 @@ import {
 import {ActivityIndicator, Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {VehicleInfoInterface} from '../../../services/vehicles';
-
 import {Background, VehicleCard} from '../../../components';
 
 import {hitSlop, theme} from '../../../core/theme';
+import {fetchState, VehicleInterface} from '../../../store/VehiclesStore';
 
 interface MyVehiclesInterface {
-  items: VehicleInfoInterface[];
-  loading: boolean;
+  items: VehicleInterface[];
+  loading: fetchState;
   refreshing: boolean;
   onRefresh: () => void;
-  deleteVehicle: (item: VehicleInfoInterface) => void;
-  editVehicle: (item: VehicleInfoInterface) => void;
+  deleteVehicle: (item: VehicleInterface) => void;
+  editVehicle: (item: VehicleInterface) => void;
   addVehicle: () => void;
 }
 const MyVehiclesView = ({
@@ -44,7 +43,7 @@ const MyVehiclesView = ({
           <Icon name={'plus'} size={24} />
         </TouchableOpacity>
       </View>
-      {loading ? (
+      {loading === 'pending' ? (
         <View style={styles.loaderContainer}>
           <ActivityIndicator />
         </View>

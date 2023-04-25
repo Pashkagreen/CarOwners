@@ -1,51 +1,43 @@
 import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 
-import FlashMessage from 'react-native-flash-message';
 import {ActivityIndicator, Text} from 'react-native-paper';
 
 import {Background, HistoryCard} from '../../../components';
 
 import {theme} from '../../../core/theme';
+import {fetchState, HistoryInterface} from '../../../store/VehiclesStore';
 
 interface IHistoryInterface {
-  loading: boolean;
-  flashRef: any;
-  items: any[];
+  loading: fetchState;
+  items: HistoryInterface[];
 }
-const HistoryView = ({
-  loading,
-  flashRef,
-  items,
-}: IHistoryInterface): JSX.Element => (
-  <>
-    <SafeAreaView style={styles.container}>
-      <Background style={styles.background}>
-        <View style={styles.infoBlock}>
-          <Text style={styles.headerText} variant="headlineMedium">
-            History of your vehicles
-          </Text>
+const HistoryView = ({loading, items}: IHistoryInterface): JSX.Element => (
+  <SafeAreaView style={styles.container}>
+    <Background style={styles.background}>
+      <View style={styles.infoBlock}>
+        <Text style={styles.headerText} variant="headlineMedium">
+          History of your vehicles
+        </Text>
+      </View>
+      {loading === 'pending' ? (
+        <View style={styles.loaderContainer}>
+          <ActivityIndicator />
         </View>
-        {loading ? (
-          <View style={styles.loaderContainer}>
-            <ActivityIndicator />
-          </View>
-        ) : items.length ? (
-          <FlatList
-            key={({item}) => item.id}
-            data={items}
-            renderItem={({item}) => <HistoryCard item={item} />}
-            showsVerticalScrollIndicator={false}
-            style={styles.flatContainer}
-          />
-        ) : (
-          <View style={styles.loaderContainer}>
-            <Text variant="headlineSmall">No history provided.</Text>
-          </View>
-        )}
-      </Background>
-      <FlashMessage ref={flashRef} position="top" />
-    </SafeAreaView>
-  </>
+      ) : items.length ? (
+        <FlatList
+          key={({item}) => item.id}
+          data={items}
+          renderItem={({item}) => <HistoryCard item={item} />}
+          showsVerticalScrollIndicator={false}
+          style={styles.flatContainer}
+        />
+      ) : (
+        <View style={styles.loaderContainer}>
+          <Text variant="headlineSmall">No history provided.</Text>
+        </View>
+      )}
+    </Background>
+  </SafeAreaView>
 );
 
 export default HistoryView;

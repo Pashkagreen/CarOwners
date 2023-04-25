@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
 import {Provider as PaperProvider} from 'react-native-paper';
 
-import Loader from './src/components/Loader';
+import {Loader} from './src/components';
 
 import {theme} from './src/core/theme';
 import RootNavigation from './src/navigation/rootNavigation';

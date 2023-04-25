@@ -6,13 +6,14 @@ import PhoneInputComponent from 'react-native-phone-input';
 import {theme} from '../core/theme';
 
 export interface PhoneInputInterface {
-  inputRef: React.Ref<PhoneInputComponent>;
+  disabled?: boolean;
+  inputRef?: React.Ref<PhoneInputComponent>;
   errorText?: string;
   notShowFlag?: boolean;
   initialCountry?: string | undefined;
   value: string;
   uniqueKey?: string | undefined;
-  onChange: (text: string, uniqueKey: string | undefined) => void;
+  onChange?: (text: string, uniqueKey: string | undefined) => void;
   onSubmitEditing?: () => void;
 }
 
@@ -29,6 +30,7 @@ const PhoneInput = ({
   onChange,
   onSelectCountry,
   onSubmitEditing,
+  disabled = false,
 }: PhoneInputProps) => {
   const [focused, setFocused] = useState(false);
   const styles = getStyles(focused);
@@ -50,6 +52,7 @@ const PhoneInput = ({
       <PhoneInputComponent
         ref={inputRef}
         allowZeroAfterCountryCode={true}
+        disabled={disabled}
         flagStyle={notShowFlag ? styles.noFlag : styles.flagIcon}
         initialCountry={initialCountry}
         initialValue={value}

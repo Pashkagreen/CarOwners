@@ -1,27 +1,20 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 
-import {RouteProp, useFocusEffect} from '@react-navigation/native';
+import {RouteProp} from '@react-navigation/native';
 import {observer} from 'mobx-react-lite';
 
-import VehiclesService from '../../../services/vehicles';
-import {VehicleInfoInterface} from '../../../services/vehicles';
-
-import {flashMessage} from '../../../core/utils';
-
 import {ParamList} from '../../../navigation/rootNavigation';
+import {useStore} from '../../../store';
 import {Navigation} from '../../../types';
 import MyVehiclesView from './myVehiclesView';
 
 type Props = {
   navigation: Navigation;
-  route: RouteProp<ParamList, 'MyVehicles'>;
+  route?: RouteProp<ParamList, 'MyVehicles'>;
 };
 
-const MyVehiclesContainer = ({navigation, route}: Props): JSX.Element => {
-  let afterChange = route.params?.afterChange;
-
-  const [loading, setLoading] = useState(false);
-  const [items, setItems] = useState<VehicleInfoInterface[]>([]);
+const MyVehiclesContainer = ({navigation}: Props): JSX.Element => {
+  let {vehiclesStore} = useStore();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -32,22 +25,7 @@ const MyVehiclesContainer = ({navigation, route}: Props): JSX.Element => {
   };
 
   const getData = async (force = false) => {
-    if (!force) {
-      setLoading(true);
-    }
-    try {
-      const data: VehicleInfoInterface[] = await VehiclesService.getAll();
-      if (data.length) {
-        setItems(data);
-      }
-    } catch (error) {
-      setLoading(false);
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
-    }
-    setLoading(false);
+    await vehiclesStore.getVehicles(force);
   };
 
   const addVehicle = () => {
@@ -64,47 +42,20 @@ const MyVehiclesContainer = ({navigation, route}: Props): JSX.Element => {
   };
 
   const deleteVehicle = async (item: any) => {
-    setLoading(true);
-    try {
-      await VehiclesService.deleteVehicle(item?.id);
-      flashMessage({
-        type: 'info',
-        message: 'Your vehicle deleted.',
-      });
-      await getData(true);
-    } catch (error) {
-      setLoading(false);
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
-    }
-    setLoading(false);
+    await vehiclesStore.deleteVehicle(item);
   };
 
   useEffect(() => {
     getData();
   }, []);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (afterChange) {
-        onRefresh();
-      }
-
-      // return () => {
-      //   afterChange = undefined;
-      // };
-    }, [afterChange]),
-  );
-
   return (
     <MyVehiclesView
       addVehicle={addVehicle}
       deleteVehicle={deleteVehicle}
       editVehicle={editVehicle}
-      items={items}
-      loading={loading}
+      items={vehiclesStore.vehicles}
+      loading={vehiclesStore.state}
       refreshing={refreshing}
       onRefresh={onRefresh}
     />

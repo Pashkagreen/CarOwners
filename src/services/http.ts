@@ -1,5 +1,3 @@
-// http.ts
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, {
   AxiosError,
   AxiosInstance,
@@ -7,6 +5,8 @@ import axios, {
   AxiosRequestHeaders,
   AxiosResponse,
 } from 'axios';
+
+import {Account} from './account';
 
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
@@ -30,10 +30,9 @@ const headers: Readonly<Record<string, string | boolean>> = {
 };
 
 // We can use the following function to inject the JWT token through an interceptor
-// We get the `accessToken` from the asyncStorage that we set when we authenticate
 const injectToken = async (config: AdaptAxiosRequestConfig): Promise<any> => {
   try {
-    const token = await AsyncStorage.getItem('accessToken');
+    const token = await Account.getToken();
 
     if (token != null) {
       config.headers.Authorization = `Bearer ${token}`;

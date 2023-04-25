@@ -2,11 +2,8 @@ import {useEffect, useState} from 'react';
 
 import {RouteProp} from '@react-navigation/native';
 
-import VehiclesService from '../../../services/vehicles';
-
-import {flashMessage} from '../../../core/utils';
-
 import {ParamList} from '../../../navigation/rootNavigation';
+import {useStore} from '../../../store';
 import {Navigation} from '../../../types';
 import AddVehicleView from './addVehicleView';
 
@@ -19,7 +16,7 @@ const AddVehicleContainer = ({navigation, route}: Props): JSX.Element => {
   const isEdit = route.params?.isEdit;
   const vehicleInfo = route.params?.vehicleInfo;
 
-  const [loading, setLoading] = useState(false);
+  const {vehiclesStore} = useStore();
 
   //vehicleInfo
   const [brand, setBrand] = useState<string | undefined>('');
@@ -29,74 +26,31 @@ const AddVehicleContainer = ({navigation, route}: Props): JSX.Element => {
   const [price, setPrice] = useState<string | undefined>('');
 
   const createVehicle = async (): Promise<void> => {
-    setLoading(true);
+    const newData = {
+      brand,
+      model,
+      year,
+      mileage,
+      price,
+    };
 
-    try {
-      const newData = {
-        brand,
-        model,
-        year,
-        mileage,
-        price,
-      };
+    await vehiclesStore.createVehicle(newData);
 
-      const {data} = await VehiclesService.createVehicle(newData);
-
-      if (data.id) {
-        flashMessage({
-          type: 'success',
-          message: 'Congratulations!',
-          description: 'You successfully added a vehicle.',
-        });
-        navigation.navigate('MyVehicles', {
-          afterChange: true,
-        });
-      }
-    } catch (error) {
-      setLoading(false);
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
-    }
-    setLoading(false);
+    goBack();
   };
 
   const updateVehicle = async (): Promise<void> => {
-    setLoading(true);
+    const newData = {
+      brand,
+      model,
+      year,
+      mileage,
+      price,
+    };
 
-    try {
-      const newData = {
-        brand,
-        model,
-        year,
-        mileage,
-        price,
-      };
+    await vehiclesStore.updateVehicle(vehicleInfo?.id, newData);
 
-      const {data} = await VehiclesService.updateVehicle(
-        vehicleInfo?.id,
-        newData,
-      );
-
-      if (data.id) {
-        flashMessage({
-          type: 'success',
-          message: 'Congratulations!',
-          description: 'You successfully updated a vehicle info.',
-        });
-        navigation.navigate('MyVehicles', {
-          afterChange: true,
-        });
-      }
-    } catch (error) {
-      setLoading(false);
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
-    }
-    setLoading(false);
+    goBack();
   };
 
   const goBack = () => {
@@ -119,7 +73,7 @@ const AddVehicleContainer = ({navigation, route}: Props): JSX.Element => {
       createVehicle={createVehicle}
       goBack={goBack}
       isEdit={isEdit}
-      loading={loading}
+      loading={vehiclesStore.state}
       mileage={mileage}
       model={model}
       price={price}

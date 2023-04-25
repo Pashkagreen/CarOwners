@@ -4,11 +4,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {AsyncTrunk} from 'mobx-sync';
 
 import {UserStore} from './UserStore';
+import {VehiclesStore} from './VehiclesStore';
 
 export class RootStore {
   userStore: UserStore;
+  vehiclesStore: VehiclesStore;
 
   constructor() {
+    this.vehiclesStore = new VehiclesStore();
     this.userStore = new UserStore();
   }
 }

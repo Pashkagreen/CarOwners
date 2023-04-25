@@ -1,19 +1,17 @@
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 
-import FlashMessage from 'react-native-flash-message';
 import {Text, TextInput} from 'react-native-paper';
 
-import {Background, Button} from '../../../components';
+import {Background, Button, PhoneInput} from '../../../components';
 
 import {theme} from '../../../core/theme';
-import {IUser} from '../../../store/UserStore';
+import {User} from '../../../store/UserStore';
 
 interface ProfilePropsInterface {
   username: string;
   email: string;
-  userData: IUser;
+  userData: User;
   loading: boolean;
-  flashRef: any;
   logOut: () => void;
   updateInfo: () => void;
   setUsername: (text: string) => void;
@@ -29,62 +27,52 @@ const ProfileView = ({
   userData,
   username,
   email,
-  flashRef,
 }: ProfilePropsInterface): JSX.Element => (
-  <>
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.scrollView}>
-        <Background style={styles.background}>
-          <View style={styles.infoBlock}>
-            <Text style={styles.headerText} variant="headlineMedium">
-              Your profile
-            </Text>
-            <View style={styles.infoItem}>
-              <Text variant="titleSmall">Firebase ID: </Text>
-              <Text style={{color: theme.colors.primary}} variant="titleSmall">
-                {userData.uid}
-              </Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text variant="titleSmall">Phone number: </Text>
-              <Text style={{color: theme.colors.primary}} variant="titleMedium">
-                {userData.phoneNumber}
-              </Text>
-            </View>
-            <View style={styles.infoItem}>
-              <Text variant="titleSmall">Username: </Text>
-              <TextInput
-                mode="outlined"
-                style={styles.inputBlock}
-                value={username}
-                onChangeText={setUsername}
-              />
-            </View>
-            <View style={styles.infoItem}>
-              <Text variant="titleSmall">Email: </Text>
-              <TextInput
-                mode="outlined"
-                style={styles.inputBlock}
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
+  <SafeAreaView style={styles.container}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+      <Background style={styles.background}>
+        <View style={styles.infoBlock}>
+          <Text style={styles.headerText} variant="headlineMedium">
+            Your profile
+          </Text>
+          <View style={styles.infoItem}>
+            <Text variant="titleSmall">Username: </Text>
+            <TextInput
+              mode="outlined"
+              style={styles.inputBlock}
+              value={username}
+              onChangeText={setUsername}
+            />
           </View>
-          <View style={styles.buttonBlock}>
-            <Button loading={loading} mode="contained" onPress={updateInfo}>
-              Update info
-            </Button>
-            <Button mode="outlined" onPress={logOut}>
-              Logout
-            </Button>
+          <View style={styles.infoItem}>
+            <Text variant="titleSmall">Email: </Text>
+            <TextInput
+              mode="outlined"
+              style={styles.inputBlock}
+              value={email}
+              onChangeText={setEmail}
+            />
           </View>
-        </Background>
-      </ScrollView>
-    </SafeAreaView>
-    <FlashMessage ref={flashRef} position="top" />
-  </>
+          <View style={styles.infoItem}>
+            <Text variant="titleSmall">Phone number: </Text>
+            <PhoneInput
+              disabled={true}
+              initialCountry={userData.countryCode || undefined}
+              value={userData.phoneNumber}
+            />
+          </View>
+        </View>
+        <View style={styles.buttonBlock}>
+          <Button loading={loading} mode="contained" onPress={updateInfo}>
+            Update info
+          </Button>
+          <Button mode="outlined" onPress={logOut}>
+            Logout
+          </Button>
+        </View>
+      </Background>
+    </ScrollView>
+  </SafeAreaView>
 );
 
 export default ProfileView;

@@ -19,7 +19,7 @@ module.exports = {
     // 'no-unused-vars': 'off',
     'react/prop-types': 'off',
     'no-duplicate-imports': 'off',
-    'react-native/no-unused-styles': 2,
+    'react-native/no-unused-styles': 0,
     'react-native/sort-styles': [
       'warn',
       'asc',

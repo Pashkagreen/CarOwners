@@ -123,7 +123,6 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
         const token = await Account.getToken();
 
         if (token) {
-          await Account.setAccessToken(token);
           const {data} = await UserService.registration({
             phoneNumber: phoneNumber.value,
             username: username.value,

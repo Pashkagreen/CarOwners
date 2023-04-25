@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
-export interface IUser {
+export interface User {
   uid: string;
   username: string;
   phoneNumber: string;
@@ -9,7 +9,7 @@ export interface IUser {
   email: string;
 }
 
-export interface IUserUpdate {
+export interface UserUpdate {
   uid: string;
   username: string;
   phoneNumber: string;
@@ -17,7 +17,7 @@ export interface IUserUpdate {
 }
 
 export class UserStore {
-  user: IUser = {
+  user: User = {
     uid: '',
     username: '',
     phoneNumber: '',
@@ -30,7 +30,7 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  updateUser(newUserInfo: IUserUpdate) {
+  updateUser(newUserInfo: UserUpdate) {
     this.user = {...this.user, ...newUserInfo};
   }
 

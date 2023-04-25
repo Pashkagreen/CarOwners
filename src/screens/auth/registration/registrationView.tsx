@@ -10,9 +10,9 @@ import {
   Button,
   Header,
   Logo,
+  PhoneInput,
   TextInput,
 } from '../../../components/index';
-import PhoneInput from '../../../components/PhoneInput';
 
 import {theme} from '../../../core/theme';
 import {Navigation} from '../../../types';

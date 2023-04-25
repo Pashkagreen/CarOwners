@@ -1,9 +1,8 @@
-import {useRef, useState} from 'react';
+import {useState} from 'react';
 import {Keyboard} from 'react-native';
 
 import {observer} from 'mobx-react-lite';
 
-import {Account} from '../../../services/account';
 import UserService from '../../../services/user';
 
 import {flashMessage} from '../../../core/utils';
@@ -17,12 +16,9 @@ const ProfileContainer = (): JSX.Element => {
   const [username, setUsername] = useState(userStore.user.username);
   const [email, setEmail] = useState(userStore.user.email);
 
-  const flashRef = useRef();
-
   const [loading, setLoading] = useState(false);
 
   const logOut = async (): Promise<void> => {
-    await Account.removeAccessToken();
     userStore.clearUser();
   };
 
@@ -46,12 +42,6 @@ const ProfileContainer = (): JSX.Element => {
           type: 'success',
           description: 'Your profile information was updated.',
         });
-      } else {
-        flashMessage({
-          message: 'Error!',
-          type: 'danger',
-          description: 'Unknown error occured.',
-        });
       }
     } catch (err) {
       flashMessage({
@@ -66,7 +56,6 @@ const ProfileContainer = (): JSX.Element => {
   return (
     <ProfileView
       email={email}
-      flashRef={flashRef}
       loading={loading}
       logOut={logOut}
       setEmail={setEmail}

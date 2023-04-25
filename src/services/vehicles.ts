@@ -1,5 +1,5 @@
+import {VehicleInterface} from '../store/VehiclesStore';
 import {http} from './http';
-
 export interface VehicleInfoInterface {
   id?: string;
   brand?: string;
@@ -10,17 +10,17 @@ export interface VehicleInfoInterface {
   createdAt?: Date;
 }
 class VehiclesService {
-  static async getAll(): Promise<VehicleInfoInterface[]> {
+  static async getAll(): Promise<VehicleInterface[]> {
     return (await http.get('/vehicles')).data;
   }
 
-  static async createVehicle(vehicleInfo: VehicleInfoInterface): Promise<any> {
+  static async createVehicle(vehicleInfo: VehicleInterface): Promise<any> {
     return await http.post('/vehicles/create', vehicleInfo);
   }
 
   static async updateVehicle(
     vehicleId: string | undefined,
-    vehicleInfo: VehicleInfoInterface,
+    vehicleInfo: VehicleInterface,
   ): Promise<any> {
     return await http.put(`/vehicles/update/${vehicleId}`, vehicleInfo);
   }

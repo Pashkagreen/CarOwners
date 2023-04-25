@@ -98,7 +98,6 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
         const token = await Account.getToken();
 
         if (token) {
-          await Account.setAccessToken(token);
           const {data} = await UserService.getUserData();
 
           if (data) {

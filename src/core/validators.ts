@@ -24,6 +24,14 @@ export const vehiclesSchema = yup
   })
   .required();
 
+export const userSchema = yup.object({
+  username: yup
+    .string()
+    .required()
+    .matches(/^[aA-zZ\s]+$/, 'Only alphabets are allowed for this field '),
+  email: yup.string().email(),
+});
+
 export const phoneNumberValidator = (phone: string): string => {
   if (!phone || phone.length <= 0) return 'Phone number cannot be empty.';
   return '';

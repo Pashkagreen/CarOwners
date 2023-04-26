@@ -1,4 +1,10 @@
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, runInAction} from 'mobx';
+
+import UserService from '../services/user';
+
+import {flashMessage} from '../core/utils';
+
+import {fetchState} from './VehiclesStore';
 
 export interface User {
   uid: string;
@@ -25,13 +31,46 @@ export class UserStore {
     countryCode: 'us',
     isAuthorized: false,
   };
+  state: fetchState = 'done';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  updateUser(newUserInfo: UserUpdate) {
+  updateState = (state: fetchState) => {
+    this.state = state;
+  };
+
+  setUserData(newUserInfo: UserUpdate) {
     this.user = {...this.user, ...newUserInfo};
+  }
+
+  async updateUser(newUserInfo: UserUpdate) {
+    this.updateState('pending');
+
+    try {
+      const {data} = await UserService.updateUser(newUserInfo);
+
+      if (data) {
+        flashMessage({
+          message: 'Success!',
+          type: 'success',
+          description: 'Your profile information was updated.',
+        });
+        runInAction(() => {
+          this.setUserData(data);
+        });
+      }
+    } catch (err) {
+      this.updateState('error');
+      flashMessage({
+        message: 'Error!',
+        type: 'danger',
+        description: 'Unknown error occured.',
+      });
+    }
+
+    this.updateState('done');
   }
 
   updateUserCountry(country: string) {

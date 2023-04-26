@@ -133,7 +133,7 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
             username: data.username,
             phoneNumber: data.phoneNumber,
           };
-          userStore.updateUser(userData);
+          userStore.setUserData(userData);
           userStore.updateAuthStatus(true);
         }
       }

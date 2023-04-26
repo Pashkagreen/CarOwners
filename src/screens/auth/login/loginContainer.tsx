@@ -104,7 +104,7 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
               phoneNumber: data.phoneNumber,
               email: data?.email || '',
             };
-            userStore.updateUser(userData);
+            userStore.setUserData(userData);
             userStore.updateAuthStatus(true);
           }
         }

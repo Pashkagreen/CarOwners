@@ -1,4 +1,10 @@
-import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import {ActivityIndicator, Text} from 'react-native-paper';
 
@@ -8,10 +14,17 @@ import {theme} from '../../../core/theme';
 import {fetchState, HistoryInterface} from '../../../store/VehiclesStore';
 
 interface IHistoryInterface {
+  refreshing: boolean;
+  onRefresh: () => void;
   loading: fetchState;
   items: HistoryInterface[];
 }
-const HistoryView = ({loading, items}: IHistoryInterface): JSX.Element => (
+const HistoryView = ({
+  loading,
+  items,
+  refreshing,
+  onRefresh,
+}: IHistoryInterface): JSX.Element => (
   <SafeAreaView style={styles.container}>
     <Background style={styles.background}>
       <View style={styles.infoBlock}>
@@ -27,6 +40,14 @@ const HistoryView = ({loading, items}: IHistoryInterface): JSX.Element => (
         <FlatList
           key={({item}) => item.id}
           data={items}
+          refreshControl={
+            <RefreshControl
+              colors={[theme.colors.primary]}
+              refreshing={refreshing}
+              tintColor={theme.colors.primary}
+              onRefresh={onRefresh}
+            />
+          }
           renderItem={({item}) => <HistoryCard item={item} />}
           showsVerticalScrollIndicator={false}
           style={styles.flatContainer}

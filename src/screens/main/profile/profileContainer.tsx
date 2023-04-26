@@ -1,68 +1,54 @@
-import {useState} from 'react';
 import {Keyboard} from 'react-native';
 
+import {yupResolver} from '@hookform/resolvers/yup';
 import {observer} from 'mobx-react-lite';
+import {useForm} from 'react-hook-form';
+import * as yup from 'yup';
 
-import UserService from '../../../services/user';
-
-import {flashMessage} from '../../../core/utils';
-
+import {userSchema} from '../../../core/validators';
 import {useStore} from '../../../store';
 import ProfileView from './profileView';
+
+export type FormData = yup.InferType<typeof userSchema>;
 
 const ProfileContainer = (): JSX.Element => {
   const {userStore} = useStore();
 
-  const [username, setUsername] = useState(userStore.user.username);
-  const [email, setEmail] = useState(userStore.user.email);
-
-  const [loading, setLoading] = useState(false);
+  const {
+    control,
+    handleSubmit,
+    formState: {errors},
+  } = useForm<FormData>({
+    mode: 'onSubmit',
+    resolver: yupResolver(userSchema),
+  });
 
   const logOut = async (): Promise<void> => {
     userStore.clearUser();
   };
 
-  const updateInfo = async (): Promise<void> => {
+  const updateInfo = async (userData: FormData): Promise<void> => {
     Keyboard.dismiss();
-    setLoading(true);
 
-    try {
-      const updateData = {
-        uid: userStore.user.uid,
-        phoneNumber: userStore.user.phoneNumber,
-        username: username,
-        email: email,
-      };
-      const {data} = await UserService.updateUser(updateData);
+    const updateData = {
+      uid: userStore.user.uid,
+      phoneNumber: userStore.user.phoneNumber,
+      username: userData.username,
+      email: userData?.email,
+    };
 
-      if (data) {
-        userStore.updateUser(data);
-        flashMessage({
-          message: 'Success!',
-          type: 'success',
-          description: 'Your profile information was updated.',
-        });
-      }
-    } catch (err) {
-      flashMessage({
-        message: 'Error!',
-        type: 'danger',
-        description: 'Unknown error occured.',
-      });
-    }
-    setLoading(false);
+    await userStore.updateUser(updateData);
   };
 
   return (
     <ProfileView
-      email={email}
-      loading={loading}
+      control={control}
+      errors={errors}
+      handleSubmit={handleSubmit}
+      loading={userStore.state}
       logOut={logOut}
-      setEmail={setEmail}
-      setUsername={setUsername}
-      updateInfo={updateInfo}
       userData={userStore.user}
-      username={username}
+      onSubmit={updateInfo}
     />
   );
 };

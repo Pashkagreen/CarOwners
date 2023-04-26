@@ -1,32 +1,33 @@
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 
-import {Text, TextInput} from 'react-native-paper';
+import {Controller} from 'react-hook-form';
+import {Text} from 'react-native-paper';
 
-import {Background, Button, PhoneInput} from '../../../components';
+import {Background, Button, PhoneInput, TextInput} from '../../../components';
 
 import {theme} from '../../../core/theme';
 import {User} from '../../../store/UserStore';
+import {fetchState} from '../../../store/VehiclesStore';
+import {FormData} from './profileContainer';
 
 interface ProfilePropsInterface {
-  username: string;
-  email: string;
   userData: User;
-  loading: boolean;
+  loading: fetchState;
+  control: any;
+  errors: any;
+  handleSubmit: any;
+  onSubmit: (userData: FormData) => Promise<void>;
   logOut: () => void;
-  updateInfo: () => void;
-  setUsername: (text: string) => void;
-  setEmail: (text: string) => void;
 }
 
 const ProfileView = ({
   logOut,
-  updateInfo,
-  setUsername,
-  setEmail,
+  control,
+  errors,
+  handleSubmit,
+  onSubmit,
   loading,
   userData,
-  username,
-  email,
 }: ProfilePropsInterface): JSX.Element => (
   <SafeAreaView style={styles.container}>
     <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
@@ -37,20 +38,44 @@ const ProfileView = ({
           </Text>
           <View style={styles.infoItem}>
             <Text variant="titleSmall">Username: </Text>
-            <TextInput
-              mode="outlined"
-              style={styles.inputBlock}
-              value={username}
-              onChangeText={setUsername}
+            <Controller
+              control={control}
+              defaultValue={userData.username || ''}
+              name="username"
+              render={({field: {onChange, onBlur, value}}) => (
+                <TextInput
+                  error={errors?.username}
+                  errorText={errors?.username?.message}
+                  mode="outlined"
+                  style={styles.inputBlock}
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                />
+              )}
+              rules={{
+                required: true,
+              }}
             />
           </View>
           <View style={styles.infoItem}>
             <Text variant="titleSmall">Email: </Text>
-            <TextInput
-              mode="outlined"
-              style={styles.inputBlock}
-              value={email}
-              onChangeText={setEmail}
+            <Controller
+              control={control}
+              defaultValue={userData.email || ''}
+              name="email"
+              render={({field: {onChange, onBlur, value}}) => (
+                <TextInput
+                  error={errors?.email}
+                  errorText={errors?.email?.message}
+                  keyboardType="email-address"
+                  mode="outlined"
+                  style={styles.inputBlock}
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                />
+              )}
             />
           </View>
           <View style={styles.infoItem}>
@@ -63,7 +88,10 @@ const ProfileView = ({
           </View>
         </View>
         <View style={styles.buttonBlock}>
-          <Button loading={loading} mode="contained" onPress={updateInfo}>
+          <Button
+            loading={loading === 'pending' ? true : false}
+            mode="contained"
+            onPress={handleSubmit(onSubmit)}>
             Update info
           </Button>
           <Button mode="outlined" onPress={logOut}>
@@ -96,9 +124,8 @@ const styles = StyleSheet.create({
   },
   infoItem: {
     alignItems: 'flex-start',
-    gap: 8,
     justifyContent: 'flex-start',
-    marginTop: 24,
+    marginTop: 12,
     width: '100%',
   },
   buttonBlock: {

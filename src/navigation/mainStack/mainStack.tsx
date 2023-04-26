@@ -5,12 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyBottomNavigation, TabBarIcon } from '../../components';
 
 import bottomBarConfig from '../../core/bottomBarConfig';
-import { Navigation } from '../../types';
+import { MyGarageStackParams } from './myGarageStack';
 
 export type MainStackParams = {
-  MyGarage: Navigation;
-  History: Navigation;
-  Profile: Navigation;
+  MyGarage: MyGarageStackParams;
+  History: undefined;
+  Profile: undefined;
 };
 
 const BottomTab = createBottomTabNavigator<MainStackParams>();

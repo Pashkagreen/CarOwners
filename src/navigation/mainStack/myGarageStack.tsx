@@ -6,15 +6,17 @@ import { VehicleInfoInterface } from '../../services/vehicles';
 
 import screens from '../../screens';
 
-export type MyGarageParamList = {
+export type MyGarageStackParams = {
+  MyVehicles: {
+    afterChange: boolean | undefined;
+  };
   AddVehicle: {
     isEdit: boolean | undefined;
-    vehicleInfo: VehicleInfoInterface | undefined;
+    vehicleInfo?: VehicleInfoInterface | undefined;
   };
-  MyVehicles: undefined;
 };
 
-const MyGarageStack = createNativeStackNavigator<MyGarageParamList>();
+const MyGarageStack = createNativeStackNavigator<MyGarageStackParams>();
 
 const MyGarageStackScreens = (): JSX.Element => (
   <MyGarageStack.Navigator

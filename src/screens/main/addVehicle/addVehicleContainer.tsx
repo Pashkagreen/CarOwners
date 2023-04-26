@@ -4,14 +4,16 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { vehiclesSchema } from '../../../core/validators';
-import { MyGarageParamList } from '../../../navigation/mainStack/myGarageStack';
+
+import { StackNavigationProp } from '@react-navigation/stack';
+import { MyGarageStackParams } from '../../../navigation/mainStack/myGarageStack';
+
 import { useStore } from '../../../store';
-import { Navigation } from '../../../types';
 import AddVehicleView from './addVehicleView';
 
 type Props = {
-  navigation: Navigation;
-  route: RouteProp<MyGarageParamList>;
+  navigation: StackNavigationProp<MyGarageStackParams, 'AddVehicle'>;
+  route: RouteProp<MyGarageStackParams, 'AddVehicle'>;
 };
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;

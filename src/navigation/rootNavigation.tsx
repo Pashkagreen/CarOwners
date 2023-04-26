@@ -1,19 +1,20 @@
 import * as React from 'react';
 
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '../store';
-import AuthStackScreens from './authStack/authStack';
-import MainStackScreens from './mainStack/mainStack';
+import AuthStackScreens, { AuthStackParams } from './authStack/authStack';
+import MainStackScreens, { MainStackParams } from './mainStack/mainStack';
 
-type RootStackParamList = {
-  Main: undefined;
-  Auth: undefined;
+export type RootStackNavigationProp = {
+  Auth: AuthStackParams;
+  Main: NavigatorScreenParams<MainStackParams>;
 };
 
 function RootNavigation(): JSX.Element {
-  const RootStack = createNativeStackNavigator<RootStackParamList>();
+  const RootStack = createNativeStackNavigator<RootStackNavigationProp>();
   const { userStore } = useStore();
   let isAuthorized = userStore.user.isAuthorized;
 

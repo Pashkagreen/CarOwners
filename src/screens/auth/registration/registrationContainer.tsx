@@ -2,7 +2,6 @@ import {useRef, useState} from 'react';
 import {Keyboard} from 'react-native';
 
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import parsePhoneNumberFromString, {CountryCode} from 'libphonenumber-js';
 import {observer} from 'mobx-react-lite';
 
 import {Account} from '../../../services/account';
@@ -15,6 +14,7 @@ import {
   nameValidator,
   phoneNumberValidator,
 } from '../../../core/validators';
+import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import {useStore} from '../../../store';
 import {Navigation} from '../../../types';
 import {validateObject} from '../login/loginView';
@@ -35,12 +35,13 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
   });
 
   //phone state
-  const [phoneNumber, setPhoneNumber] = useState<validateObject>({
-    value: '',
-    error: '',
-  });
-  const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
-  const [iso, setIso] = useState('');
+  const {
+    phoneNumber,
+    setPhoneNumber,
+    isValidPhoneNumber,
+    onChangePhoneNumber,
+    onSelectCountry,
+  } = usePhoneNumber();
 
   //code state
   const [code, setCode] = useState<validateObject>({value: '', error: ''});
@@ -52,23 +53,6 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
 
   const [confirm, setConfirm] =
     useState<FirebaseAuthTypes.ConfirmationResult>();
-
-  const onChangePhoneNumber = (phone: string) => {
-    const phoneNumberString = parsePhoneNumberFromString(
-      `Phone: ${phone}.`,
-      `${iso as CountryCode}`,
-    );
-    const format = String(phoneNumberString?.formatInternational());
-    const isValid = Boolean(phoneNumberString?.isValid());
-    const standFormat = format.replace(/[^0-9+]/g, '');
-
-    setIsValidPhoneNumber(isValid);
-    setPhoneNumber({value: standFormat, error: phoneNumber.error});
-  };
-
-  const onSelectCountry = (iso2: string) => {
-    setIso(iso2);
-  };
 
   const sendOTPCode = async () => {
     Keyboard.dismiss();
@@ -123,18 +107,7 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
         const token = await Account.getToken();
 
         if (token) {
-          const {data} = await UserService.registration({
-            phoneNumber: phoneNumber.value,
-            username: username.value,
-          });
-
-          const userData = {
-            uid: data.uid,
-            username: data.username,
-            phoneNumber: data.phoneNumber,
-          };
-          userStore.setUserData(userData);
-          userStore.updateAuthStatus(true);
+          await userStore.registerUser(phoneNumber, username);
         }
       }
     } catch (error: any) {
@@ -142,8 +115,6 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
         setLoading(false);
         setCode(prev => ({...prev, error: 'Invalid SMS-code'}));
         return;
-      } else {
-        flashMessage({type: 'danger', message: 'Internal error occured!'});
       }
     }
     setLoading(false);

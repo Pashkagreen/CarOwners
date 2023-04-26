@@ -5,6 +5,9 @@ import axios, {
   AxiosRequestHeaders,
   AxiosResponse,
 } from 'axios';
+import {MessageType} from 'react-native-flash-message';
+
+import {flashMessage} from '../core/utils';
 
 import {Account} from './account';
 
@@ -12,14 +15,39 @@ interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
 }
 
+enum StatusCodes {
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  INTERNAL = 500,
+}
+
+interface StatusCodeBody {
+  type: MessageType;
+  message: string;
+}
+
+interface BaseError {
+  message: string;
+}
+
+type StatusCodeType = Record<number, StatusCodeBody>;
+
 const BASE_URL =
   'https://us-central1-carowners-97d56.cloudfunctions.net/api/v1';
 
-const StatusCode = {
-  Unauthorized: 401,
-  Forbidden: 403,
-  TooManyRequests: 429,
-  InternalServerError: 500,
+const StatusCode: StatusCodeType = {
+  [StatusCodes.UNAUTHORIZED]: {
+    type: 'danger',
+    message: 'Unauthorized request!',
+  },
+  [StatusCodes.FORBIDDEN]: {
+    type: 'danger',
+    message: 'Forbidden request!',
+  },
+  [StatusCodes.INTERNAL]: {
+    type: 'danger',
+    message: 'Internal server error!',
+  },
 };
 
 const headers: Readonly<Record<string, string | boolean>> = {
@@ -61,10 +89,7 @@ class Http {
 
     http.interceptors.response.use(
       response => response,
-      error => {
-        const {response} = error;
-        return this.handleError(response);
-      },
+      error => this.handleError(error),
     );
 
     this.instance = http;
@@ -109,26 +134,17 @@ class Http {
 
   // Handle global app errors
   // We can handle generic app errors depending on the status code
-  private handleError(error: AxiosError) {
-    const {status} = error;
+  private handleError(error: AxiosError<BaseError>) {
+    const {response} = error;
+    const status = response?.status;
+    const data = response?.data;
 
-    switch (status) {
-      case StatusCode.InternalServerError: {
-        // Handle InternalServerError
-        break;
-      }
-      case StatusCode.Forbidden: {
-        // Handle Forbidden
-        break;
-      }
-      case StatusCode.Unauthorized: {
-        // Handle Unauthorized
-        break;
-      }
-      case StatusCode.TooManyRequests: {
-        // Handle TooManyRequests
-        break;
-      }
+    if (status && StatusCode[status]) {
+      flashMessage({
+        type: StatusCode[status].type,
+        message: StatusCode[status].message,
+        description: data?.message,
+      });
     }
 
     return Promise.reject(error);

@@ -52,16 +52,16 @@ export class VehiclesStore {
 
     try {
       const data: VehicleInterface[] = await VehiclesService.getAll();
-      runInAction(() => {
-        this.vehicles = data;
-      });
+
+      if (data) {
+        runInAction(() => {
+          this.vehicles = data;
+        });
+      } else {
+        this.vehicles = [];
+      }
     } catch (e) {
       this.updateState('error');
-      flashMessage({
-        message: 'Error!',
-        type: 'danger',
-        description: 'Unknown error occured.',
-      });
     }
 
     this.updateState('done');
@@ -75,14 +75,12 @@ export class VehiclesStore {
       runInAction(() => {
         if (data) {
           this.history = data.history;
+        } else {
+          this.history = [];
         }
       });
     } catch (e) {
       this.updateState('error');
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
     }
 
     this.updateState('done');
@@ -106,10 +104,6 @@ export class VehiclesStore {
       }
     } catch (e) {
       this.updateState('error');
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
     }
 
     this.updateState('done');
@@ -140,10 +134,6 @@ export class VehiclesStore {
       }
     } catch (e) {
       this.updateState('error');
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
     }
 
     this.updateState('done');
@@ -162,10 +152,6 @@ export class VehiclesStore {
       });
     } catch (e) {
       this.updateState('error');
-      flashMessage({
-        type: 'danger',
-        message: 'Unknown error occured!',
-      });
     }
   }
 }

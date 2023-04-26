@@ -4,6 +4,7 @@ import UserService from '../services/user';
 
 import {flashMessage} from '../core/utils';
 
+import {validateObject} from '../screens/auth/login/loginView';
 import {fetchState} from './VehiclesStore';
 
 export interface User {
@@ -45,6 +46,59 @@ export class UserStore {
     this.user = {...this.user, ...newUserInfo};
   }
 
+  async getAndSetAuthUser(uid: string) {
+    this.updateState('pending');
+
+    const {data} = await UserService.getUserData();
+
+    try {
+      if (data) {
+        const userData = {
+          uid,
+          username: data.username,
+          phoneNumber: data.phoneNumber,
+          email: data?.email || '',
+        };
+
+        runInAction(() => {
+          this.setUserData(userData);
+        });
+      }
+    } catch (e) {
+      this.updateState('error');
+    }
+
+    this.updateState('done');
+  }
+
+  async registerUser(phoneNumber: validateObject, username: validateObject) {
+    this.updateState('pending');
+
+    try {
+      const {data} = await UserService.registration({
+        phoneNumber: phoneNumber.value,
+        username: username.value,
+      });
+
+      if (data) {
+        const userData = {
+          uid: data.uid,
+          username: data.username,
+          phoneNumber: data.phoneNumber,
+        };
+
+        runInAction(() => {
+          this.setUserData(userData);
+          this.updateAuthStatus(true);
+        });
+      }
+    } catch (e) {
+      this.updateState('error');
+    }
+
+    this.updateState('done');
+  }
+
   async updateUser(newUserInfo: UserUpdate) {
     this.updateState('pending');
 
@@ -59,15 +113,15 @@ export class UserStore {
         });
         runInAction(() => {
           this.setUserData(data);
+          this.updateAuthStatus(true);
+        });
+      } else {
+        runInAction(() => {
+          this.setUserData(this.user);
         });
       }
-    } catch (err) {
+    } catch (e) {
       this.updateState('error');
-      flashMessage({
-        message: 'Error!',
-        type: 'danger',
-        description: 'Unknown error occured.',
-      });
     }
 
     this.updateState('done');

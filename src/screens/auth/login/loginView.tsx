@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import PhoneInputComponent from 'react-native-phone-input';
@@ -14,8 +14,8 @@ import {
   TextInput,
 } from '../../../components/index';
 
-import {theme} from '../../../core/theme';
 import {Navigation} from '../../../types';
+import styles from './loginStyles';
 
 export type validateObject = {
   value: string;
@@ -100,19 +100,5 @@ const LoginView = ({
     </Background>
   </KeyboardAwareScrollView>
 );
-
-const styles = StyleSheet.create({
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
-  },
-  label: {
-    color: theme.colors.secondary,
-  },
-  link: {
-    color: theme.colors.primary,
-    fontWeight: 'bold',
-  },
-});
 
 export default LoginView;

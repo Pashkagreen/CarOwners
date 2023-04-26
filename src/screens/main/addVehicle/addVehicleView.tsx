@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 
 import {Controller} from 'react-hook-form';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
@@ -6,9 +6,10 @@ import {Text} from 'react-native-paper';
 
 import {BackButton, Background, Button, TextInput} from '../../../components';
 
-import {hitSlop, theme} from '../../../core/theme';
+import {hitSlop} from '../../../core/theme';
 import {fetchState} from '../../../store/VehiclesStore';
 import {FormData} from './addVehicleContainer';
+import styles from './addVehicleStyle';
 
 interface AddVehiclesInterface {
   control: any;
@@ -146,25 +147,3 @@ const AddVehicleView = ({
 );
 
 export default AddVehicleView;
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    alignItems: 'flex-end',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 16,
-    marginLeft: -16,
-    width: '100%',
-  },
-  headerText: {
-    color: theme.colors.secondary,
-    fontWeight: 'bold',
-    marginLeft: 14,
-  },
-  inputBlock: {
-    width: '100%',
-  },
-  btn: {
-    marginTop: 24,
-  },
-});

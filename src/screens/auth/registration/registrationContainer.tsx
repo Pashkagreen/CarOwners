@@ -7,8 +7,6 @@ import {observer} from 'mobx-react-lite';
 import {Account} from '../../../services/account';
 import UserService from '../../../services/user';
 
-import {flashMessage} from '../../../core/utils';
-
 import {
   codeValidator,
   nameValidator,
@@ -80,8 +78,9 @@ const RegistrationContainer = ({navigation}: Props): JSX.Element => {
         setConfirm(confirmation);
         setIsSignUpAvailable(true);
       }
-    } catch (error) {
-      flashMessage({type: 'danger', message: 'Internal error occured!'});
+    } catch (e) {
+      setOtpLoading(false);
+      return;
     }
     setOtpLoading(false);
   };

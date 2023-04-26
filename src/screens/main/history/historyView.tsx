@@ -1,10 +1,4 @@
-import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {FlatList, RefreshControl, SafeAreaView, View} from 'react-native';
 
 import {ActivityIndicator, Text} from 'react-native-paper';
 
@@ -12,6 +6,7 @@ import {Background, HistoryCard} from '../../../components';
 
 import {theme} from '../../../core/theme';
 import {fetchState, HistoryInterface} from '../../../store/VehiclesStore';
+import styles from './historyStyle';
 
 interface IHistoryInterface {
   refreshing: boolean;
@@ -62,35 +57,3 @@ const HistoryView = ({
 );
 
 export default HistoryView;
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'flex-start',
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  flatContainer: {
-    flex: 1,
-    marginTop: 16,
-    width: '100%',
-  },
-  loaderContainer: {
-    alignItems: 'center',
-    flex: 1,
-    height: '100%',
-    justifyContent: 'center',
-    width: '100%',
-  },
-  background: {
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-  infoBlock: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  headerText: {
-    color: theme.colors.secondary,
-    fontWeight: 'bold',
-  },
-});

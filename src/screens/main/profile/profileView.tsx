@@ -1,15 +1,14 @@
-import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, ScrollView, View} from 'react-native';
 
 import {Controller} from 'react-hook-form';
 import {Text} from 'react-native-paper';
 
 import {Background, Button, PhoneInput, TextInput} from '../../../components';
 
-import {theme} from '../../../core/theme';
 import {User} from '../../../store/UserStore';
 import {fetchState} from '../../../store/VehiclesStore';
 import {FormData} from './profileContainer';
-
+import styles from './profileStyles';
 interface ProfilePropsInterface {
   userData: User;
   loading: fetchState;
@@ -104,39 +103,3 @@ const ProfileView = ({
 );
 
 export default ProfileView;
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'flex-start',
-    flex: 1,
-    justifyContent: 'space-between',
-  },
-  scrollView: {
-    width: '100%',
-  },
-  background: {
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-  infoBlock: {
-    alignItems: 'center',
-    width: '100%',
-  },
-  infoItem: {
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    marginTop: 12,
-    width: '100%',
-  },
-  buttonBlock: {
-    marginTop: 12,
-    width: '100%',
-  },
-  inputBlock: {
-    width: '100%',
-  },
-  headerText: {
-    color: theme.colors.secondary,
-    fontWeight: 'bold',
-  },
-});

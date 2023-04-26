@@ -7,8 +7,6 @@ import {observer} from 'mobx-react-lite';
 import {Account} from '../../../services/account';
 import UserService from '../../../services/user';
 
-import {flashMessage} from '../../../core/utils';
-
 import {codeValidator, phoneNumberValidator} from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import {useStore} from '../../../store';
@@ -69,8 +67,8 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
       } else {
         setPhoneNumber(prev => ({...prev, error: 'User does not exist'}));
       }
-    } catch (error) {
-      flashMessage({type: 'danger', message: 'Internal error occured!'});
+    } catch (e) {
+      setOtpLoading(false);
     }
     setOtpLoading(false);
   };
@@ -104,8 +102,6 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
         setLoading(false);
         setCode(prev => ({...prev, error: 'Invalid SMS-code'}));
         return;
-      } else {
-        flashMessage({type: 'danger', message: 'Internal error occured!'});
       }
     }
     setLoading(false);

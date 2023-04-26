@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import PhoneInputComponent from 'react-native-phone-input';
@@ -14,8 +14,8 @@ import {
   TextInput,
 } from '../../../components/index';
 
-import {theme} from '../../../core/theme';
 import {Navigation} from '../../../types';
+import styles from './registrationStyles';
 
 type validateObject = {
   value: string;
@@ -116,22 +116,5 @@ const RegistrationView = ({
     </Background>
   </KeyboardAwareScrollView>
 );
-
-const styles = StyleSheet.create({
-  label: {
-    color: theme.colors.secondary,
-  },
-  button: {
-    marginTop: 24,
-  },
-  row: {
-    flexDirection: 'row',
-    marginTop: 4,
-  },
-  link: {
-    color: theme.colors.primary,
-    fontWeight: 'bold',
-  },
-});
 
 export default RegistrationView;

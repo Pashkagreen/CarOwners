@@ -13,6 +13,7 @@ export type FormData = yup.InferType<typeof userSchema>;
 
 const ProfileContainer = (): JSX.Element => {
   const {userStore} = useStore();
+  const {vehiclesStore} = useStore();
 
   const {
     control,
@@ -24,6 +25,7 @@ const ProfileContainer = (): JSX.Element => {
   });
 
   const logOut = async (): Promise<void> => {
+    vehiclesStore.clearVehicles();
     userStore.clearUser();
   };
 

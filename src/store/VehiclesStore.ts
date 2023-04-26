@@ -45,6 +45,12 @@ export class VehiclesStore {
     this.state = state;
   };
 
+  clearVehicles() {
+    this.history = [];
+    this.vehicles = [];
+    this.state = 'done';
+  }
+
   async getVehicles(force: boolean): Promise<void> {
     if (!force) {
       this.updateState('pending');
@@ -72,13 +78,16 @@ export class VehiclesStore {
 
     try {
       const {data} = await VehiclesService.getAllHistory();
-      runInAction(() => {
-        if (data) {
+
+      if (data) {
+        runInAction(() => {
           this.history = data.history;
-        } else {
+        });
+      } else {
+        runInAction(() => {
           this.history = [];
-        }
-      });
+        });
+      }
     } catch (e) {
       this.updateState('error');
     }

@@ -62,6 +62,7 @@ export class UserStore {
 
         runInAction(() => {
           this.setUserData(userData);
+          this.updateAuthStatus(true);
         });
       }
     } catch (e) {

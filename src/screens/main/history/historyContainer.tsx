@@ -1,5 +1,7 @@
 import {useEffect, useState} from 'react';
 
+import {observer} from 'mobx-react-lite';
+
 import {useStore} from '../../../store';
 import HistoryView from './historyView';
 
@@ -10,12 +12,12 @@ const HistoryContainer = (): JSX.Element => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    loadHistory();
+    loadHistory(true);
     setRefreshing(false);
   };
 
-  const loadHistory = async () => {
-    await vehiclesStore.getVehiclesHistory();
+  const loadHistory = async (force?: boolean) => {
+    await vehiclesStore.getVehiclesHistory(force);
   };
 
   useEffect(() => {
@@ -32,4 +34,4 @@ const HistoryContainer = (): JSX.Element => {
   );
 };
 
-export default HistoryContainer;
+export default observer(HistoryContainer);

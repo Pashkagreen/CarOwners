@@ -1,4 +1,4 @@
-import {MessageOptions, showMessage} from 'react-native-flash-message';
+import { MessageOptions, showMessage } from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
 
 export const getUserCurrentCountry = async (): Promise<string> => {

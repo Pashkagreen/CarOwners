@@ -1,31 +1,31 @@
-import {yupResolver} from '@hookform/resolvers/yup';
-import {RouteProp} from '@react-navigation/native';
-import {useForm} from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { RouteProp } from '@react-navigation/native';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import {vehiclesSchema} from '../../../core/validators';
-import {ParamList} from '../../../navigation/rootNavigation';
-import {useStore} from '../../../store';
-import {Navigation} from '../../../types';
+import { vehiclesSchema } from '../../../core/validators';
+import { MyGarageParamList } from '../../../navigation/mainStack/myGarageStack';
+import { useStore } from '../../../store';
+import { Navigation } from '../../../types';
 import AddVehicleView from './addVehicleView';
 
 type Props = {
   navigation: Navigation;
-  route: RouteProp<ParamList, 'AddVehicle'>;
+  route: RouteProp<MyGarageParamList>;
 };
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;
 
-const AddVehicleContainer = ({navigation, route}: Props): JSX.Element => {
+const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
   const isEdit = route.params?.isEdit;
   const vehicleInfo = route.params?.vehicleInfo;
 
-  const {vehiclesStore} = useStore();
+  const { vehiclesStore } = useStore();
 
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<FormData>({
     mode: 'onSubmit',
     resolver: yupResolver(vehiclesSchema),

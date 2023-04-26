@@ -5,11 +5,11 @@ import axios, {
   AxiosRequestHeaders,
   AxiosResponse,
 } from 'axios';
-import {MessageType} from 'react-native-flash-message';
+import { MessageType } from 'react-native-flash-message';
 
-import {flashMessage} from '../core/utils';
+import { flashMessage } from '../core/utils';
 
-import {Account} from './account';
+import { Account } from './account';
 
 interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
   headers: AxiosRequestHeaders;
@@ -125,6 +125,14 @@ class Http {
     return this.http.put<T, R>(url, data, config);
   }
 
+  patch<T = any, R = AxiosResponse<T>>(
+    url: string,
+    data?: T,
+    config?: AxiosRequestConfig,
+  ): Promise<R> {
+    return this.http.patch<T, R>(url, data, config);
+  }
+
   delete<T = any, R = AxiosResponse<T>>(
     url: string,
     config?: AxiosRequestConfig,
@@ -135,7 +143,7 @@ class Http {
   // Handle global app errors
   // We can handle generic app errors depending on the status code
   private handleError(error: AxiosError<BaseError>) {
-    const {response} = error;
+    const { response } = error;
     const status = response?.status;
     const data = response?.data;
 

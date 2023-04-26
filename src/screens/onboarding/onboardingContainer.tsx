@@ -1,19 +1,19 @@
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
-import {observer} from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
-import {getUserCurrentCountry} from '../../core/utils';
+import { getUserCurrentCountry } from '../../core/utils';
 
-import {useStore} from '../../store';
-import {Navigation} from '../../types';
+import { useStore } from '../../store';
+import { Navigation } from '../../types';
 import OnboardingView from './onboardingView';
 
 type Props = {
   navigation: Navigation;
 };
 
-const OnboardingContainer = ({navigation}: Props): JSX.Element => {
-  const {userStore} = useStore();
+const OnboardingContainer = ({ navigation }: Props): JSX.Element => {
+  const { userStore } = useStore();
 
   const getUserCountry = async () => {
     const country = await getUserCurrentCountry();

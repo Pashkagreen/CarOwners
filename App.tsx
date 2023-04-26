@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
-import {Provider as PaperProvider} from 'react-native-paper';
+import { Provider as PaperProvider } from 'react-native-paper';
 
-import {Loader} from './src/components';
+import { Loader } from './src/components';
 
-import {theme} from './src/core/theme';
+import { theme } from './src/core/theme';
 import RootNavigation from './src/navigation/rootNavigation';
-import {rootStore, StoreProvider, trunk} from './src/store';
+import { rootStore, StoreProvider, trunk } from './src/store';
 
 const App = (): JSX.Element => {
   const [isStoreLoaded, setIsStoreLoaded] = useState(false);

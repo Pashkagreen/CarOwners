@@ -1,24 +1,24 @@
-import React, {useRef, useState} from 'react';
-import {Keyboard} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Keyboard } from 'react-native';
 
-import {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {observer} from 'mobx-react-lite';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { observer } from 'mobx-react-lite';
 
-import {Account} from '../../../services/account';
+import { Account } from '../../../services/account';
 import UserService from '../../../services/user';
 
-import {codeValidator, phoneNumberValidator} from '../../../core/validators';
+import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
-import {useStore} from '../../../store';
-import {Navigation} from '../../../types';
-import LoginView, {validateObject} from './loginView';
+import { useStore } from '../../../store';
+import { Navigation } from '../../../types';
+import LoginView, { validateObject } from './loginView';
 
 type Props = {
   navigation: Navigation;
 };
 
-const LoginContainer = ({navigation}: Props): JSX.Element => {
-  const {userStore} = useStore();
+const LoginContainer = ({ navigation }: Props): JSX.Element => {
+  const { userStore } = useStore();
   const initialCountry = userStore.user.countryCode;
 
   const inputRef = useRef(null);
@@ -33,7 +33,7 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
   } = usePhoneNumber();
 
   //code state
-  const [code, setCode] = useState<validateObject>({value: '', error: ''});
+  const [code, setCode] = useState<validateObject>({ value: '', error: '' });
 
   //loading state
   const [loading, setLoading] = useState(false);
@@ -45,18 +45,18 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
 
   const sendOTPCode = async () => {
     Keyboard.dismiss();
-    setPhoneNumber(prev => ({...prev, error: ''}));
+    setPhoneNumber(prev => ({ ...prev, error: '' }));
     setOtpLoading(true);
     try {
       const phoneNumberError = phoneNumberValidator(phoneNumber.value);
 
       if (phoneNumberError || !isValidPhoneNumber) {
         setOtpLoading(false);
-        setPhoneNumber(prev => ({...prev, error: phoneNumberError}));
+        setPhoneNumber(prev => ({ ...prev, error: phoneNumberError }));
         return;
       }
 
-      const {data} = await UserService.verifyPhoneNumber(phoneNumber.value);
+      const { data } = await UserService.verifyPhoneNumber(phoneNumber.value);
 
       if (data.message === 'User exists') {
         const confirmation = await Account.signInWithPhoneNumber(
@@ -64,10 +64,10 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
         );
         setConfirm(confirmation);
         setIsLoginAvailable(true);
-      } else {
-        setPhoneNumber(prev => ({...prev, error: 'User does not exist'}));
+      } else if (data.message === 'User not found!') {
+        setPhoneNumber(prev => ({ ...prev, error: 'User does not exist' }));
       }
-    } catch (e) {
+    } catch (e: any) {
       setOtpLoading(false);
     }
     setOtpLoading(false);
@@ -75,14 +75,14 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
 
   const login = async () => {
     Keyboard.dismiss();
-    setCode(prev => ({...prev, error: ''}));
+    setCode(prev => ({ ...prev, error: '' }));
     setLoading(true);
     try {
       const codeError = codeValidator(code.value);
 
       if (codeError) {
         setLoading(false);
-        setCode(prev => ({...prev, error: codeError}));
+        setCode(prev => ({ ...prev, error: codeError }));
         return;
       }
 
@@ -100,7 +100,7 @@ const LoginContainer = ({navigation}: Props): JSX.Element => {
     } catch (error: any) {
       if (error.code === 'auth/invalid-verification-code') {
         setLoading(false);
-        setCode(prev => ({...prev, error: 'Invalid SMS-code'}));
+        setCode(prev => ({ ...prev, error: 'Invalid SMS-code' }));
         return;
       }
     }

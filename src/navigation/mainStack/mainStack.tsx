@@ -1,20 +1,17 @@
 import * as React from 'react';
 
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import {MyBottomNavigation, TabBarIcon} from '../../components';
+import { MyBottomNavigation, TabBarIcon } from '../../components';
 
 import bottomBarConfig from '../../core/bottomBarConfig';
+import { Navigation } from '../../types';
 
 export type MainStackParams = {
-  MyGarage: undefined;
-  History: undefined;
-  Profile: undefined;
+  MyGarage: Navigation;
+  History: Navigation;
+  Profile: Navigation;
 };
-
-export type MainStackNavigationProp =
-  NativeStackNavigationProp<MainStackParams>;
 
 const BottomTab = createBottomTabNavigator<MainStackParams>();
 

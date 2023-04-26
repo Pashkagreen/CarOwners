@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PhoneInputComponent from 'react-native-phone-input';
 
 import {
@@ -14,8 +14,8 @@ import {
   TextInput,
 } from '../../../components/index';
 
-import {Navigation} from '../../../types';
-import styles from './loginStyles';
+import { Navigation } from '../../../types';
+import styles from './style';
 
 export type validateObject = {
   value: string;
@@ -80,7 +80,7 @@ const LoginView = ({
           label="Code"
           returnKeyType="done"
           value={code.value}
-          onChangeText={text => setCode(prev => ({...prev, value: text}))}
+          onChangeText={text => setCode(prev => ({ ...prev, value: text }))}
         />
       )}
 

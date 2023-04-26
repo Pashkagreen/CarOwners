@@ -1,12 +1,12 @@
-import {FlatList, RefreshControl, SafeAreaView, View} from 'react-native';
+import { FlatList, RefreshControl, SafeAreaView, View } from 'react-native';
 
-import {ActivityIndicator, Text} from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
 
-import {Background, HistoryCard} from '../../../components';
+import { Background, HistoryCard } from '../../../components/index';
 
-import {theme} from '../../../core/theme';
-import {fetchState, HistoryInterface} from '../../../store/VehiclesStore';
-import styles from './historyStyle';
+import { theme } from '../../../core/theme';
+import { fetchState, HistoryInterface } from '../../../store/VehiclesStore';
+import styles from './style';
 
 interface IHistoryInterface {
   refreshing: boolean;
@@ -33,8 +33,8 @@ const HistoryView = ({
         </View>
       ) : items.length ? (
         <FlatList
-          key={({item}) => item.id}
           data={items}
+          keyExtractor={item => item.id}
           refreshControl={
             <RefreshControl
               colors={[theme.colors.primary]}
@@ -43,7 +43,7 @@ const HistoryView = ({
               onRefresh={onRefresh}
             />
           }
-          renderItem={({item}) => <HistoryCard item={item} />}
+          renderItem={({ item }) => <HistoryCard item={item} />}
           showsVerticalScrollIndicator={false}
           style={styles.flatContainer}
         />

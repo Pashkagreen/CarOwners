@@ -1,14 +1,19 @@
-import {SafeAreaView, ScrollView, View} from 'react-native';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 
-import {Controller} from 'react-hook-form';
-import {Text} from 'react-native-paper';
+import { Controller } from 'react-hook-form';
+import { Text } from 'react-native-paper';
 
-import {Background, Button, PhoneInput, TextInput} from '../../../components';
+import {
+  Background,
+  Button,
+  PhoneInput,
+  TextInput,
+} from '../../../components/index';
 
-import {User} from '../../../store/UserStore';
-import {fetchState} from '../../../store/VehiclesStore';
-import {FormData} from './profileContainer';
-import styles from './profileStyles';
+import { User } from '../../../store/UserStore';
+import { fetchState } from '../../../store/VehiclesStore';
+import { FormData } from './profileContainer';
+import styles from './style';
 interface ProfilePropsInterface {
   userData: User;
   loading: fetchState;
@@ -41,7 +46,7 @@ const ProfileView = ({
               control={control}
               defaultValue={userData.username || ''}
               name="username"
-              render={({field: {onChange, onBlur, value}}) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   error={errors?.username}
                   errorText={errors?.username?.message}
@@ -63,7 +68,7 @@ const ProfileView = ({
               control={control}
               defaultValue={userData.email || ''}
               name="email"
-              render={({field: {onChange, onBlur, value}}) => (
+              render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
                   error={errors?.email}
                   errorText={errors?.email?.message}

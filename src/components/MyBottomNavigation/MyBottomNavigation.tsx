@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import {CommonActions, ParamListBase} from '@react-navigation/native';
-import {RouteProp} from '@react-navigation/native';
-import {BottomNavigation} from 'react-native-paper';
+import { CommonActions, ParamListBase } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
+import { BottomNavigation } from 'react-native-paper';
 
 interface MyBottomInterface {
   [key: string]: any;
@@ -20,8 +20,8 @@ const MyBottomNavigation = ({
   insets,
 }: MyBottomInterface) => (
   <BottomNavigation.Bar
-    getLabelText={({route}): string => {
-      const {options} = descriptors[route.key];
+    getLabelText={({ route }): string => {
+      const { options } = descriptors[route.key];
 
       const label =
         options.tabBarLabel !== undefined
@@ -33,16 +33,16 @@ const MyBottomNavigation = ({
       return String(label);
     }}
     navigationState={state}
-    renderIcon={({route, focused, color}) => {
-      const {options} = descriptors[route.key];
+    renderIcon={({ route, focused, color }) => {
+      const { options } = descriptors[route.key];
       if (options.tabBarIcon) {
-        return options.tabBarIcon({focused, color, size: 24});
+        return options.tabBarIcon({ focused, color, size: 24 });
       }
 
       return null;
     }}
     safeAreaInsets={insets}
-    onTabPress={({route, preventDefault}: onTabPressInterface) => {
+    onTabPress={({ route, preventDefault }: onTabPressInterface) => {
       const event = navigation.emit({
         type: 'tabPress',
         target: route.key,

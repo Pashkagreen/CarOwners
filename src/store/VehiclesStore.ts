@@ -1,8 +1,8 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import VehiclesService from '../services/vehicles';
 
-import {flashMessage} from '../core/utils';
+import { flashMessage } from '../core/utils';
 
 export type fetchState = 'pending' | 'done' | 'error';
 
@@ -23,7 +23,7 @@ export interface HistoryInterface {
 }
 
 export interface VehicleInterface {
-  id?: string;
+  id: string;
   brand?: string;
   model?: string;
   year?: string | number;
@@ -81,7 +81,7 @@ export class VehiclesStore {
     }
 
     try {
-      const {data} = await VehiclesService.getAllHistory();
+      const { data } = await VehiclesService.getAllHistory();
 
       if (data) {
         runInAction(() => {
@@ -103,7 +103,7 @@ export class VehiclesStore {
     this.updateState('pending');
 
     try {
-      const {data} = await VehiclesService.createVehicle(newData);
+      const { data } = await VehiclesService.createVehicle(newData);
 
       if (data.id) {
         flashMessage({
@@ -129,7 +129,7 @@ export class VehiclesStore {
     this.updateState('pending');
 
     try {
-      const {data} = await VehiclesService.updateVehicle(vehicleId, newData);
+      const { data } = await VehiclesService.updateVehicle(vehicleId, newData);
 
       if (data.id) {
         flashMessage({
@@ -139,7 +139,7 @@ export class VehiclesStore {
         });
         runInAction(() => {
           const newArray = this.vehicles.map(i =>
-            i.id === vehicleId ? (i = {...data}) : i,
+            i.id === vehicleId ? (i = { ...data }) : i,
           );
 
           this.vehicles = newArray;

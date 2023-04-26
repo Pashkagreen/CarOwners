@@ -1,8 +1,8 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
-import {CountryCode, parsePhoneNumberFromString} from 'libphonenumber-js';
+import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
 
-import {validateObject} from '../screens/auth/login/loginView';
+import { validateObject } from '../screens/auth/login/loginView';
 
 const usePhoneNumber = () => {
   const [iso, setIso] = useState<CountryCode>('US');
@@ -23,7 +23,7 @@ const usePhoneNumber = () => {
     const standFormat = format.replace(/[^0-9+]/g, '');
 
     setIsValidPhoneNumber(isValid);
-    setPhoneNumber({value: standFormat, error: phoneNumber.error});
+    setPhoneNumber({ value: standFormat, error: phoneNumber.error });
   };
 
   const onSelectCountry = (iso2: string) => {

@@ -1,4 +1,4 @@
-import {http} from './http';
+import { http } from './http';
 
 export type User = {
   uid?: string;
@@ -23,7 +23,7 @@ class UserService {
   }
 
   static async updateUser(user: User): Promise<any> {
-    return await http.put<User, any>(`/users/update`, user);
+    return await http.patch<User, any>(`/users`, user);
   }
 }
 export default UserService;

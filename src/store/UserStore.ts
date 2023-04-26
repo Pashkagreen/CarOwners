@@ -1,11 +1,11 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 
 import UserService from '../services/user';
 
-import {flashMessage} from '../core/utils';
+import { flashMessage } from '../core/utils';
 
-import {validateObject} from '../screens/auth/login/loginView';
-import {fetchState} from './VehiclesStore';
+import { validateObject } from '../screens/auth/login/loginView';
+import { fetchState } from './VehiclesStore';
 
 export interface User {
   uid: string;
@@ -43,13 +43,13 @@ export class UserStore {
   };
 
   setUserData(newUserInfo: UserUpdate) {
-    this.user = {...this.user, ...newUserInfo};
+    this.user = { ...this.user, ...newUserInfo };
   }
 
   async getAndSetAuthUser(uid: string) {
     this.updateState('pending');
 
-    const {data} = await UserService.getUserData();
+    const { data } = await UserService.getUserData();
 
     try {
       if (data) {
@@ -76,7 +76,7 @@ export class UserStore {
     this.updateState('pending');
 
     try {
-      const {data} = await UserService.registration({
+      const { data } = await UserService.registration({
         phoneNumber: phoneNumber.value,
         username: username.value,
       });
@@ -104,7 +104,7 @@ export class UserStore {
     this.updateState('pending');
 
     try {
-      const {data} = await UserService.updateUser(newUserInfo);
+      const { data } = await UserService.updateUser(newUserInfo);
 
       if (data) {
         flashMessage({
@@ -129,11 +129,11 @@ export class UserStore {
   }
 
   updateUserCountry(country: string) {
-    this.user = {...this.user, countryCode: country};
+    this.user = { ...this.user, countryCode: country };
   }
 
   updateAuthStatus(isAuthorized: boolean) {
-    this.user = {...this.user, isAuthorized: isAuthorized};
+    this.user = { ...this.user, isAuthorized: isAuthorized };
   }
 
   clearUser() {

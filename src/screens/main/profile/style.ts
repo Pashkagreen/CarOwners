@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import {theme} from '../../../core/theme';
+import { theme } from '../../../core/theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,16 +8,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
-  flatContainer: {
-    flex: 1,
-    marginTop: 16,
-    width: '100%',
-  },
-  loaderContainer: {
-    alignItems: 'center',
-    flex: 1,
-    height: '100%',
-    justifyContent: 'center',
+  scrollView: {
     width: '100%',
   },
   background: {
@@ -26,6 +17,19 @@ const styles = StyleSheet.create({
   },
   infoBlock: {
     alignItems: 'center',
+    width: '100%',
+  },
+  infoItem: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginTop: 12,
+    width: '100%',
+  },
+  buttonBlock: {
+    marginTop: 12,
+    width: '100%',
+  },
+  inputBlock: {
     width: '100%',
   },
   headerText: {

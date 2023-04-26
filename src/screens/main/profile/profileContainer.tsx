@@ -1,24 +1,24 @@
-import {Keyboard} from 'react-native';
+import { Keyboard } from 'react-native';
 
-import {yupResolver} from '@hookform/resolvers/yup';
-import {observer} from 'mobx-react-lite';
-import {useForm} from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { observer } from 'mobx-react-lite';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import {userSchema} from '../../../core/validators';
-import {useStore} from '../../../store';
+import { userSchema } from '../../../core/validators';
+import { useStore } from '../../../store';
 import ProfileView from './profileView';
 
 export type FormData = yup.InferType<typeof userSchema>;
 
 const ProfileContainer = (): JSX.Element => {
-  const {userStore} = useStore();
-  const {vehiclesStore} = useStore();
+  const { userStore } = useStore();
+  const { vehiclesStore } = useStore();
 
   const {
     control,
     handleSubmit,
-    formState: {errors},
+    formState: { errors },
   } = useForm<FormData>({
     mode: 'onSubmit',
     resolver: yupResolver(userSchema),

@@ -8,13 +8,13 @@ import {
   Paragraph,
 } from '../../components/index';
 
-import {Navigation} from '../../types';
+import { Navigation } from '../../types';
 
 type Props = {
   navigation: Navigation;
 };
 
-const Onboarding = ({navigation}: Props): JSX.Element => (
+const Onboarding = ({ navigation }: Props): JSX.Element => (
   <Background>
     <Logo />
     <Header>Car Owners</Header>

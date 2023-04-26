@@ -1,21 +1,20 @@
 import * as React from 'react';
 
-import {
-  createNativeStackNavigator,
-  NativeStackNavigationProp,
-} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { VehicleInfoInterface } from '../../services/vehicles';
 
 import screens from '../../screens';
 
-export type MyGarageStackParams = {
+export type MyGarageParamList = {
+  AddVehicle: {
+    isEdit: boolean | undefined;
+    vehicleInfo: VehicleInfoInterface | undefined;
+  };
   MyVehicles: undefined;
-  AddVehicle: undefined;
 };
 
-export type MyGarageStackNavigationProp =
-  NativeStackNavigationProp<MyGarageStackParams>;
-
-const MyGarageStack = createNativeStackNavigator<MyGarageStackParams>();
+const MyGarageStack = createNativeStackNavigator<MyGarageParamList>();
 
 const MyGarageStackScreens = (): JSX.Element => (
   <MyGarageStack.Navigator

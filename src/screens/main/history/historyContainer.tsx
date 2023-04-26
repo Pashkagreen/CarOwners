@@ -1,12 +1,12 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
-import {observer} from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
 
-import {useStore} from '../../../store';
+import { useStore } from '../../../store';
 import HistoryView from './historyView';
 
 const HistoryContainer = (): JSX.Element => {
-  const {vehiclesStore} = useStore();
+  const { vehiclesStore } = useStore();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -16,7 +16,7 @@ const HistoryContainer = (): JSX.Element => {
     setRefreshing(false);
   };
 
-  const loadHistory = async (force?: boolean) => {
+  const loadHistory = async (force = false) => {
     await vehiclesStore.getVehiclesHistory(force);
   };
 

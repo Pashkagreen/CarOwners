@@ -6,7 +6,11 @@ interface TabBarIconInterface {
   name: string;
 }
 
-const TabBarIcon = ({color, size, name}: TabBarIconInterface): JSX.Element => (
+const TabBarIcon = ({
+  color,
+  size,
+  name,
+}: TabBarIconInterface): JSX.Element => (
   <Icon color={color} name={name} size={size} />
 );
 

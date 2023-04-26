@@ -6,14 +6,14 @@ import {
   View,
 } from 'react-native';
 
-import {ActivityIndicator, Text} from 'react-native-paper';
+import { ActivityIndicator, Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Background, VehicleCard} from '../../../components';
+import { Background, VehicleCard } from '../../../components/index';
 
-import {hitSlop, theme} from '../../../core/theme';
-import {fetchState, VehicleInterface} from '../../../store/VehiclesStore';
-import styles from './myVehiclesStyles';
+import { hitSlop, theme } from '../../../core/theme';
+import { fetchState, VehicleInterface } from '../../../store/VehiclesStore';
+import styles from './style';
 
 interface MyVehiclesInterface {
   items: VehicleInterface[];
@@ -49,8 +49,8 @@ const MyVehiclesView = ({
         </View>
       ) : items.length ? (
         <FlatList
-          key={({item}) => item.id}
           data={items}
+          keyExtractor={({ id }) => id}
           refreshControl={
             <RefreshControl
               colors={[theme.colors.primary]}
@@ -59,7 +59,7 @@ const MyVehiclesView = ({
               onRefresh={onRefresh}
             />
           }
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <VehicleCard
               item={item}
               onDeletePress={() => deleteVehicle(item)}

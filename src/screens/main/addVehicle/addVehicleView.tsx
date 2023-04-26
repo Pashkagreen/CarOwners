@@ -1,15 +1,20 @@
-import {View} from 'react-native';
+import { View } from 'react-native';
 
-import {Controller} from 'react-hook-form';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {Text} from 'react-native-paper';
+import { Controller } from 'react-hook-form';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Text } from 'react-native-paper';
 
-import {BackButton, Background, Button, TextInput} from '../../../components';
+import {
+  BackButton,
+  Background,
+  Button,
+  TextInput,
+} from '../../../components/index';
 
-import {hitSlop} from '../../../core/theme';
-import {fetchState} from '../../../store/VehiclesStore';
-import {FormData} from './addVehicleContainer';
-import styles from './addVehicleStyle';
+import { hitSlop } from '../../../core/theme';
+import { fetchState } from '../../../store/VehiclesStore';
+import { FormData } from './addVehicleContainer';
+import styles from './style';
 
 interface AddVehiclesInterface {
   control: any;
@@ -46,7 +51,7 @@ const AddVehicleView = ({
         control={control}
         defaultValue={isEdit ? vehicleInfo?.brand : ''}
         name="brand"
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             error={errors?.brand}
             errorText={errors?.brand?.message}
@@ -66,7 +71,7 @@ const AddVehicleView = ({
         control={control}
         defaultValue={isEdit ? vehicleInfo?.model : ''}
         name="model"
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             error={errors?.model}
             errorText={errors?.model?.message}
@@ -83,7 +88,7 @@ const AddVehicleView = ({
         control={control}
         defaultValue={isEdit ? vehicleInfo?.year : ''}
         name="year"
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             error={errors?.year}
             errorText={errors?.year?.message}
@@ -101,7 +106,7 @@ const AddVehicleView = ({
         control={control}
         defaultValue={isEdit ? vehicleInfo?.mileage : ''}
         name="mileage"
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             error={errors?.mileage}
             errorText={errors?.mileage?.message}
@@ -119,7 +124,7 @@ const AddVehicleView = ({
         control={control}
         defaultValue={isEdit ? vehicleInfo?.price : ''}
         name="price"
-        render={({field: {onChange, onBlur, value}}) => (
+        render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
             error={errors?.price}
             errorText={errors?.price?.message}

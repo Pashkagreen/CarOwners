@@ -11,8 +11,8 @@ import { Account } from './account';
 import {
   AdaptAxiosRequestConfig,
   BaseError,
-  StatusCodeType,
   StatusCodes,
+  StatusCodeType,
 } from './types';
 
 const BASE_URL =
@@ -98,14 +98,6 @@ class Http {
     config?: AxiosRequestConfig,
   ): Promise<R> {
     return this.http.post<T, R>(url, data, config);
-  }
-
-  put<T = any, R = AxiosResponse<T>>(
-    url: string,
-    data?: T,
-    config?: AxiosRequestConfig,
-  ): Promise<R> {
-    return this.http.put<T, R>(url, data, config);
   }
 
   patch<T = any, R = AxiosResponse<T>>(

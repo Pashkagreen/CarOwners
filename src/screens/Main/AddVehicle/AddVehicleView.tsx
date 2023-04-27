@@ -141,7 +141,7 @@ const AddVehicleView = ({
       <View />
       <Button
         hitSlop={hitSlop}
-        loading={loading === 'pending' ? true : false}
+        loading={loading === 'pending'}
         mode="contained"
         style={styles.btn}
         onPress={handleSubmit(onSubmit)}>

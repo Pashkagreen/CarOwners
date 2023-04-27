@@ -3,7 +3,8 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import VehiclesService from '../../services/vehicles';
 
 import { flashMessage } from '../../core/utils';
-import { VehicleInterface, HistoryInterface, FetchState } from './types';
+
+import { FetchState, HistoryInterface, VehicleInterface } from './types';
 
 export class VehiclesStore {
   vehicles: VehicleInterface[] = [];
@@ -111,11 +112,9 @@ export class VehiclesStore {
           description: 'You successfully updated a vehicle info.',
         });
         runInAction(() => {
-          const newArray = this.vehicles.map(i =>
-            i.id === vehicleId ? (i = { ...data }) : i,
+          this.vehicles = this.vehicles.map(i =>
+            i.id === vehicleId ? { ...data } : i,
           );
-
-          this.vehicles = newArray;
         });
       }
     } catch (e) {
@@ -133,8 +132,7 @@ export class VehiclesStore {
         message: 'Your vehicle deleted.',
       });
       runInAction(() => {
-        const newArray = this.vehicles.filter(e => e.id !== item?.id);
-        this.vehicles = newArray;
+        this.vehicles = this.vehicles.filter(e => e.id !== item?.id);
       });
     } catch (e) {
       this.updateState('error');

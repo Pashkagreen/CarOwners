@@ -94,7 +94,7 @@ const ProfileView = ({
         </View>
         <View style={styles.buttonBlock}>
           <Button
-            loading={loading === 'pending' ? true : false}
+            loading={loading === 'pending'}
             mode="contained"
             onPress={handleSubmit(onSubmit)}>
             Update info

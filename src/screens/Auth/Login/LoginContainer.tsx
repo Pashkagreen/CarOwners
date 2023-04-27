@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
 import { Account } from '../../../services/account';
@@ -9,10 +10,9 @@ import UserService from '../../../services/user';
 
 import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
+import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
 import LoginView, { validateObject } from './LoginView';
-import { StackScreenProps } from '@react-navigation/stack';
-import { AuthStackParams } from '../../../navigation/AuthStack';
 
 export type Props = StackScreenProps<AuthStackParams, 'Login'>;
 
@@ -116,14 +116,14 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
 
   return (
     <LoginView
-      navigateToOnboarding={navigateToOnboarding}
-      navigateToRegistration={navigateToRegistration}
       code={code}
       initialCountry={initialCountry}
       inputRef={inputRef}
       isLoginAvailable={isLoginAvailable}
       loading={loading}
       login={login}
+      navigateToOnboarding={navigateToOnboarding}
+      navigateToRegistration={navigateToRegistration}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}

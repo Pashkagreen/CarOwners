@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
+import { observer } from 'mobx-react-lite';
+
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
 import MyVehiclesView from './MyVehiclesView';

@@ -1,11 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { StackScreenProps } from '@react-navigation/stack';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { StackScreenProps } from '@react-navigation/stack';
+
 import { vehiclesSchema } from '../../../core/validators';
-
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
-
 import { useStore } from '../../../store';
 import AddVehicleView from './AddVehicleView';
 

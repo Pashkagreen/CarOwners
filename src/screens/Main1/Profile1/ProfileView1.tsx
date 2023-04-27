@@ -12,7 +12,7 @@ import {
 
 import { User } from '../../../store/UserStore';
 import { fetchState } from '../../../store/VehiclesStore';
-import { FormData } from './ProfileContainer';
+import { FormData } from './ProfileContainer1';
 import styles from './style';
 interface ProfilePropsInterface {
   userData: User;

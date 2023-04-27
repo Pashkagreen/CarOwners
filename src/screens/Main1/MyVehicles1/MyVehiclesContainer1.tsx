@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite';
 import { StackScreenProps } from '@react-navigation/stack';
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
-import MyVehiclesView from './MyVehiclesView';
+import MyVehiclesView from './MyVehiclesView1';
 
 type Props = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
 

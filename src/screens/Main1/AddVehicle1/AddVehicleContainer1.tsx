@@ -7,7 +7,7 @@ import { vehiclesSchema } from '../../../core/validators';
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 
 import { useStore } from '../../../store';
-import AddVehicleView from './AddVehicleView';
+import AddVehicleView from './AddVehicleView1';
 
 type Props = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
 

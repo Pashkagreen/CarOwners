@@ -6,7 +6,7 @@ import { getUserCurrentCountry } from '../../core/utils';
 
 import { useStore } from '../../store';
 import { Navigation } from '../../types';
-import OnboardingView from './OnboardingView';
+import OnboardingView from './OnboardingView1';
 
 type Props = {
   navigation: Navigation;

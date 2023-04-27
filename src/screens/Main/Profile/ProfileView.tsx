@@ -10,19 +10,20 @@ import {
   TextInput,
 } from '../../../components/index';
 
-import { User } from '../../../store/UserStore';
-import { fetchState } from '../../../store/VehiclesStore';
+import { User } from '../../../store/User/types';
+import { FetchState } from '../../../store/Vehicles/types';
 import { FormData } from './ProfileContainer';
 import styles from './style';
-interface ProfilePropsInterface {
+
+type ProfileProps = {
   userData: User;
-  loading: fetchState;
+  loading: FetchState;
   control: any;
   errors: any;
   handleSubmit: any;
   onSubmit: (userData: FormData) => Promise<void>;
   logOut: () => void;
-}
+};
 
 const ProfileView = ({
   logOut,
@@ -32,7 +33,7 @@ const ProfileView = ({
   onSubmit,
   loading,
   userData,
-}: ProfilePropsInterface): JSX.Element => (
+}: ProfileProps): JSX.Element => (
   <SafeAreaView style={styles.container}>
     <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <Background style={styles.background}>

@@ -1,4 +1,4 @@
-import { VehicleInterface } from '../store/VehiclesStore';
+import { VehicleInterface } from '../store/Vehicles/types';
 import { http } from './http';
 export interface VehicleInfoInterface {
   id?: string;

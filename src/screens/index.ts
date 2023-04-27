@@ -4,7 +4,7 @@ import AddVehicle from './Main/AddVehicle/AddVehicleContainer';
 import History from './Main/History/HistoryContainer';
 import MyVehicles from './Main/MyVehicles/MyVehiclesContainer';
 import Profile from './Main/Profile/ProfileContainer';
-import Onboarding from './Onboarding/OnboardingContainer';
+import Onboarding from './Auth/Onboarding/OnboardingContainer';
 
 const screens = {
   Login,

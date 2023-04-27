@@ -6,15 +6,17 @@ import {
   Header,
   Logo,
   Paragraph,
-} from '../../components/index';
-
-import { Navigation } from '../../types';
+} from '../../../components/index';
 
 type Props = {
-  navigation: Navigation;
+  navigateToLogin: () => void;
+  navigateToRegistration: () => void;
 };
 
-const Onboarding = ({ navigation }: Props): JSX.Element => (
+const Onboarding = ({
+  navigateToLogin,
+  navigateToRegistration,
+}: Props): JSX.Element => (
   <Background>
     <Logo />
     <Header>Car Owners</Header>
@@ -22,10 +24,10 @@ const Onboarding = ({ navigation }: Props): JSX.Element => (
     <Paragraph>
       The easiest way to collect information about your cars.
     </Paragraph>
-    <Button mode="contained" onPress={() => navigation.navigate('Login')}>
+    <Button mode="contained" onPress={navigateToLogin}>
       Login
     </Button>
-    <Button mode="outlined" onPress={() => navigation.navigate('Registration')}>
+    <Button mode="outlined" onPress={navigateToRegistration}>
       Sign Up
     </Button>
   </Background>

@@ -10,12 +10,11 @@ import UserService from '../../../services/user';
 import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { useStore } from '../../../store';
-import { Navigation } from '../../../types';
 import LoginView, { validateObject } from './LoginView';
+import { StackScreenProps } from '@react-navigation/stack';
+import { AuthStackParams } from '../../../navigation/AuthStack';
 
-type Props = {
-  navigation: Navigation;
-};
+export type Props = StackScreenProps<AuthStackParams, 'Login'>;
 
 const LoginContainer = ({ navigation }: Props): JSX.Element => {
   const { userStore } = useStore();
@@ -107,15 +106,24 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
     setLoading(false);
   };
 
+  const navigateToRegistration = () => {
+    navigation.navigate('Registration');
+  };
+
+  const navigateToOnboarding = () => {
+    navigation.navigate('Onboarding');
+  };
+
   return (
     <LoginView
+      navigateToOnboarding={navigateToOnboarding}
+      navigateToRegistration={navigateToRegistration}
       code={code}
       initialCountry={initialCountry}
       inputRef={inputRef}
       isLoginAvailable={isLoginAvailable}
       loading={loading}
       login={login}
-      navigation={navigation}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}

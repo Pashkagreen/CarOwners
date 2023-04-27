@@ -18,11 +18,7 @@ module.exports = {
     'no-console': 'off',
     // 'no-unused-vars': 'off',
     'space-in-brackets': ['always'],
-    'object-curly-spacing': [
-      'always',
-      { arraysInObjects: true },
-      { objectsInObjects: true },
-    ],
+    'object-curly-spacing': ['always', 'error'],
     'react/prop-types': 'off',
     'no-duplicate-imports': 'off',
     'react-native/no-unused-styles': 0,
@@ -56,7 +52,7 @@ module.exports = {
       {
         groups: [
           // Packages `react`
-          ['^(react|react-native|react-redux)$'],
+          ['^(react|react-native)$'],
 
           // libs
           ['^[^.]*$'],

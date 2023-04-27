@@ -1,27 +1,12 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import UserService from '../services/user';
+import UserService from '../../services/user';
 
-import { flashMessage } from '../core/utils';
+import { flashMessage } from '../../core/utils';
 
-import { validateObject } from '../screens/Auth/Login/LoginView';
-import { fetchState } from './VehiclesStore';
-
-export interface User {
-  uid: string;
-  username: string;
-  phoneNumber: string;
-  countryCode: string;
-  isAuthorized: boolean;
-  email: string;
-}
-
-export interface UserUpdate {
-  uid: string;
-  username: string;
-  phoneNumber: string;
-  email?: string;
-}
+import { validateObject } from '../../screens/Auth/Login/LoginView';
+import { FetchState } from '../Vehicles/types';
+import { User, UserUpdate } from './types';
 
 export class UserStore {
   user: User = {
@@ -32,13 +17,13 @@ export class UserStore {
     countryCode: 'us',
     isAuthorized: false,
   };
-  state: fetchState = 'done';
+  state: FetchState = 'done';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  updateState = (state: fetchState) => {
+  updateState = (state: FetchState) => {
     this.state = state;
   };
 

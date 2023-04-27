@@ -1,47 +1,20 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import VehiclesService from '../services/vehicles';
+import VehiclesService from '../../services/vehicles';
 
-import { flashMessage } from '../core/utils';
-
-export type fetchState = 'pending' | 'done' | 'error';
-
-type modifiedAt = {
-  _nanoseconds: number;
-  _seconds: number;
-};
-
-type historyData = {
-  create: modifiedAt;
-  update?: modifiedAt;
-  delete: modifiedAt;
-};
-
-export interface HistoryInterface {
-  id: string;
-  data: historyData;
-}
-
-export interface VehicleInterface {
-  id: string;
-  brand?: string;
-  model?: string;
-  year?: string | number;
-  price?: string | number;
-  mileage?: string | number;
-  createdAt?: modifiedAt;
-}
+import { flashMessage } from '../../core/utils';
+import { VehicleInterface, HistoryInterface, FetchState } from './types';
 
 export class VehiclesStore {
   vehicles: VehicleInterface[] = [];
   history: HistoryInterface[] = [];
-  state: fetchState = 'done';
+  state: FetchState = 'done';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  updateState = (state: fetchState) => {
+  updateState = (state: FetchState) => {
     this.state = state;
   };
 

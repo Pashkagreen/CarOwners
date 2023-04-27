@@ -14,15 +14,15 @@ import {
   TextInput,
 } from '../../../components/index';
 
-import { Navigation } from '../../../types';
 import styles from './style';
 
 export type validateObject = {
   value: string;
   error: string;
 };
-interface ILoginProps {
-  navigation: Navigation;
+type LoginProps = {
+  navigateToRegistration: () => void;
+  navigateToOnboarding: () => void;
   phoneNumber: validateObject;
   code: validateObject;
   loading: boolean;
@@ -38,10 +38,11 @@ interface ILoginProps {
   initialCountry: string;
   onSelectCountry: (iso2: string) => void;
   onChangePhoneNumber: (phone: string) => void;
-}
+};
 
 const LoginView = ({
-  navigation,
+  navigateToRegistration,
+  navigateToOnboarding,
   phoneNumber,
   code,
   initialCountry,
@@ -54,12 +55,12 @@ const LoginView = ({
   setCode,
   login,
   sendOTPCode,
-}: ILoginProps): JSX.Element => (
+}: LoginProps): JSX.Element => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <BackButton goBack={() => navigation.navigate('Onboarding')} />
+      <BackButton goBack={navigateToOnboarding} />
       <Logo />
       <Header>Welcome back.</Header>
 
@@ -93,7 +94,7 @@ const LoginView = ({
 
       <View style={styles.row}>
         <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Registration')}>
+        <TouchableOpacity onPress={navigateToRegistration}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View>

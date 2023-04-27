@@ -2,6 +2,7 @@ import React, { memo } from 'react';
 import { ImageBackground, View } from 'react-native';
 
 import styles from './style';
+
 type Props = {
   style?: any;
   children: React.ReactNode;

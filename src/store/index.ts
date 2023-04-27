@@ -3,8 +3,8 @@ import { createContext, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AsyncTrunk } from 'mobx-sync';
 
-import { UserStore } from './UserStore';
-import { VehiclesStore } from './VehiclesStore';
+import { UserStore } from './User';
+import { VehiclesStore } from './Vehicles';
 
 export class RootStore {
   userStore: UserStore;

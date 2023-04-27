@@ -2,35 +2,18 @@ import axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
-  AxiosRequestHeaders,
   AxiosResponse,
 } from 'axios';
-import { MessageType } from 'react-native-flash-message';
 
 import { flashMessage } from '../core/utils';
 
 import { Account } from './account';
-
-interface AdaptAxiosRequestConfig extends AxiosRequestConfig {
-  headers: AxiosRequestHeaders;
-}
-
-enum StatusCodes {
-  UNAUTHORIZED = 401,
-  FORBIDDEN = 403,
-  INTERNAL = 500,
-}
-
-interface StatusCodeBody {
-  type: MessageType;
-  message: string;
-}
-
-interface BaseError {
-  message: string;
-}
-
-type StatusCodeType = Record<number, StatusCodeBody>;
+import {
+  AdaptAxiosRequestConfig,
+  BaseError,
+  StatusCodeType,
+  StatusCodes,
+} from './types';
 
 const BASE_URL =
   'https://us-central1-carowners-97d56.cloudfunctions.net/api/v1';

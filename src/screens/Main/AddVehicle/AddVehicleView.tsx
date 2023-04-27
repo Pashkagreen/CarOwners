@@ -12,20 +12,20 @@ import {
 } from '../../../components/index';
 
 import { hitSlop } from '../../../core/theme';
-import { fetchState } from '../../../store/VehiclesStore';
+import { FetchState } from '../../../store/Vehicles/types';
 import { FormData } from './AddVehicleContainer';
 import styles from './style';
 
-interface AddVehiclesInterface {
+type AddVehiclesProps = {
   control: any;
   onSubmit: (data: FormData) => void;
   handleSubmit: any;
-  loading: fetchState;
+  loading: FetchState;
   isEdit: boolean | undefined;
   goBack: () => void;
   vehicleInfo: any;
   errors: any;
-}
+};
 
 const AddVehicleView = ({
   control,
@@ -36,7 +36,7 @@ const AddVehicleView = ({
   isEdit,
   goBack,
   errors,
-}: AddVehiclesInterface): JSX.Element => (
+}: AddVehiclesProps): JSX.Element => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>

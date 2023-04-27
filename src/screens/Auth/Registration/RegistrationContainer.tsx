@@ -14,13 +14,12 @@ import {
 } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { useStore } from '../../../store';
-import { Navigation } from '../../../types';
 import { validateObject } from '../Login/LoginView';
 import RegistrationView from './RegistrationView';
+import { StackScreenProps } from '@react-navigation/stack';
+import { AuthStackParams } from '../../../navigation/AuthStack';
 
-type Props = {
-  navigation: Navigation;
-};
+export type Props = StackScreenProps<AuthStackParams, 'Registration'>;
 
 const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
   const { userStore } = useStore();
@@ -118,14 +117,23 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
     setLoading(false);
   };
 
+  const navigateToLogin = () => {
+    navigation.navigate('Login');
+  };
+
+  const navigateToOnboarding = () => {
+    navigation.navigate('Onboarding');
+  };
+
   return (
     <RegistrationView
+      navigateToLogin={navigateToLogin}
+      navigateToOnboarding={navigateToOnboarding}
       code={code}
       initialCountry={initialCountry}
       inputRef={inputRef}
       isSignUpAvailable={isSignUpAvailable}
       loading={loading}
-      navigation={navigation}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}

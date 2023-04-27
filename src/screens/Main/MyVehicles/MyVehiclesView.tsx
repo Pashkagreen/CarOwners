@@ -12,18 +12,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Background, VehicleCard } from '../../../components/index';
 
 import { hitSlop, theme } from '../../../core/theme';
-import { fetchState, VehicleInterface } from '../../../store/VehiclesStore';
+import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
-interface MyVehiclesInterface {
+type MyVehiclesProps = {
   items: VehicleInterface[];
-  loading: fetchState;
+  loading: FetchState;
   refreshing: boolean;
   onRefresh: () => void;
   deleteVehicle: (item: VehicleInterface) => void;
   editVehicle: (item: VehicleInterface) => void;
   addVehicle: () => void;
-}
+};
 const MyVehiclesView = ({
   items,
   loading,
@@ -32,7 +32,7 @@ const MyVehiclesView = ({
   addVehicle,
   editVehicle,
   deleteVehicle,
-}: MyVehiclesInterface): JSX.Element => (
+}: MyVehiclesProps): JSX.Element => (
   <SafeAreaView style={styles.container}>
     <Background style={styles.background}>
       <View style={styles.headerContainer}>

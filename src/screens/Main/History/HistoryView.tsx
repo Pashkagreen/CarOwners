@@ -5,21 +5,21 @@ import { ActivityIndicator, Text } from 'react-native-paper';
 import { Background, HistoryCard } from '../../../components/index';
 
 import { theme } from '../../../core/theme';
-import { fetchState, HistoryInterface } from '../../../store/VehiclesStore';
+import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
-interface IHistoryInterface {
+type HistoryProps = {
   refreshing: boolean;
   onRefresh: () => void;
-  loading: fetchState;
+  loading: FetchState;
   items: HistoryInterface[];
-}
+};
 const HistoryView = ({
   loading,
   items,
   refreshing,
   onRefresh,
-}: IHistoryInterface): JSX.Element => (
+}: HistoryProps): JSX.Element => (
   <SafeAreaView style={styles.container}>
     <Background style={styles.background}>
       <View style={styles.infoBlock}>

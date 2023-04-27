@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
@@ -7,30 +7,21 @@ import { observer } from 'mobx-react-lite';
 import { Account } from '../../../services/account';
 import UserService from '../../../services/user';
 
-import {
-  codeValidator,
-  nameValidator,
-  phoneNumberValidator,
-} from '../../../core/validators';
+import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { useStore } from '../../../store';
 import { Navigation } from '../../../types';
-import { validateObject } from '../Login1/LoginView1';
-import RegistrationView from './RegistrationView1';
+import LoginView, { validateObject } from './LoginView';
 
 type Props = {
   navigation: Navigation;
 };
 
-const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
+const LoginContainer = ({ navigation }: Props): JSX.Element => {
   const { userStore } = useStore();
   const initialCountry = userStore.user.countryCode;
 
   const inputRef = useRef(null);
-  const [username, setUsername] = useState<validateObject>({
-    value: '',
-    error: '',
-  });
 
   //phone state
   const {
@@ -47,7 +38,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
   //loading state
   const [loading, setLoading] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
-  const [isSignUpAvailable, setIsSignUpAvailable] = useState(false);
+  const [isLoginAvailable, setIsLoginAvailable] = useState(false);
 
   const [confirm, setConfirm] =
     useState<FirebaseAuthTypes.ConfirmationResult>();
@@ -57,43 +48,41 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
     setPhoneNumber(prev => ({ ...prev, error: '' }));
     setOtpLoading(true);
     try {
-      const usernameError = nameValidator(username.value);
       const phoneNumberError = phoneNumberValidator(phoneNumber.value);
 
-      if (usernameError || phoneNumberError || !isValidPhoneNumber) {
+      if (phoneNumberError || !isValidPhoneNumber) {
         setOtpLoading(false);
         setPhoneNumber(prev => ({ ...prev, error: phoneNumberError }));
-        setUsername(prev => ({ ...prev, error: usernameError }));
         return;
       }
 
       const { data } = await UserService.verifyPhoneNumber(phoneNumber.value);
 
       if (data.message === 'User exists') {
-        setPhoneNumber(prev => ({ ...prev, error: 'User already exists' }));
-      } else {
         const confirmation = await Account.signInWithPhoneNumber(
           phoneNumber.value,
         );
         setConfirm(confirmation);
-        setIsSignUpAvailable(true);
+        setIsLoginAvailable(true);
+      } else if (data.message === 'User not found!') {
+        setPhoneNumber(prev => ({ ...prev, error: 'User does not exist' }));
       }
-    } catch (e) {
+    } catch (e: any) {
       setOtpLoading(false);
     }
     setOtpLoading(false);
   };
 
-  const onSignUpPressed = async () => {
+  const login = async () => {
     Keyboard.dismiss();
+    setCode(prev => ({ ...prev, error: '' }));
     setLoading(true);
-
     try {
       const codeError = codeValidator(code.value);
 
-      if (codeError || !isValidPhoneNumber) {
+      if (codeError) {
         setLoading(false);
-        setCode({ ...code, error: codeError });
+        setCode(prev => ({ ...prev, error: codeError }));
         return;
       }
 
@@ -105,7 +94,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
         const token = await Account.getToken();
 
         if (token) {
-          await userStore.registerUser(phoneNumber, username);
+          await userStore.getAndSetAuthUser(uid);
         }
       }
     } catch (error: any) {
@@ -119,25 +108,23 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
   };
 
   return (
-    <RegistrationView
+    <LoginView
       code={code}
       initialCountry={initialCountry}
       inputRef={inputRef}
-      isSignUpAvailable={isSignUpAvailable}
+      isLoginAvailable={isLoginAvailable}
       loading={loading}
+      login={login}
       navigation={navigation}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}
       setCode={setCode}
       setPhoneNumber={setPhoneNumber}
-      setUsername={setUsername}
-      username={username}
       onChangePhoneNumber={onChangePhoneNumber}
       onSelectCountry={onSelectCountry}
-      onSignUpPressed={onSignUpPressed}
     />
   );
 };
 
-export default observer(RegistrationContainer);
+export default observer(LoginContainer);

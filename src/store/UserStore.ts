@@ -4,7 +4,7 @@ import UserService from '../services/user';
 
 import { flashMessage } from '../core/utils';
 
-import { validateObject } from '../screens/Auth1/Login1/LoginView1';
+import { validateObject } from '../screens/Auth/Login/LoginView';
 import { fetchState } from './VehiclesStore';
 
 export interface User {

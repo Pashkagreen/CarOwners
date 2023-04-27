@@ -13,7 +13,7 @@ import {
 
 import { hitSlop } from '../../../core/theme';
 import { fetchState } from '../../../store/VehiclesStore';
-import { FormData } from './AddVehicleContainer1';
+import { FormData } from './AddVehicleContainer';
 import styles from './style';
 
 interface AddVehiclesInterface {

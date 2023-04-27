@@ -7,7 +7,7 @@ import * as yup from 'yup';
 
 import { userSchema } from '../../../core/validators';
 import { useStore } from '../../../store';
-import ProfileView from './ProfileView1';
+import ProfileView from './ProfileView';
 
 export type FormData = yup.InferType<typeof userSchema>;
 

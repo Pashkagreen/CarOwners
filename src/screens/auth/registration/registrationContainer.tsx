@@ -15,8 +15,8 @@ import {
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { useStore } from '../../../store';
 import { Navigation } from '../../../types';
-import { validateObject } from '../login/loginView';
-import RegistrationView from './registrationView';
+import { validateObject } from '../Login/LoginView';
+import RegistrationView from './RegistrationView';
 
 type Props = {
   navigation: Navigation;

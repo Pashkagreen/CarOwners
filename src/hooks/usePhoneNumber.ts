@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
 
-import { validateObject } from '../screens/auth/login/loginView';
+import { validateObject } from '../screens/Auth/Login/LoginView';
 
 const usePhoneNumber = () => {
   const [iso, setIso] = useState<CountryCode>('US');

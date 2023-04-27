@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MyBottomNavigation, TabBarIcon } from '../../components';
 
 import bottomBarConfig from '../../core/bottomBarConfig';
-import { MyGarageStackParams } from './myGarageStack';
+import { MyGarageStackParams } from '../MyGarageStack';
 
 export type MainStackParams = {
   MyGarage: MyGarageStackParams;

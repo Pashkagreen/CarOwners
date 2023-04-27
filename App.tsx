@@ -7,7 +7,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { Loader } from './src/components';
 
 import { theme } from './src/core/theme';
-import RootNavigation from './src/navigation/rootNavigation';
+import RootNavigation from './src/navigation/RootNavigation';
 import { rootStore, StoreProvider, trunk } from './src/store';
 
 const App = (): JSX.Element => {

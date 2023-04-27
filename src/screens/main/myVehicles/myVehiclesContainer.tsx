@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { RouteProp } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
-
-import { StackNavigationProp } from '@react-navigation/stack';
-import { MyGarageStackParams } from '../../../navigation/mainStack/myGarageStack';
+import { StackScreenProps } from '@react-navigation/stack';
+import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
-import { Navigation } from '../../../types';
-import MyVehiclesView from './myVehiclesView';
+import MyVehiclesView from './MyVehiclesView';
 
-type Props = {
-  navigation: StackNavigationProp<MyGarageStackParams, 'MyVehicles'>;
-};
+type Props = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
 
 const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
   let { vehiclesStore } = useStore();

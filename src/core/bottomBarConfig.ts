@@ -1,4 +1,4 @@
-import MyGarageStackScreens from '../navigation/mainStack/myGarageStack';
+import MyGarageStackScreens from '../navigation/MyGarageStack';
 import screens from '../screens';
 
 export default {

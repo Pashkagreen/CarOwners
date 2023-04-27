@@ -1,20 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RouteProp } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-
+import { StackScreenProps } from '@react-navigation/stack';
 import { vehiclesSchema } from '../../../core/validators';
 
-import { StackNavigationProp } from '@react-navigation/stack';
-import { MyGarageStackParams } from '../../../navigation/mainStack/myGarageStack';
+import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 
 import { useStore } from '../../../store';
-import AddVehicleView from './addVehicleView';
+import AddVehicleView from './AddVehicleView';
 
-type Props = {
-  navigation: StackNavigationProp<MyGarageStackParams, 'AddVehicle'>;
-  route: RouteProp<MyGarageStackParams, 'AddVehicle'>;
-};
+type Props = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;
 

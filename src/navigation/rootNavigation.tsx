@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '../store';
-import AuthStackScreens, { AuthStackParams } from './authStack/authStack';
-import MainStackScreens, { MainStackParams } from './mainStack/mainStack';
+import AuthStackScreens, { AuthStackParams } from './AuthStack';
+import MainStackScreens, { MainStackParams } from './MainStack';
 
 export type RootStackNavigationProp = {
   Auth: AuthStackParams;

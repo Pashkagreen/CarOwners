@@ -7,12 +7,10 @@ import { VehicleInfoInterface } from '../../services/vehicles';
 import screens from '../../screens';
 
 export type MyGarageStackParams = {
-  MyVehicles: {
-    afterChange: boolean | undefined;
-  };
+  MyVehicles: undefined;
   AddVehicle: {
-    isEdit: boolean | undefined;
-    vehicleInfo?: VehicleInfoInterface | undefined;
+    isEdit?: boolean;
+    vehicleInfo?: VehicleInfoInterface;
   };
 };
 

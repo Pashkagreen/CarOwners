@@ -11,7 +11,7 @@ import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { useStore } from '../../../store';
 import { Navigation } from '../../../types';
-import LoginView, { validateObject } from './loginView';
+import LoginView, { validateObject } from './LoginView';
 
 type Props = {
   navigation: Navigation;

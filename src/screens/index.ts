@@ -1,10 +1,10 @@
-import Login from './auth/login/loginContainer';
-import Registration from './auth/registration/registrationContainer';
-import AddVehicle from './main/addVehicle/addVehicleContainer';
-import History from './main/history/historyContainer';
-import MyVehicles from './main/myVehicles/myVehiclesContainer';
-import Profile from './main/profile/profileContainer';
-import Onboarding from './onboarding/onboardingContainer';
+import Login from './Auth/Login/LoginContainer';
+import Registration from './Auth/Registration/RegistrationContainer';
+import AddVehicle from './Main/AddVehicle/AddVehicleContainer';
+import History from './Main/History/HistoryContainer';
+import MyVehicles from './Main/MyVehicles/MyVehiclesContainer';
+import Profile from './Main/Profile/ProfileContainer';
+import Onboarding from './Onboarding/OnboardingContainer';
 
 const screens = {
   Login,

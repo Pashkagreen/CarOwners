@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '../../../store';
-import HistoryView from './historyView';
+import HistoryView from './HistoryView';
 
 const HistoryContainer = (): JSX.Element => {
   const { vehiclesStore } = useStore();

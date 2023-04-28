@@ -7,16 +7,9 @@ import styles from './style';
 
 type Props = React.ComponentProps<typeof PaperButton>;
 
-const Button = ({
-  mode,
-  style,
-  children,
-  disabled,
-  loading,
-  ...props
-}: Props) => (
+const Button = ({ mode, style, children, disabled, ...props }: Props) => (
   <PaperButton
-    disabled={disabled || loading}
+    disabled={disabled}
     labelStyle={styles.text}
     mode={mode}
     style={[

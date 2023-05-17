@@ -23,15 +23,15 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  updateState = (state: FetchState) => {
+  updateState = (state: FetchState): void => {
     this.state = state;
   };
 
-  setUserData(newUserInfo: UserUpdate) {
+  setUserData(newUserInfo: UserUpdate): void {
     this.user = { ...this.user, ...newUserInfo };
   }
 
-  async getAndSetAuthUser(uid: string) {
+  async getAndSetAuthUser(uid: string): Promise<void> {
     this.updateState('pending');
 
     const { data } = await UserService.getUserData();
@@ -57,7 +57,10 @@ export class UserStore {
     this.updateState('done');
   }
 
-  async registerUser(phoneNumber: validateObject, username: validateObject) {
+  async registerUser(
+    phoneNumber: validateObject,
+    username: validateObject,
+  ): Promise<void> {
     this.updateState('pending');
 
     try {
@@ -85,7 +88,7 @@ export class UserStore {
     this.updateState('done');
   }
 
-  async updateUser(newUserInfo: UserUpdate) {
+  async updateUser(newUserInfo: UserUpdate): Promise<void> {
     this.updateState('pending');
 
     try {
@@ -113,15 +116,15 @@ export class UserStore {
     this.updateState('done');
   }
 
-  updateUserCountry(country: string) {
+  updateUserCountry(country: string): void {
     this.user = { ...this.user, countryCode: country };
   }
 
-  updateAuthStatus(isAuthorized: boolean) {
+  updateAuthStatus(isAuthorized: boolean): void {
     this.user = { ...this.user, isAuthorized: isAuthorized };
   }
 
-  clearUser() {
+  clearUser(): void {
     this.user = {
       uid: '',
       username: '',

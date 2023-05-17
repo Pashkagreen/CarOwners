@@ -2,15 +2,14 @@ import * as React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { VehicleInfoInterface } from '../../services/vehicles';
-
 import screens from '../../screens';
+import { VehicleInterface } from '../../store/Vehicles/types';
 
 export type MyGarageStackParams = {
   MyVehicles: undefined;
   AddVehicle: {
     isEdit?: boolean;
-    vehicleInfo?: VehicleInfoInterface;
+    vehicleInfo?: VehicleInterface;
   };
 };
 

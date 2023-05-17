@@ -22,9 +22,14 @@ interface BaseError {
 
 type StatusCodeType = Record<number, StatusCodeBody>;
 
+interface ServerSuccessInterface {
+  message: string;
+}
+
 export type {
   AdaptAxiosRequestConfig,
   BaseError,
   StatusCodeBody,
   StatusCodeType,
+  ServerSuccessInterface,
 };

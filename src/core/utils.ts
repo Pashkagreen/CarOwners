@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+
 import { MessageOptions, showMessage } from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
 
@@ -40,4 +42,19 @@ export const formatDateFromSeconds = (seconds: number): string => {
   const hours = date.getHours().toString().padStart(2, '0'); // get hours and pad with leading zero if necessary
   const minutes = date.getMinutes().toString().padStart(2, '0'); // get minutes and pad with leading zero if necessary
   return `${day}/${month}/${year} ${hours}:${minutes}`; // concatenate and return the formatted date string
+};
+
+export const renderAlert = (text: string): boolean => {
+  Alert.alert(
+    'Error!',
+    text,
+    [
+      {
+        text: 'close',
+        onPress: () => {},
+      },
+    ],
+    { cancelable: false },
+  );
+  return false;
 };

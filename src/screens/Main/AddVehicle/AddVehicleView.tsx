@@ -8,11 +8,13 @@ import {
   BackButton,
   Background,
   Button,
+  MultiPicker,
   TextInput,
 } from '../../../components/index';
 
 import { hitSlop } from '../../../core/theme';
 import { FetchState } from '../../../store/Vehicles/types';
+import { LocalPhotosState, SetPhotos } from './AddVehicleContainer';
 import { FormData } from './AddVehicleContainer';
 import styles from './style';
 
@@ -25,6 +27,9 @@ type AddVehiclesProps = {
   goBack: () => void;
   vehicleInfo: any;
   errors: any;
+  photos: LocalPhotosState[];
+  onFinishLoadPhotos: (photos: SetPhotos[]) => void;
+  setLoadingPhotos: (state: boolean) => void;
 };
 
 const AddVehicleView = ({
@@ -35,7 +40,10 @@ const AddVehicleView = ({
   loading,
   isEdit,
   goBack,
+  photos,
   errors,
+  onFinishLoadPhotos,
+  setLoadingPhotos,
 }: AddVehiclesProps): JSX.Element => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -137,6 +145,12 @@ const AddVehicleView = ({
             onChangeText={onChange}
           />
         )}
+      />
+      <MultiPicker
+        text={`Upload your vehicle photos. Max ${photos?.length}/15`}
+        value={vehicleInfo?.photos}
+        onFinishLoadPhotos={onFinishLoadPhotos}
+        onUploadPhotos={p => p.length > 0 && setLoadingPhotos(true)}
       />
       <View />
       <Button

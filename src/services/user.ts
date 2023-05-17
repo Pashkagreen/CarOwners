@@ -1,29 +1,39 @@
 import { http } from './http';
+import { ServerSuccessInterface } from './types';
 
 export type User = {
-  uid?: string;
-  username?: string;
-  phoneNumber?: string;
+  uid: string;
+  username: string;
+  phoneNumber: string;
   email?: string;
 };
 
+interface ServerUserInterface {
+  data: User;
+}
+
+type UserRegistrationInterface = Omit<User, 'uid' | 'email'>;
 class UserService {
-  static async verifyPhoneNumber(phoneNumber: string): Promise<any> {
+  static async verifyPhoneNumber(
+    phoneNumber: string,
+  ): Promise<ServerSuccessInterface> {
     return await http.post('/users/checkPhone', {
       phoneNumber,
     });
   }
 
-  static async getUserData(): Promise<any> {
-    return await http.get<User, any>('/users/getInfo');
+  static async getUserData(): Promise<ServerUserInterface> {
+    return await http.get('/users/getInfo');
   }
 
-  static async registration(user: User): Promise<any> {
-    return await http.post<User, any>('/users/registration', user);
+  static async registration(
+    user: UserRegistrationInterface,
+  ): Promise<ServerUserInterface> {
+    return await http.post('/users/registration', user);
   }
 
-  static async updateUser(user: User): Promise<any> {
-    return await http.patch<User, any>(`/users`, user);
+  static async updateUser(user: User): Promise<ServerUserInterface> {
+    return await http.patch(`/users`, user);
   }
 }
 export default UserService;

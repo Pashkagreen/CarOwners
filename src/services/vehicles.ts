@@ -1,35 +1,42 @@
-import { VehicleInterface } from '../store/Vehicles/types';
+import { HistoryInterface, VehicleInterface } from '../store/Vehicles/types';
 import { http } from './http';
-export interface VehicleInfoInterface {
-  id?: string;
-  brand?: string;
-  model?: string;
-  year?: string;
-  mileage?: string;
-  price?: string;
-  createdAt?: Date;
+import { ServerSuccessInterface } from './types';
+
+interface ServerVehicleInterface {
+  data: VehicleInterface;
 }
+
+interface ServerHistoryInterface {
+  data: {
+    history: HistoryInterface[];
+  };
+}
+
 class VehiclesService {
   static async getAll(): Promise<VehicleInterface[]> {
     return (await http.get('/vehicles')).data;
   }
 
-  static async createVehicle(vehicleInfo: VehicleInterface): Promise<any> {
+  static async createVehicle(
+    vehicleInfo: VehicleInterface,
+  ): Promise<ServerVehicleInterface> {
     return await http.post('/vehicles', vehicleInfo);
   }
 
   static async updateVehicle(
     vehicleId: string | undefined,
     vehicleInfo: VehicleInterface,
-  ): Promise<any> {
+  ): Promise<ServerVehicleInterface> {
     return await http.patch(`/vehicles/${vehicleId}`, vehicleInfo);
   }
 
-  static async deleteVehicle(vehicleId: string | undefined): Promise<any> {
+  static async deleteVehicle(
+    vehicleId: string | undefined,
+  ): Promise<ServerSuccessInterface> {
     return await http.delete(`/vehicles/${vehicleId}`);
   }
 
-  static async getAllHistory(): Promise<any> {
+  static async getAllHistory(): Promise<ServerHistoryInterface> {
     return await http.get('/history');
   }
 }

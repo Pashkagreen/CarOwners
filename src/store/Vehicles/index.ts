@@ -124,7 +124,7 @@ export class VehiclesStore {
     this.updateState('done');
   }
 
-  async deleteVehicle(item: any): Promise<void> {
+  async deleteVehicle(item: VehicleInterface): Promise<void> {
     try {
       await VehiclesService.deleteVehicle(item?.id);
       flashMessage({

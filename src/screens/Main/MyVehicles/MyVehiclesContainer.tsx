@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
+import { VehicleInterface } from '../../../store/Vehicles/types';
 import MyVehiclesView from './MyVehiclesView';
 
 type Props = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
@@ -30,14 +31,14 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
     });
   };
 
-  const editVehicle = (item: any) => {
+  const editVehicle = (item: VehicleInterface) => {
     navigation.navigate('AddVehicle', {
       vehicleInfo: item,
       isEdit: true,
     });
   };
 
-  const deleteVehicle = async (item: any) => {
+  const deleteVehicle = async (item: VehicleInterface) => {
     await vehiclesStore.deleteVehicle(item);
   };
 

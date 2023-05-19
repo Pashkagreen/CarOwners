@@ -7,10 +7,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { theme } from '../../core/theme';
 import getStyles from './style';
 
-type FullImageModalProps = {
+interface FullImageModalProps {
   onClose: () => void;
   image: Source;
-};
+}
 
 const FullImageModal = ({ onClose = () => {}, image }: FullImageModalProps) => {
   const insets = useSafeAreaInsets();

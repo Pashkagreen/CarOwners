@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { theme } from '../../core/theme';
 import styles from './style';
 
-type GalleryCellProps = {
+interface GalleryCellProps {
   showMode?: boolean;
   image?: React.ReactNode;
   style?: ViewStyle | ViewStyle[];
@@ -14,7 +14,7 @@ type GalleryCellProps = {
   onRemove?: () => void;
   disabled?: boolean;
   text?: string;
-};
+}
 
 const GalleryCell = ({
   showMode,

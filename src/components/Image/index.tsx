@@ -23,7 +23,7 @@ import FullImageModal from '../FullImageModal';
 import ProgressiveImage, { SourceType } from '../ProgressiveImage';
 import styles from './style';
 
-type ImageProps = {
+interface ImageProps {
   disabled?: boolean;
   withLoad?: boolean;
   source: SourceType;
@@ -31,7 +31,7 @@ type ImageProps = {
   containerStyles?: ViewStyle;
   imageStyle?: ImageStyle;
   emptyStyle?: ViewStyle;
-};
+}
 
 const Image = ({
   containerStyles = {},

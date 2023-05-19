@@ -12,13 +12,13 @@ export interface SourceType extends Source {
   filename: string;
 }
 
-type ProgressiveImageProps = {
+interface ProgressiveImageProps {
   source: SourceType;
   defaultSource?: Source | null;
   imageStyle: (ViewStyle | ImageStyle)[];
   onlyThumbnail?: boolean;
   withoutAnim?: boolean;
-};
+}
 
 const ProgressiveImage = ({
   source,

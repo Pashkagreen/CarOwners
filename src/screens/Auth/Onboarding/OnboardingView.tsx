@@ -3,9 +3,9 @@ import React from 'react';
 import {
   Background,
   Button,
-  Header,
   Logo,
   Paragraph,
+  Title,
 } from '../../../components/index';
 
 import { AuthStackParams } from '../../../navigation/AuthStack';
@@ -17,7 +17,7 @@ interface OnboardingProps {
 const Onboarding = ({ navigateTo }: OnboardingProps): JSX.Element => (
   <Background>
     <Logo />
-    <Header>Car Owners</Header>
+    <Title>Car Owners</Title>
 
     <Paragraph>
       The easiest way to collect information about your cars.

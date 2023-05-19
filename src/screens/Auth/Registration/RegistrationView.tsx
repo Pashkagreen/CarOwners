@@ -8,10 +8,10 @@ import {
   BackButton,
   Background,
   Button,
-  Header,
   Logo,
   PhoneInput,
   TextInput,
+  Title,
 } from '../../../components/index';
 
 import { AuthStackParams } from '../../../navigation/AuthStack';
@@ -66,7 +66,7 @@ const RegistrationView = ({
 
       <Logo />
 
-      <Header>Create Account</Header>
+      <Title>Create Account</Title>
 
       <TextInput
         error={!!username.error}

@@ -8,10 +8,10 @@ import {
   BackButton,
   Background,
   Button,
-  Header,
   Logo,
   PhoneInput,
   TextInput,
+  Title,
 } from '../../../components/index';
 
 import { AuthStackParams } from '../../../navigation/AuthStack';
@@ -62,11 +62,11 @@ const LoginView = ({
     <Background>
       <BackButton goBack={goBack} />
       <Logo />
-      <Header>Welcome back.</Header>
+      <Title>Welcome back.</Title>
 
       <PhoneInput
         errorText={phoneNumber.error}
-        initialCountry={initialCountry || undefined}
+        initialCountry={initialCountry}
         inputRef={inputRef}
         value={phoneNumber.value}
         onChange={onChangePhoneNumber}

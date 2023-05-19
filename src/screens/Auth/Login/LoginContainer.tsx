@@ -9,7 +9,7 @@ import { Account } from '../../../services/account';
 import UserService from '../../../services/user';
 
 import { codeValidator, phoneNumberValidator } from '../../../core/validators';
-import usePhoneNumber from '../../../hooks/usePhoneNumber';
+import { usePhoneNumber } from '../../../hooks';
 import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
 import { validateObject } from '../../../types';

@@ -13,7 +13,7 @@ import {
   nameValidator,
   phoneNumberValidator,
 } from '../../../core/validators';
-import usePhoneNumber from '../../../hooks/usePhoneNumber';
+import { usePhoneNumber } from '../../../hooks';
 import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
 import { validateObject } from '../../../types';
@@ -61,7 +61,10 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
 
       if (usernameError || phoneNumberError || !isValidPhoneNumber) {
         setOtpLoading(false);
-        setPhoneNumber(prev => ({ ...prev, error: phoneNumberError }));
+        setPhoneNumber(prev => ({
+          ...prev,
+          error: phoneNumberError,
+        }));
         setUsername(prev => ({ ...prev, error: usernameError }));
         return;
       }

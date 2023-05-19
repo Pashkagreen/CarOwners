@@ -3,12 +3,12 @@ import { Text } from 'react-native';
 
 import styles from './style';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
-const Header = ({ children }: Props) => (
+const Title = ({ children }: Props) => (
   <Text style={styles.header}>{children}</Text>
 );
 
-export default memo(Header);
+export default memo(Title);

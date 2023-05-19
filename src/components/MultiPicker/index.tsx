@@ -15,14 +15,14 @@ import GalleryCell from '../GalleryCell';
 import Image from '../Image';
 import styles from './style';
 
-type MultiPickerProps = {
+interface MultiPickerProps {
   onFinishLoadPhotos: (photos: SetPhotos[]) => void;
   onUploadPhotos: (photos: SetPhotos[]) => void;
   value?: SetPhotos[];
   showMode?: boolean;
   parameters?: any[];
   text: string;
-};
+}
 
 const MultiPicker = ({
   onFinishLoadPhotos = () => {},

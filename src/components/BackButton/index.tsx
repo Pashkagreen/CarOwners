@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { hitSlop, theme } from '../../core/theme';
 import styles from './style';
 
-type Props = {
+interface Props {
   goBack: () => void;
-};
+}
 
 const BackButton = ({ goBack }: Props) => (
   <TouchableOpacity hitSlop={hitSlop} style={styles.container} onPress={goBack}>

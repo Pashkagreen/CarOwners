@@ -8,12 +8,12 @@ import { theme } from '../../../core/theme';
 import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
-type HistoryProps = {
+interface HistoryProps {
   refreshing: boolean;
   onRefresh: () => void;
   loading: FetchState;
   items: HistoryInterface[];
-};
+}
 const HistoryView = ({
   loading,
   items,

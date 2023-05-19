@@ -12,7 +12,8 @@ import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
-import LoginView, { validateObject } from './LoginView';
+import { validateObject } from '../../../types';
+import LoginView from './LoginView';
 
 export type Props = StackScreenProps<AuthStackParams, 'Login'>;
 

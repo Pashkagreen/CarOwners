@@ -4,9 +4,9 @@ import UserService from '../../services/user';
 
 import { flashMessage } from '../../core/utils';
 
-import { validateObject } from '../../screens/Auth/Login/LoginView';
+import { validateObject } from '../../types';
 import { FetchState } from '../Vehicles/types';
-import { User, UserUpdate } from './types';
+import { User, UserData } from './types';
 
 export class UserStore {
   user: User = {
@@ -27,7 +27,7 @@ export class UserStore {
     this.state = state;
   };
 
-  setUserData(newUserInfo: UserUpdate): void {
+  setUserData(newUserInfo: UserData): void {
     this.user = { ...this.user, ...newUserInfo };
   }
 
@@ -88,7 +88,7 @@ export class UserStore {
     this.updateState('done');
   }
 
-  async updateUser(newUserInfo: UserUpdate): Promise<void> {
+  async updateUser(newUserInfo: UserData): Promise<void> {
     this.updateState('pending');
 
     try {

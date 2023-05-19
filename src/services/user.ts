@@ -1,22 +1,20 @@
+import { UserData } from '../store/User/types';
 import { http } from './http';
 import { ServerSuccessInterface } from './types';
 
-export type User = {
-  uid: string;
-  username: string;
-  phoneNumber: string;
-  email?: string;
-};
-
 interface ServerUserInterface {
-  data: User;
+  data: UserData;
 }
 
-type UserRegistrationInterface = Omit<User, 'uid' | 'email'>;
+interface ServerCheckPhoneInterface {
+  data: ServerSuccessInterface;
+}
+
+type UserRegistrationInterface = Omit<UserData, 'uid' | 'email'>;
 class UserService {
   static async verifyPhoneNumber(
     phoneNumber: string,
-  ): Promise<ServerSuccessInterface> {
+  ): Promise<ServerCheckPhoneInterface> {
     return await http.post('/users/checkPhone', {
       phoneNumber,
     });
@@ -32,7 +30,7 @@ class UserService {
     return await http.post('/users/registration', user);
   }
 
-  static async updateUser(user: User): Promise<ServerUserInterface> {
+  static async updateUser(user: UserData): Promise<ServerUserInterface> {
     return await http.patch(`/users`, user);
   }
 }

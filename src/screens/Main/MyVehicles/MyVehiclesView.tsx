@@ -15,7 +15,7 @@ import { hitSlop, theme } from '../../../core/theme';
 import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
-type MyVehiclesProps = {
+interface MyVehiclesProps {
   items: VehicleInterface[];
   loading: FetchState;
   refreshing: boolean;
@@ -23,7 +23,7 @@ type MyVehiclesProps = {
   deleteVehicle: (item: VehicleInterface) => void;
   editVehicle: (item: VehicleInterface) => void;
   addVehicle: () => void;
-};
+}
 const MyVehiclesView = ({
   items,
   loading,

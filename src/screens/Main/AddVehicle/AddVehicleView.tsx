@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormHandleSubmit } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Text } from 'react-native-paper';
 
@@ -13,24 +13,24 @@ import {
 } from '../../../components/index';
 
 import { hitSlop } from '../../../core/theme';
-import { FetchState } from '../../../store/Vehicles/types';
+import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
 import { LocalPhotosState, SetPhotos } from './AddVehicleContainer';
 import { FormData } from './AddVehicleContainer';
 import styles from './style';
 
-type AddVehiclesProps = {
+interface AddVehiclesProps {
   control: any;
   onSubmit: (data: FormData) => void;
-  handleSubmit: any;
+  handleSubmit: UseFormHandleSubmit<FormData>;
   loading: FetchState;
-  isEdit: boolean | undefined;
+  isEdit?: boolean;
   goBack: () => void;
-  vehicleInfo: any;
+  vehicleInfo?: VehicleInterface;
   errors: any;
   photos: LocalPhotosState[];
   onFinishLoadPhotos: (photos: SetPhotos[]) => void;
   setLoadingPhotos: (state: boolean) => void;
-};
+}
 
 const AddVehicleView = ({
   control,

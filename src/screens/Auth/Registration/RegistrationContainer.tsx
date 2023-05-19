@@ -16,7 +16,7 @@ import {
 import usePhoneNumber from '../../../hooks/usePhoneNumber';
 import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
-import { validateObject } from '../Login/LoginView';
+import { validateObject } from '../../../types';
 import RegistrationView from './RegistrationView';
 
 export type Props = StackScreenProps<AuthStackParams, 'Registration'>;

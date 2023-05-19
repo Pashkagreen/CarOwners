@@ -14,13 +14,10 @@ import {
   TextInput,
 } from '../../../components/index';
 
+import { validateObject } from '../../../types';
 import styles from './style';
 
-type validateObject = {
-  value: string;
-  error: string;
-};
-type RegistrationProps = {
+interface RegistrationProps {
   navigateToLogin: () => void;
   navigateToOnboarding: () => void;
   phoneNumber: validateObject;
@@ -40,7 +37,7 @@ type RegistrationProps = {
   initialCountry: string;
   onSelectCountry: (iso2: string) => void;
   onChangePhoneNumber: (phone: string) => void;
-};
+}
 
 const RegistrationView = ({
   navigateToOnboarding,

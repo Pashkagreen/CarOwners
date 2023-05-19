@@ -2,7 +2,8 @@ import * as React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import screens from '../../screens';
+import myGarageStackConfig from '../config/myGarageStackConfig';
+
 import { VehicleInterface } from '../../store/Vehicles/types';
 
 export type MyGarageStackParams = {
@@ -20,8 +21,13 @@ const MyGarageStackScreens = (): JSX.Element => (
     screenOptions={{
       headerShown: false,
     }}>
-    <MyGarageStack.Screen component={screens.MyVehicles} name="MyVehicles" />
-    <MyGarageStack.Screen component={screens.AddVehicle} name="AddVehicle" />
+    {Object.values(myGarageStackConfig).map(garageScreen => (
+      <MyGarageStack.Screen
+        key={garageScreen.screenName}
+        component={garageScreen.component as any}
+        name={garageScreen.screenName as any}
+      />
+    ))}
   </MyGarageStack.Navigator>
 );
 

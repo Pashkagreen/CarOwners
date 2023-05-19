@@ -1,6 +1,6 @@
 import { SafeAreaView, ScrollView, View } from 'react-native';
 
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormHandleSubmit } from 'react-hook-form';
 import { Text } from 'react-native-paper';
 
 import {
@@ -15,15 +15,15 @@ import { FetchState } from '../../../store/Vehicles/types';
 import { FormData } from './ProfileContainer';
 import styles from './style';
 
-type ProfileProps = {
+interface ProfileProps {
   userData: User;
   loading: FetchState;
   control: any;
   errors: any;
-  handleSubmit: any;
+  handleSubmit: UseFormHandleSubmit<FormData>;
   onSubmit: (userData: FormData) => Promise<void>;
   logOut: () => void;
-};
+}
 
 const ProfileView = ({
   logOut,
@@ -87,7 +87,7 @@ const ProfileView = ({
             <Text variant="titleSmall">Phone number: </Text>
             <PhoneInput
               disabled={true}
-              initialCountry={userData.countryCode || undefined}
+              initialCountry={userData.countryCode}
               value={userData.phoneNumber}
             />
           </View>

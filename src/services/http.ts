@@ -50,7 +50,9 @@ const injectToken = async (config: AdaptAxiosRequestConfig): Promise<any> => {
     }
     return config;
   } catch (error: any) {
-    throw new Error(error);
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 };
 

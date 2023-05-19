@@ -18,7 +18,7 @@ import styles from './style';
 type MultiPickerProps = {
   onFinishLoadPhotos: (photos: SetPhotos[]) => void;
   onUploadPhotos: (photos: LocalPhotosState[]) => void;
-  value: LocalPhotosState[];
+  value?: SetPhotos[];
   showMode?: boolean;
   parameters?: any[];
   text: string;
@@ -65,7 +65,6 @@ const MultiPicker = ({
       }
       setLoading(false);
     } catch (e) {
-      console.log(e);
       setLoading(false);
     }
   };

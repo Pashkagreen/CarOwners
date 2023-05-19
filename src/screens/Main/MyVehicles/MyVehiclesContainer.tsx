@@ -46,6 +46,8 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
     getData();
   }, []);
 
+  console.log('vehicles', vehiclesStore.vehicles);
+
   return (
     <MyVehiclesView
       addVehicle={addVehicle}

@@ -8,15 +8,15 @@ import {
   Paragraph,
 } from '../../../components/index';
 
-type Props = {
+interface OnboardingProps {
   navigateToLogin: () => void;
   navigateToRegistration: () => void;
-};
+}
 
 const Onboarding = ({
   navigateToLogin,
   navigateToRegistration,
-}: Props): JSX.Element => (
+}: OnboardingProps): JSX.Element => (
   <Background>
     <Logo />
     <Header>Car Owners</Header>

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import screens from '../../screens';
+import authStackConfig from '../config/authStackConfig';
 
 export type AuthStackParams = {
   Login: undefined;
@@ -17,9 +17,13 @@ const AuthStackScreens = (): JSX.Element => (
     screenOptions={{
       headerShown: false,
     }}>
-    <AuthStack.Screen component={screens.Onboarding} name="Onboarding" />
-    <AuthStack.Screen component={screens.Login} name="Login" />
-    <AuthStack.Screen component={screens.Registration} name="Registration" />
+    {Object.values(authStackConfig).map(authScreen => (
+      <AuthStack.Screen
+        key={authScreen.screenName}
+        component={authScreen.component as any}
+        name={authScreen.screenName as any}
+      />
+    ))}
   </AuthStack.Navigator>
 );
 

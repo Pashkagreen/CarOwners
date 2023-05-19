@@ -14,12 +14,14 @@ import {
   TextInput,
 } from '../../../components/index';
 
+import { AuthStackParams } from '../../../navigation/AuthStack';
 import { validateObject } from '../../../types';
 import styles from './style';
 
 interface LoginProps {
-  navigateToRegistration: () => void;
-  navigateToOnboarding: () => void;
+  navigateTo: (screenName: keyof AuthStackParams) => () => void;
+  onChange: (cb: any) => (text: string) => void;
+  goBack: () => void;
   phoneNumber: validateObject;
   code: validateObject;
   loading: boolean;
@@ -38,8 +40,9 @@ interface LoginProps {
 }
 
 const LoginView = ({
-  navigateToRegistration,
-  navigateToOnboarding,
+  navigateTo,
+  goBack,
+  onChange,
   phoneNumber,
   code,
   initialCountry,
@@ -57,7 +60,7 @@ const LoginView = ({
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <BackButton goBack={navigateToOnboarding} />
+      <BackButton goBack={goBack} />
       <Logo />
       <Header>Welcome back.</Header>
 
@@ -78,7 +81,7 @@ const LoginView = ({
           label="Code"
           returnKeyType="done"
           value={code.value}
-          onChangeText={text => setCode(prev => ({ ...prev, value: text }))}
+          onChangeText={onChange(setCode)}
         />
       )}
 
@@ -91,7 +94,7 @@ const LoginView = ({
 
       <View style={styles.row}>
         <Text style={styles.label}>Don’t have an account? </Text>
-        <TouchableOpacity onPress={navigateToRegistration}>
+        <TouchableOpacity onPress={navigateTo('Registration')}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View>

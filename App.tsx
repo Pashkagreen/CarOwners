@@ -6,6 +6,8 @@ import { Provider as PaperProvider } from 'react-native-paper';
 
 import { Loader } from './src/components';
 
+import { navigationRef } from './src/navigation/config';
+
 import { theme } from './src/core/theme';
 import RootNavigation from './src/navigation';
 import { rootStore, StoreProvider, trunk } from './src/store';
@@ -27,7 +29,7 @@ const App = (): JSX.Element => {
   ) : (
     <StoreProvider value={rootStore}>
       <PaperProvider theme={theme}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <RootNavigation />
         </NavigationContainer>
         <FlashMessage position="top" />

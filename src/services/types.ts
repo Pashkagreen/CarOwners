@@ -9,6 +9,7 @@ export enum StatusCodes {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   INTERNAL = 500,
+  NOT_FOUND = 404,
 }
 
 interface StatusCodeBody {

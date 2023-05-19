@@ -73,6 +73,9 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
     );
   };
 
+  const onUploadPhotos = (p: SetPhotos[]) =>
+    p.length > 0 && setLoadingPhotos(true);
+
   const createVehicle = async (newData: FormData) => {
     let modifiedData = { ...newData };
 
@@ -136,6 +139,7 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
       vehicleInfo={vehicleInfo}
       onFinishLoadPhotos={onFinishLoadPhotos}
       onSubmit={onSubmit}
+      onUploadPhotos={onUploadPhotos}
     />
   );
 };

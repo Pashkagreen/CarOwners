@@ -31,22 +31,20 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
     });
   };
 
-  const editVehicle = (item: VehicleInterface) => {
+  const editVehicle = (item: VehicleInterface) => () => {
     navigation.navigate('AddVehicle', {
       vehicleInfo: item,
       isEdit: true,
     });
   };
 
-  const deleteVehicle = async (item: VehicleInterface) => {
+  const deleteVehicle = (item: VehicleInterface) => async () => {
     await vehiclesStore.deleteVehicle(item);
   };
 
   useEffect(() => {
     getData();
   }, []);
-
-  console.log('vehicles', vehiclesStore.vehicles);
 
   return (
     <MyVehiclesView

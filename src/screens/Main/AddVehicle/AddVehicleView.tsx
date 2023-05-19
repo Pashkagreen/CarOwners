@@ -28,6 +28,7 @@ interface AddVehiclesProps {
   vehicleInfo?: VehicleInterface;
   errors: any;
   photos: LocalPhotosState[];
+  onUploadPhotos: (photos: SetPhotos[]) => void;
   onFinishLoadPhotos: (photos: SetPhotos[]) => void;
   setLoadingPhotos: (state: boolean) => void;
 }
@@ -43,7 +44,7 @@ const AddVehicleView = ({
   photos,
   errors,
   onFinishLoadPhotos,
-  setLoadingPhotos,
+  onUploadPhotos,
 }: AddVehiclesProps): JSX.Element => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
@@ -150,7 +151,7 @@ const AddVehicleView = ({
         text={`Upload your vehicle photos. Max ${photos?.length}/15`}
         value={vehicleInfo?.photos}
         onFinishLoadPhotos={onFinishLoadPhotos}
-        onUploadPhotos={p => p.length > 0 && setLoadingPhotos(true)}
+        onUploadPhotos={onUploadPhotos}
       />
       <View />
       <Button

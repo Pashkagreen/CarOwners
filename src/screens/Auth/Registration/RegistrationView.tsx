@@ -14,12 +14,12 @@ import {
   TextInput,
 } from '../../../components/index';
 
+import { AuthStackParams } from '../../../navigation/AuthStack';
 import { validateObject } from '../../../types';
 import styles from './style';
 
 interface RegistrationProps {
-  navigateToLogin: () => void;
-  navigateToOnboarding: () => void;
+  navigateTo: (screenName: keyof AuthStackParams) => () => void;
   phoneNumber: validateObject;
   code: validateObject;
   username: validateObject;
@@ -30,6 +30,7 @@ interface RegistrationProps {
   setUsername: React.Dispatch<React.SetStateAction<validateObject>>;
   setPhoneNumber: React.Dispatch<React.SetStateAction<validateObject>>;
   setCode: React.Dispatch<React.SetStateAction<validateObject>>;
+  onChange: (cb: any) => (text: string) => void;
   onSignUpPressed: () => void;
   //PhoneInputProps
   inputRef: React.Ref<PhoneInputComponent>;
@@ -40,8 +41,8 @@ interface RegistrationProps {
 }
 
 const RegistrationView = ({
-  navigateToOnboarding,
-  navigateToLogin,
+  onChange,
+  navigateTo,
   username,
   phoneNumber,
   code,
@@ -61,7 +62,7 @@ const RegistrationView = ({
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <BackButton goBack={navigateToOnboarding} />
+      <BackButton goBack={navigateTo('Onboarding')} />
 
       <Logo />
 
@@ -73,12 +74,12 @@ const RegistrationView = ({
         label="Name"
         returnKeyType="next"
         value={username.value}
-        onChangeText={text => setUsername({ value: text, error: '' })}
+        onChangeText={onChange(setUsername)}
       />
 
       <PhoneInput
         errorText={phoneNumber.error}
-        initialCountry={initialCountry || undefined}
+        initialCountry={initialCountry}
         inputRef={inputRef}
         value={phoneNumber.value}
         onChange={onChangePhoneNumber}
@@ -93,7 +94,7 @@ const RegistrationView = ({
           label="Code"
           returnKeyType="done"
           value={code.value}
-          onChangeText={text => setCode({ value: text, error: '' })}
+          onChangeText={onChange(setCode)}
         />
       )}
 
@@ -107,7 +108,7 @@ const RegistrationView = ({
 
       <View style={styles.row}>
         <Text style={styles.label}>Already have an account? </Text>
-        <TouchableOpacity onPress={navigateToLogin}>
+        <TouchableOpacity onPress={navigateTo('Login')}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>

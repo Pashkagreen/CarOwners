@@ -31,6 +31,10 @@ const StatusCode: StatusCodeType = {
     type: 'danger',
     message: 'Internal server error!',
   },
+  [StatusCodes.NOT_FOUND]: {
+    type: 'danger',
+    message: 'Requested source not found!',
+  },
 };
 
 const headers: Readonly<Record<string, string | boolean>> = {
@@ -129,6 +133,12 @@ class Http {
         type: StatusCode[status].type,
         message: StatusCode[status].message,
         description: data?.message,
+      });
+    } else if (status) {
+      flashMessage({
+        type: 'danger',
+        message: 'Error!',
+        description: 'Unexpected error occurred.',
       });
     }
 

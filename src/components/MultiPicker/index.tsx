@@ -17,7 +17,7 @@ import styles from './style';
 
 type MultiPickerProps = {
   onFinishLoadPhotos: (photos: SetPhotos[]) => void;
-  onUploadPhotos: (photos: LocalPhotosState[]) => void;
+  onUploadPhotos: (photos: SetPhotos[]) => void;
   value?: SetPhotos[];
   showMode?: boolean;
   parameters?: any[];

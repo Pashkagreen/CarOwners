@@ -107,29 +107,33 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
     setLoading(false);
   };
 
-  const navigateToRegistration = () => {
-    navigation.navigate('Registration');
+  const onChange = (cb: typeof setCode) => (text: string) =>
+    cb(prev => ({ ...prev, value: text }));
+
+  const navigateTo = (screenName: keyof AuthStackParams) => () => {
+    navigation.navigate(screenName);
   };
 
-  const navigateToOnboarding = () => {
-    navigation.navigate('Onboarding');
+  const goBack = () => {
+    navigation.goBack();
   };
 
   return (
     <LoginView
       code={code}
+      goBack={goBack}
       initialCountry={initialCountry}
       inputRef={inputRef}
       isLoginAvailable={isLoginAvailable}
       loading={loading}
       login={login}
-      navigateToOnboarding={navigateToOnboarding}
-      navigateToRegistration={navigateToRegistration}
+      navigateTo={navigateTo}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}
       setCode={setCode}
       setPhoneNumber={setPhoneNumber}
+      onChange={onChange}
       onChangePhoneNumber={onChangePhoneNumber}
       onSelectCountry={onSelectCountry}
     />

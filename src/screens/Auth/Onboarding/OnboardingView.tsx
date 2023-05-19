@@ -8,15 +8,13 @@ import {
   Paragraph,
 } from '../../../components/index';
 
+import { AuthStackParams } from '../../../navigation/AuthStack';
+
 interface OnboardingProps {
-  navigateToLogin: () => void;
-  navigateToRegistration: () => void;
+  navigateTo: (screenName: keyof AuthStackParams) => () => void;
 }
 
-const Onboarding = ({
-  navigateToLogin,
-  navigateToRegistration,
-}: OnboardingProps): JSX.Element => (
+const Onboarding = ({ navigateTo }: OnboardingProps): JSX.Element => (
   <Background>
     <Logo />
     <Header>Car Owners</Header>
@@ -24,10 +22,10 @@ const Onboarding = ({
     <Paragraph>
       The easiest way to collect information about your cars.
     </Paragraph>
-    <Button mode="contained" onPress={navigateToLogin}>
+    <Button mode="contained" onPress={navigateTo('Login')}>
       Login
     </Button>
-    <Button mode="outlined" onPress={navigateToRegistration}>
+    <Button mode="outlined" onPress={navigateTo('Registration')}>
       Sign Up
     </Button>
   </Background>

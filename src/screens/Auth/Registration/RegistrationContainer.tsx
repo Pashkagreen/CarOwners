@@ -117,12 +117,12 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
     setLoading(false);
   };
 
-  const navigateToLogin = () => {
-    navigation.navigate('Login');
-  };
+  const onChange =
+    (cb: typeof setUsername | typeof setCode) => (text: string) =>
+      cb({ value: text, error: '' });
 
-  const navigateToOnboarding = () => {
-    navigation.navigate('Onboarding');
+  const navigateTo = (screenName: keyof AuthStackParams) => () => {
+    navigation.navigate(screenName);
   };
 
   return (
@@ -132,8 +132,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
       inputRef={inputRef}
       isSignUpAvailable={isSignUpAvailable}
       loading={loading}
-      navigateToLogin={navigateToLogin}
-      navigateToOnboarding={navigateToOnboarding}
+      navigateTo={navigateTo}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}
@@ -141,6 +140,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
       setPhoneNumber={setPhoneNumber}
       setUsername={setUsername}
       username={username}
+      onChange={onChange}
       onChangePhoneNumber={onChangePhoneNumber}
       onSelectCountry={onSelectCountry}
       onSignUpPressed={onSignUpPressed}

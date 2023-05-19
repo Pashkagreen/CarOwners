@@ -62,8 +62,8 @@ const MyVehiclesView = ({
           renderItem={({ item }) => (
             <VehicleCard
               item={item}
-              onDeletePress={() => deleteVehicle(item)}
-              onPress={() => editVehicle(item)}
+              onDeletePress={deleteVehicle(item)}
+              onPress={editVehicle(item)}
             />
           )}
           showsVerticalScrollIndicator={false}

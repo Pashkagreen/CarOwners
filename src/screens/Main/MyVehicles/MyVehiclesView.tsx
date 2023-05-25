@@ -3,14 +3,19 @@ import {
   FlatList,
   RefreshControl,
   SafeAreaView,
+  ScrollView,
   TouchableOpacity,
   View,
 } from 'react-native';
 
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { Background, VehicleCard } from '../../../components/index';
+import {
+  Background,
+  VehicleCard,
+  VehicleCardSkeleton,
+} from '../../../components';
 
 import { hitSlop, theme } from '../../../core/theme';
 import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
@@ -38,9 +43,9 @@ const renderContent = ({
 }: RenderContent): React.ReactNode => {
   if (loading === 'pending') {
     return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator />
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <VehicleCardSkeleton amount={8} loading={loading === 'pending'} />
+      </ScrollView>
     );
   }
   if (loading === 'done' && items.length) {

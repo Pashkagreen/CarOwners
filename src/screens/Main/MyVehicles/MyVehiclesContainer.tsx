@@ -17,11 +17,11 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await getData(true);
+    getData(true);
     setRefreshing(false);
   };
 
-  const getData = async (force = false) => {
+  const getData = async (force: boolean = false) => {
     await vehiclesStore.getVehicles(force);
   };
 

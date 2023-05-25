@@ -9,7 +9,7 @@ interface HeaderProps {
 }
 
 const Header = ({ text }: HeaderProps) => (
-  <Text style={styles.headerText} variant="headlineSmall">
+  <Text style={styles.headerText} variant="titleLarge">
     {text}
   </Text>
 );

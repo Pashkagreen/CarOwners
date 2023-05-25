@@ -11,7 +11,7 @@ export default {
     size: 24,
   },
   History: {
-    title: 'History of your vehicles',
+    title: 'History',
     headerShown: true,
     screenName: 'History',
     component: screens.History,

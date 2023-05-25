@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { BackButton } from '../../components';
+import { BackButton, Header } from '../../components';
 
 import myGarageStackConfig from '../config/myGarageStackConfig';
 
@@ -30,7 +30,9 @@ const MyGarageStackScreens = (): JSX.Element => (
           headerLeft: garageScreen.headerLeft
             ? () => <BackButton goBack={() => navigation.goBack()} />
             : undefined,
-          title: garageScreen.title,
+          headerTitle: garageScreen.headerShown
+            ? () => <Header text={garageScreen.title} />
+            : undefined,
         })}
       />
     ))}

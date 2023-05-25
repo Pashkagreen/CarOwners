@@ -4,7 +4,8 @@ import Button from './Button';
 import FullImageModal from './FullImageModal';
 import GalleryCell from './GalleryCell';
 import Header from './Header';
-import HistoryCard from './HistotyCard';
+import HistoryCard from './HistoryCard';
+import HistoryCardSkeleton from './HistoryCard/HistoryCardSkeleton';
 import Image from './Image';
 import Loader from './Loader';
 import Logo from './Logo';
@@ -16,6 +17,7 @@ import TabBarIcon from './TabBarIcon';
 import TextInput from './TextInput';
 import Title from './Title';
 import VehicleCard from './VehicleCard';
+import VehicleCardSkeleton from './VehicleCard/VehicleCardSkeleton';
 
 export {
   BackButton,
@@ -36,4 +38,6 @@ export {
   GalleryCell,
   MultiPicker,
   Header,
+  HistoryCardSkeleton,
+  VehicleCardSkeleton,
 };

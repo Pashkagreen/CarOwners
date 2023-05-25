@@ -1,8 +1,18 @@
-import { FlatList, RefreshControl, SafeAreaView, View } from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  View,
+} from 'react-native';
 
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
-import { Background, HistoryCard } from '../../../components/index';
+import {
+  Background,
+  HistoryCard,
+  HistoryCardSkeleton,
+} from '../../../components';
 
 import { theme } from '../../../core/theme';
 import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
@@ -23,9 +33,9 @@ const renderContent = ({
 }: HistoryProps) => {
   if (loading === 'pending') {
     return (
-      <View style={styles.loaderContainer}>
-        <ActivityIndicator />
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <HistoryCardSkeleton amount={8} loading={loading === 'pending'} />
+      </ScrollView>
     );
   }
   if (loading === 'done' && items.length) {

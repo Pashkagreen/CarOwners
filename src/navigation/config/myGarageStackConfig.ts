@@ -9,7 +9,7 @@ export default {
     component: screens.MyVehicles,
   },
   AddVehicle: {
-    title: '',
+    title: 'Info',
     headerShown: true,
     headerLeft: true,
     screenName: 'AddVehicle',

@@ -25,7 +25,7 @@ export class VehiclesStore {
     this.state = 'done';
   }
 
-  async getVehicles(force: boolean): Promise<void> {
+  async getVehicles(force?: boolean): Promise<void> {
     if (!force) {
       this.updateState('pending');
     }

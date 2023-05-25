@@ -12,7 +12,7 @@ interface Props {
 
 const BackButton = ({ goBack }: Props) => (
   <TouchableOpacity hitSlop={hitSlop} style={styles.container} onPress={goBack}>
-    <Icon color={theme.colors.black} name="arrow-left" size={24} />
+    <Icon color={theme.colors.secondary} name="arrow-left" size={24} />
   </TouchableOpacity>
 );
 

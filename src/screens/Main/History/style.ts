@@ -1,7 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { theme } from '../../../core/theme';
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'flex-start',
@@ -10,7 +8,6 @@ const styles = StyleSheet.create({
   },
   flatContainer: {
     flex: 1,
-    marginTop: 16,
     width: '100%',
   },
   loaderContainer: {
@@ -27,10 +24,6 @@ const styles = StyleSheet.create({
   infoBlock: {
     alignItems: 'center',
     width: '100%',
-  },
-  headerText: {
-    color: theme.colors.secondary,
-    fontWeight: 'bold',
   },
 });
 

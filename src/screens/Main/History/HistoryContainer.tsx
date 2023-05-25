@@ -22,7 +22,7 @@ const HistoryContainer = (): JSX.Element => {
 
   useEffect(() => {
     loadHistory();
-  }, []);
+  }, [vehiclesStore.vehicles]);
 
   return (
     <HistoryView

@@ -2,10 +2,8 @@ import { View } from 'react-native';
 
 import { Controller, UseFormHandleSubmit } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Text } from 'react-native-paper';
 
 import {
-  BackButton,
   Background,
   Button,
   MultiPicker,
@@ -24,7 +22,6 @@ interface AddVehiclesProps {
   handleSubmit: UseFormHandleSubmit<FormData>;
   loading: FetchState;
   isEdit?: boolean;
-  goBack: () => void;
   vehicleInfo?: VehicleInterface;
   errors: any;
   photos: LocalPhotosState[];
@@ -40,7 +37,6 @@ const AddVehicleView = ({
   vehicleInfo,
   loading,
   isEdit,
-  goBack,
   photos,
   errors,
   onFinishLoadPhotos,
@@ -50,12 +46,6 @@ const AddVehicleView = ({
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText} variant="headlineMedium">
-          {isEdit ? 'Update vehicle' : 'Add Vehicle'}
-        </Text>
-        <BackButton goBack={goBack} />
-      </View>
       <Controller
         control={control}
         defaultValue={isEdit ? vehicleInfo?.brand : ''}

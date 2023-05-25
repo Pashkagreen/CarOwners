@@ -38,9 +38,6 @@ const ProfileView = ({
     <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <Background style={styles.background}>
         <View style={styles.infoBlock}>
-          <Text style={styles.headerText} variant="headlineMedium">
-            Your profile
-          </Text>
           <View style={styles.infoItem}>
             <Text variant="titleSmall">Username: </Text>
             <Controller

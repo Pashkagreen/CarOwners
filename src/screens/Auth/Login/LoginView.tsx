@@ -5,7 +5,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import PhoneInputComponent from 'react-native-phone-input';
 
 import {
-  BackButton,
   Background,
   Button,
   Logo,
@@ -21,7 +20,6 @@ import styles from './style';
 interface LoginProps {
   navigateTo: (screenName: keyof AuthStackParams) => () => void;
   onChange: (cb: any) => (text: string) => void;
-  goBack: () => void;
   phoneNumber: validateObject;
   code: validateObject;
   loading: boolean;
@@ -41,7 +39,6 @@ interface LoginProps {
 
 const LoginView = ({
   navigateTo,
-  goBack,
   onChange,
   phoneNumber,
   code,
@@ -60,7 +57,6 @@ const LoginView = ({
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <BackButton goBack={goBack} />
       <Logo />
       <Title>Welcome back.</Title>
 
@@ -78,6 +74,7 @@ const LoginView = ({
           secureTextEntry
           error={!!code.error}
           errorText={code.error}
+          keyboardType="number-pad"
           label="Code"
           returnKeyType="done"
           value={code.value}

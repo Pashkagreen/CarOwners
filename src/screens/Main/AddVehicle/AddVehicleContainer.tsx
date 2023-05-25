@@ -130,7 +130,6 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
     <AddVehicleView
       control={control}
       errors={errors}
-      goBack={goBack}
       handleSubmit={handleSubmit}
       isEdit={isEdit}
       loading={vehiclesStore.state}

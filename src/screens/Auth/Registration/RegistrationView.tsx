@@ -5,7 +5,6 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import PhoneInputComponent from 'react-native-phone-input';
 
 import {
-  BackButton,
   Background,
   Button,
   Logo,
@@ -62,8 +61,6 @@ const RegistrationView = ({
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <BackButton goBack={navigateTo('Onboarding')} />
-
       <Logo />
 
       <Title>Create Account</Title>
@@ -91,6 +88,7 @@ const RegistrationView = ({
           secureTextEntry
           error={!!code.error}
           errorText={code.error}
+          keyboardType="number-pad"
           label="Code"
           returnKeyType="done"
           value={code.value}

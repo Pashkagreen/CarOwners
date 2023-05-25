@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   infoItem: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: 12,
     width: '100%',
   },
   buttonBlock: {

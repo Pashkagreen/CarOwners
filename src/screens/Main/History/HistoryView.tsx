@@ -14,6 +14,48 @@ interface HistoryProps {
   loading: FetchState;
   items: HistoryInterface[];
 }
+
+const renderContent = ({
+  loading,
+  items,
+  refreshing,
+  onRefresh,
+}: HistoryProps) => {
+  if (loading === 'pending') {
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator />
+      </View>
+    );
+  }
+  if (loading === 'done' && items.length) {
+    return (
+      <FlatList
+        data={items}
+        keyExtractor={item => item.id}
+        refreshControl={
+          <RefreshControl
+            colors={[theme.colors.primary]}
+            refreshing={refreshing}
+            tintColor={theme.colors.primary}
+            onRefresh={onRefresh}
+          />
+        }
+        renderItem={({ item }) => <HistoryCard item={item} />}
+        showsVerticalScrollIndicator={false}
+        style={styles.flatContainer}
+      />
+    );
+  }
+  if (loading === 'done' && !items.length) {
+    return (
+      <View style={styles.loaderContainer}>
+        <Text variant="headlineSmall">No history provided.</Text>
+      </View>
+    );
+  }
+};
+
 const HistoryView = ({
   loading,
   items,
@@ -22,36 +64,7 @@ const HistoryView = ({
 }: HistoryProps): JSX.Element => (
   <SafeAreaView style={styles.container}>
     <Background style={styles.background}>
-      <View style={styles.infoBlock}>
-        <Text style={styles.headerText} variant="headlineMedium">
-          History of your vehicles
-        </Text>
-      </View>
-      {loading === 'pending' ? (
-        <View style={styles.loaderContainer}>
-          <ActivityIndicator />
-        </View>
-      ) : items.length ? (
-        <FlatList
-          data={items}
-          keyExtractor={item => item.id}
-          refreshControl={
-            <RefreshControl
-              colors={[theme.colors.primary]}
-              refreshing={refreshing}
-              tintColor={theme.colors.primary}
-              onRefresh={onRefresh}
-            />
-          }
-          renderItem={({ item }) => <HistoryCard item={item} />}
-          showsVerticalScrollIndicator={false}
-          style={styles.flatContainer}
-        />
-      ) : (
-        <View style={styles.loaderContainer}>
-          <Text variant="headlineSmall">No history provided.</Text>
-        </View>
-      )}
+      {renderContent({ loading, items, refreshing, onRefresh })}
     </Background>
   </SafeAreaView>
 );

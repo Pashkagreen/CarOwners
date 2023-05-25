@@ -114,14 +114,9 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
     navigation.navigate(screenName);
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
-
   return (
     <LoginView
       code={code}
-      goBack={goBack}
       initialCountry={initialCountry}
       inputRef={inputRef}
       isLoginAvailable={isLoginAvailable}

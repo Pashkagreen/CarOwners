@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   background: {
     alignItems: 'flex-start',
     justifyContent: 'space-between',
+    marginTop: 16,
   },
   infoBlock: {
     alignItems: 'center',

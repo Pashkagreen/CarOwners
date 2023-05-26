@@ -1,60 +1,56 @@
-import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-  View,
-} from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { Text } from 'react-native-paper';
+import Animated from 'react-native-reanimated';
 
 import {
   Background,
   HistoryCard,
   HistoryCardSkeleton,
 } from '../../../components';
+import Header from './components/Header';
 
-import { theme } from '../../../core/theme';
 import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
 interface HistoryProps {
-  refreshing: boolean;
-  onRefresh: () => void;
   loading: FetchState;
+  headerHeight: number;
   items: HistoryInterface[];
 }
 
-const renderContent = ({
-  loading,
-  items,
-  refreshing,
-  onRefresh,
-}: HistoryProps) => {
+interface RenderContent extends Omit<HistoryProps, 'headerHeight'> {
+  scrollY: Animated.Value<number>;
+}
+
+const renderContent = ({ loading, items, scrollY }: RenderContent) => {
   if (loading === 'pending') {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.flatContainer}>
         <HistoryCardSkeleton amount={8} loading={loading === 'pending'} />
       </ScrollView>
     );
   }
   if (loading === 'done' && items.length) {
     return (
-      <FlatList
-        data={items}
-        keyExtractor={item => item.id}
-        refreshControl={
-          <RefreshControl
-            colors={[theme.colors.primary]}
-            refreshing={refreshing}
-            tintColor={theme.colors.primary}
-            onRefresh={onRefresh}
-          />
-        }
-        renderItem={({ item }) => <HistoryCard item={item} />}
+      <Animated.ScrollView
+        alwaysBounceVertical={false}
+        bounces={false}
+        contentContainerStyle={styles.scrollContainer}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}
-      />
+        onScroll={Animated.event([
+          {
+            nativeEvent: { contentOffset: { y: scrollY } },
+          },
+        ])}>
+        {items.map(item => (
+          <HistoryCard key={item.id} item={item} />
+        ))}
+      </Animated.ScrollView>
     );
   }
   if (loading === 'done' && !items.length) {
@@ -69,14 +65,21 @@ const renderContent = ({
 const HistoryView = ({
   loading,
   items,
-  refreshing,
-  onRefresh,
-}: HistoryProps): JSX.Element => (
-  <SafeAreaView style={styles.container}>
+  headerHeight,
+}: HistoryProps): JSX.Element => {
+  const scrollY = new Animated.Value(0);
+  const diffClampScrollY = Animated.diffClamp(scrollY, 0, headerHeight);
+  const headerY = Animated.interpolateNode(diffClampScrollY, {
+    inputRange: [0, headerHeight],
+    outputRange: [0, -headerHeight],
+  });
+
+  return (
     <Background style={styles.background}>
-      {renderContent({ loading, items, refreshing, onRefresh })}
+      <Header headerHeight={headerHeight} headerY={headerY} />
+      {renderContent({ loading, items, scrollY })}
     </Background>
-  </SafeAreaView>
-);
+  );
+};
 
 export default HistoryView;

@@ -16,12 +16,17 @@ export class UserStore {
     email: '',
     countryCode: 'us',
     isAuthorized: false,
+    headerHeight: 0,
   };
   state: FetchState = 'done';
 
   constructor() {
     makeAutoObservable(this);
   }
+
+  updateHeaderHeight = (height: number): void => {
+    this.user = { ...this.user, headerHeight: height };
+  };
 
   updateState = (state: FetchState): void => {
     this.state = state;
@@ -132,6 +137,7 @@ export class UserStore {
       email: '',
       countryCode: 'us',
       isAuthorized: false,
+      headerHeight: 0,
     };
   }
 }

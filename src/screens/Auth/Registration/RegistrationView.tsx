@@ -88,7 +88,7 @@ const RegistrationView = ({
           secureTextEntry
           error={!!code.error}
           errorText={code.error}
-          keyboardType="number-pad"
+          keyboardType="phone-pad"
           label="Code"
           returnKeyType="done"
           value={code.value}

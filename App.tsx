@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
@@ -30,6 +31,10 @@ const App = (): JSX.Element => {
     <StoreProvider value={rootStore}>
       <PaperProvider theme={theme}>
         <NavigationContainer ref={navigationRef}>
+          <StatusBar
+            backgroundColor={theme.colors.white}
+            barStyle={'dark-content'}
+          />
           <RootNavigation />
         </NavigationContainer>
         <FlashMessage position="top" />

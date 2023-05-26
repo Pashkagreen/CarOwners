@@ -8,8 +8,11 @@ const styles = StyleSheet.create({
   },
   flatContainer: {
     flex: 1,
+    marginTop: 16,
+    paddingVertical: 64,
     width: '100%',
   },
+  scrollContainer: { paddingBottom: 64 },
   loaderContainer: {
     alignItems: 'center',
     flex: 1,

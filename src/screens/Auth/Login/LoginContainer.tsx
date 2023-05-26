@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
@@ -18,6 +19,7 @@ import LoginView from './LoginView';
 export type Props = StackScreenProps<AuthStackParams, 'Login'>;
 
 const LoginContainer = ({ navigation }: Props): JSX.Element => {
+  const headerHeight = useHeaderHeight();
   const { userStore } = useStore();
   const initialCountry = userStore.user.countryCode;
 
@@ -98,6 +100,8 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
         }
       }
     } catch (error: any) {
+      console.log('e', error);
+
       if (error.code === 'auth/invalid-verification-code') {
         setLoading(false);
         setCode(prev => ({ ...prev, error: 'Invalid SMS-code' }));
@@ -113,6 +117,12 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
   const navigateTo = (screenName: keyof AuthStackParams) => () => {
     navigation.navigate(screenName);
   };
+
+  useEffect(() => {
+    if (headerHeight) {
+      userStore.updateHeaderHeight(headerHeight);
+    }
+  }, []);
 
   return (
     <LoginView

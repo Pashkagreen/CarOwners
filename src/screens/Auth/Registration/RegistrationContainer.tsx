@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
@@ -22,6 +23,7 @@ import RegistrationView from './RegistrationView';
 export type Props = StackScreenProps<AuthStackParams, 'Registration'>;
 
 const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
+  const headerHeight = useHeaderHeight();
   const { userStore } = useStore();
   const initialCountry = userStore.user.countryCode;
 
@@ -127,6 +129,12 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
   const navigateTo = (screenName: keyof AuthStackParams) => () => {
     navigation.navigate(screenName);
   };
+
+  useEffect(() => {
+    if (headerHeight) {
+      userStore.updateHeaderHeight(headerHeight);
+    }
+  }, []);
 
   return (
     <RegistrationView

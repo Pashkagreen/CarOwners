@@ -27,6 +27,7 @@ const MainStackScreens = (): JSX.Element => (
           tabBarLabel: bottomBar.screenName,
           tabBarIcon: props => <TabBarIcon name={bottomBar.icon} {...props} />,
           tabBarLabelStyle: { marginBottom: 8 },
+          headerTitleAlign: 'center',
           headerShown: bottomBar.headerShown,
           headerTitle: bottomBar.headerShown
             ? () => <Header text={bottomBar.title} />

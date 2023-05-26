@@ -5,6 +5,7 @@ interface User {
   countryCode: string;
   isAuthorized: boolean;
   email: string;
+  headerHeight: number;
 }
 
 interface UserData {

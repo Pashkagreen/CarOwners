@@ -11,8 +11,8 @@ export default {
     size: 24,
   },
   History: {
-    title: 'History',
-    headerShown: true,
+    title: '',
+    headerShown: false,
     screenName: 'History',
     component: screens.History,
     icon: 'history',

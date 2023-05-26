@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Platform } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -27,8 +28,11 @@ const MyGarageStackScreens = (): JSX.Element => (
         name={garageScreen.screenName as any}
         options={({ navigation }) => ({
           headerShown: garageScreen.headerShown,
+          headerTitleAlign: 'center',
           headerLeft: garageScreen.headerLeft
-            ? () => <BackButton goBack={() => navigation.goBack()} />
+            ? Platform.OS === 'ios'
+              ? () => <BackButton goBack={() => navigation.goBack()} />
+              : undefined
             : undefined,
           headerTitle: garageScreen.headerShown
             ? () => <Header text={garageScreen.title} />

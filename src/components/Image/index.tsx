@@ -157,7 +157,10 @@ const Image = ({
       style={[styles.container, containerStyles]}
       onPress={() => setOpenImage(true)}>
       {openImage && (
-        <FullImageModal image={source} onClose={() => setOpenImage(false)} />
+        <FullImageModal
+          image={{ uri: source.uri }}
+          onClose={() => setOpenImage(false)}
+        />
       )}
       {renderImage()}
 

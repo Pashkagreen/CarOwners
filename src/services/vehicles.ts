@@ -1,6 +1,6 @@
 import { HistoryInterface, VehicleInterface } from '../store/Vehicles/types';
 import { http } from './http';
-import { ServerSuccessInterface } from './types';
+import { ServerSuccessInterface } from './types.http';
 
 interface ServerVehicleInterface {
   data: VehicleInterface;

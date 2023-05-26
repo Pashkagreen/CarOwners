@@ -1,6 +1,6 @@
 import { UserData } from '../store/User/types';
 import { http } from './http';
-import { ServerSuccessInterface } from './types';
+import { ServerSuccessInterface } from './types.http';
 
 interface ServerUserInterface {
   data: UserData;

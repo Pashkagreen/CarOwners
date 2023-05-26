@@ -13,7 +13,7 @@ import {
   BaseError,
   StatusCodes,
   StatusCodeType,
-} from './types';
+} from './types.http';
 
 const BASE_URL =
   'https://us-central1-carowners-97d56.cloudfunctions.net/api/v1';

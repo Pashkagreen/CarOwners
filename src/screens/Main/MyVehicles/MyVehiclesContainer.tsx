@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { LayoutChangeEvent } from 'react-native';
 
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
@@ -19,6 +20,7 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
   } = useStore();
 
   const [refreshing, setRefreshing] = useState(false);
+  const [cardHeight, setCardHeight] = useState(0);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -47,6 +49,11 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
     await vehiclesStore.deleteVehicle(item);
   };
 
+  const onLayout = (event: LayoutChangeEvent) => {
+    const { height } = event.nativeEvent.layout;
+    setCardHeight(height);
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -54,12 +61,14 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
   return (
     <MyVehiclesView
       addVehicle={addVehicle}
+      cardHeight={cardHeight}
       deleteVehicle={deleteVehicle}
       editVehicle={editVehicle}
       headerHeight={headerHeight}
       items={vehiclesStore.vehicles}
       loading={vehiclesStore.state}
       refreshing={refreshing}
+      onLayout={onLayout}
       onRefresh={onRefresh}
     />
   );

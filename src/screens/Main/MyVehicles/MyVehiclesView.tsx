@@ -1,5 +1,11 @@
-import React from 'react';
-import { FlatList, RefreshControl, ScrollView, View } from 'react-native';
+import React, { useRef } from 'react';
+import {
+  Animated,
+  LayoutChangeEvent,
+  RefreshControl,
+  ScrollView,
+  View,
+} from 'react-native';
 
 import { Text } from 'react-native-paper';
 
@@ -19,19 +25,26 @@ interface MyVehiclesProps {
   loading: FetchState;
   refreshing: boolean;
   headerHeight: number;
+  cardHeight: number;
+  onLayout: (e: LayoutChangeEvent) => void;
   onRefresh: () => void;
   deleteVehicle: (item: VehicleInterface) => void;
   editVehicle: (item: VehicleInterface) => void;
   addVehicle: () => void;
 }
 
-type RenderContent = Omit<MyVehiclesProps, 'addVehicle'>;
+interface RenderContent extends Omit<MyVehiclesProps, 'addVehicle'> {
+  scrollY: any;
+}
 
 const renderContent = ({
   loading,
   items,
   refreshing,
   headerHeight,
+  cardHeight,
+  scrollY,
+  onLayout,
   onRefresh,
   deleteVehicle,
   editVehicle,
@@ -47,7 +60,7 @@ const renderContent = ({
   }
   if (loading === 'done' && items.length) {
     return (
-      <FlatList
+      <Animated.FlatList
         contentContainerStyle={[
           styles.scrollContainer,
           { paddingBottom: headerHeight },
@@ -62,15 +75,23 @@ const renderContent = ({
             onRefresh={onRefresh}
           />
         }
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <VehicleCard
+            cardHeight={cardHeight}
+            index={index}
             item={item}
+            scrollY={scrollY}
             onDeletePress={deleteVehicle(item)}
+            onLayout={onLayout}
             onPress={editVehicle(item)}
           />
         )}
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true },
+        )}
       />
     );
   }
@@ -87,31 +108,40 @@ const MyVehiclesView = ({
   loading,
   refreshing,
   headerHeight,
+  cardHeight,
+  onLayout,
   onRefresh,
   addVehicle,
   editVehicle,
   deleteVehicle,
-}: MyVehiclesProps): JSX.Element => (
-  <Background style={styles.background}>
-    <CustomHeader
-      animated={false}
-      headerHeight={headerHeight}
-      iconName={'plus'}
-      rightButton={true}
-      style={styles.header}
-      text={'My Vehicles'}
-      onIconPress={addVehicle}
-    />
-    {renderContent({
-      items,
-      loading,
-      refreshing,
-      headerHeight,
-      onRefresh,
-      editVehicle,
-      deleteVehicle,
-    })}
-  </Background>
-);
+}: MyVehiclesProps): JSX.Element => {
+  const scrollY = useRef(new Animated.Value(0)).current;
+
+  return (
+    <Background style={styles.background}>
+      <CustomHeader
+        animated={false}
+        headerHeight={headerHeight}
+        iconName={'plus'}
+        rightButton={true}
+        style={styles.header}
+        text={'My Vehicles'}
+        onIconPress={addVehicle}
+      />
+      {renderContent({
+        items,
+        cardHeight,
+        loading,
+        refreshing,
+        headerHeight,
+        onRefresh,
+        editVehicle,
+        deleteVehicle,
+        onLayout,
+        scrollY,
+      })}
+    </Background>
+  );
+};
 
 export default MyVehiclesView;

@@ -1,23 +1,16 @@
 import React from 'react';
-import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, RefreshControl, ScrollView, View } from 'react-native';
 
 import { Text } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
   Background,
+  CustomHeader,
   VehicleCard,
   VehicleCardSkeleton,
 } from '../../../components';
 
-import { hitSlop, theme } from '../../../core/theme';
+import { theme } from '../../../core/theme';
 import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
@@ -25,6 +18,7 @@ interface MyVehiclesProps {
   items: VehicleInterface[];
   loading: FetchState;
   refreshing: boolean;
+  headerHeight: number;
   onRefresh: () => void;
   deleteVehicle: (item: VehicleInterface) => void;
   editVehicle: (item: VehicleInterface) => void;
@@ -37,13 +31,16 @@ const renderContent = ({
   loading,
   items,
   refreshing,
+  headerHeight,
   onRefresh,
   deleteVehicle,
   editVehicle,
 }: RenderContent): React.ReactNode => {
   if (loading === 'pending') {
     return (
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.flatContainer}>
         <VehicleCardSkeleton amount={8} loading={loading === 'pending'} />
       </ScrollView>
     );
@@ -51,6 +48,10 @@ const renderContent = ({
   if (loading === 'done' && items.length) {
     return (
       <FlatList
+        contentContainerStyle={[
+          styles.scrollContainer,
+          { paddingBottom: headerHeight },
+        ]}
         data={items}
         keyExtractor={({ id }) => id}
         refreshControl={
@@ -85,31 +86,32 @@ const MyVehiclesView = ({
   items,
   loading,
   refreshing,
+  headerHeight,
   onRefresh,
   addVehicle,
   editVehicle,
   deleteVehicle,
 }: MyVehiclesProps): JSX.Element => (
-  <SafeAreaView style={styles.container}>
-    <Background style={styles.background}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText} variant="headlineSmall">
-          My Vehicles
-        </Text>
-        <TouchableOpacity hitSlop={hitSlop} onPress={addVehicle}>
-          <Icon name={'plus'} size={24} />
-        </TouchableOpacity>
-      </View>
-      {renderContent({
-        items,
-        loading,
-        refreshing,
-        onRefresh,
-        editVehicle,
-        deleteVehicle,
-      })}
-    </Background>
-  </SafeAreaView>
+  <Background style={styles.background}>
+    <CustomHeader
+      animated={false}
+      headerHeight={headerHeight}
+      iconName={'plus'}
+      rightButton={true}
+      style={styles.header}
+      text={'My Vehicles'}
+      onIconPress={addVehicle}
+    />
+    {renderContent({
+      items,
+      loading,
+      refreshing,
+      headerHeight,
+      onRefresh,
+      editVehicle,
+      deleteVehicle,
+    })}
+  </Background>
 );
 
 export default MyVehiclesView;

@@ -11,7 +11,12 @@ import MyVehiclesView from './MyVehiclesView';
 type Props = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
 
 const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
-  let { vehiclesStore } = useStore();
+  let {
+    vehiclesStore,
+    userStore: {
+      user: { headerHeight },
+    },
+  } = useStore();
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -51,6 +56,7 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
       addVehicle={addVehicle}
       deleteVehicle={deleteVehicle}
       editVehicle={editVehicle}
+      headerHeight={headerHeight}
       items={vehiclesStore.vehicles}
       loading={vehiclesStore.state}
       refreshing={refreshing}

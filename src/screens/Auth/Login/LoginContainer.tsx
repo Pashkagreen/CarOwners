@@ -100,8 +100,6 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
         }
       }
     } catch (error: any) {
-      console.log('e', error);
-
       if (error.code === 'auth/invalid-verification-code') {
         setLoading(false);
         setCode(prev => ({ ...prev, error: 'Invalid SMS-code' }));

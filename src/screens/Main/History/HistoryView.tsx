@@ -5,10 +5,10 @@ import Animated from 'react-native-reanimated';
 
 import {
   Background,
+  CustomHeader,
   HistoryCard,
   HistoryCardSkeleton,
 } from '../../../components';
-import Header from './components/Header';
 
 import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
 import styles from './style';
@@ -19,11 +19,16 @@ interface HistoryProps {
   items: HistoryInterface[];
 }
 
-interface RenderContent extends Omit<HistoryProps, 'headerHeight'> {
+interface RenderContent extends HistoryProps {
   scrollY: Animated.Value<number>;
 }
 
-const renderContent = ({ loading, items, scrollY }: RenderContent) => {
+const renderContent = ({
+  loading,
+  items,
+  scrollY,
+  headerHeight,
+}: RenderContent) => {
   if (loading === 'pending') {
     return (
       <ScrollView
@@ -38,10 +43,13 @@ const renderContent = ({ loading, items, scrollY }: RenderContent) => {
       <Animated.ScrollView
         alwaysBounceVertical={false}
         bounces={false}
-        contentContainerStyle={styles.scrollContainer}
+        contentContainerStyle={[
+          styles.scrollContainer,
+          { paddingBottom: headerHeight },
+        ]}
         scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
-        style={styles.flatContainer}
+        style={[styles.flatContainer, { paddingVertical: headerHeight }]}
         onScroll={Animated.event([
           {
             nativeEvent: { contentOffset: { y: scrollY } },
@@ -76,8 +84,13 @@ const HistoryView = ({
 
   return (
     <Background style={styles.background}>
-      <Header headerHeight={headerHeight} headerY={headerY} />
-      {renderContent({ loading, items, scrollY })}
+      <CustomHeader
+        animated={true}
+        headerHeight={headerHeight}
+        headerY={headerY}
+        text={'History'}
+      />
+      {renderContent({ loading, items, scrollY, headerHeight })}
     </Background>
   );
 };

@@ -1,6 +1,7 @@
 import BackButton from './BackButton';
 import Background from './Background';
 import Button from './Button';
+import CustomHeader from './CustomHeader';
 import FullImageModal from './FullImageModal';
 import GalleryCell from './GalleryCell';
 import Header from './Header';
@@ -40,4 +41,5 @@ export {
   Header,
   HistoryCardSkeleton,
   VehicleCardSkeleton,
+  CustomHeader,
 };

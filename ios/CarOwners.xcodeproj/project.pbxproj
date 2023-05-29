@@ -14,6 +14,8 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8711B519B84B030E1FB30FE3 /* Pods_CarOwners_CarOwnersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9462097C1A2ADCA1EB6D5123 /* Pods_CarOwners_CarOwnersTests.framework */; };
 		CE7097C329DDA7F90055A875 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE7097C229DDA7F90055A875 /* GoogleService-Info.plist */; };
+		CE9A17AF2A210FF20067E6BA /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A17AE2A210FF20067E6BA /* Dynamic.swift */; };
+		CECB01252A24ACE800CE952D /* blue_car.json in Resources */ = {isa = PBXBuildFile; fileRef = CECB01242A24ACE800CE952D /* blue_car.json */; };
 		E2B903D62EEF6C05DF9D16E9 /* Pods_CarOwners.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A99909B7C4918410728DE1B /* Pods_CarOwners.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +45,8 @@
 		8A99909B7C4918410728DE1B /* Pods_CarOwners.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarOwners.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9462097C1A2ADCA1EB6D5123 /* Pods_CarOwners_CarOwnersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarOwners_CarOwnersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE7097C229DDA7F90055A875 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE9A17AD2A210FF10067E6BA /* CarOwners-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CarOwners-Bridging-Header.h"; sourceTree = "<group>"; };
+		CE9A17AE2A210FF20067E6BA /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
 		CEBB505D93735A2470810ADE /* Pods-CarOwners-CarOwnersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners-CarOwnersTests.release.xcconfig"; path = "Target Support Files/Pods-CarOwners-CarOwnersTests/Pods-CarOwners-CarOwnersTests.release.xcconfig"; sourceTree = "<group>"; };
 		CECA876829E197A8000183D9 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		CECA876929E197A8000183D9 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
@@ -60,6 +64,7 @@
 		CECA877529E197A8000183D9 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		CECA877629E197A8000183D9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		CECA877729E197A8000183D9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		CECB01242A24ACE800CE952D /* blue_car.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = blue_car.json; path = ../../../../Downloads/blue_car.json; sourceTree = "<group>"; };
 		E35382CF4DED7668417622B3 /* Pods-CarOwners.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners.release.xcconfig"; path = "Target Support Files/Pods-CarOwners/Pods-CarOwners.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -104,12 +109,15 @@
 		13B07FAE1A68108700A75B9A /* CarOwners */ = {
 			isa = PBXGroup;
 			children = (
+				CECB01242A24ACE800CE952D /* blue_car.json */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
+				CE9A17AE2A210FF20067E6BA /* Dynamic.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				CE9A17AD2A210FF10067E6BA /* CarOwners-Bridging-Header.h */,
 			);
 			name = CarOwners;
 			sourceTree = "<group>";
@@ -252,7 +260,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -289,6 +297,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				CECB01252A24ACE800CE952D /* blue_car.json in Resources */,
 				CE7097C329DDA7F90055A875 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9A17AF2A210FF20067E6BA /* Dynamic.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -491,6 +501,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7A80B30A4D75735A12305972 /* Pods-CarOwners-CarOwnersTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -518,6 +529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEBB505D93735A2470810ADE /* Pods-CarOwners-CarOwnersTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = CarOwnersTests/Info.plist;
@@ -545,6 +557,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 47SKLYUCJ5;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarOwners/Info.plist;
@@ -560,6 +573,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarOwners;
+				SWIFT_OBJC_BRIDGING_HEADER = "CarOwners-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -573,6 +587,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 47SKLYUCJ5;
 				INFOPLIST_FILE = CarOwners/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -587,6 +602,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = CarOwners;
+				SWIFT_OBJC_BRIDGING_HEADER = "CarOwners-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -28,8 +28,8 @@ interface MyVehiclesProps {
   cardHeight: number;
   onLayout: (e: LayoutChangeEvent) => void;
   onRefresh: () => void;
-  deleteVehicle: (item: VehicleInterface) => void;
-  editVehicle: (item: VehicleInterface) => void;
+  deleteVehicle: (item: VehicleInterface) => () => void;
+  editVehicle: (item: VehicleInterface) => () => void;
   addVehicle: () => void;
 }
 

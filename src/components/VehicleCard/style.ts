@@ -18,13 +18,41 @@ const styles = StyleSheet.create({
     shadowRadius: 1,
     width: '100%',
   },
-  model: { marginLeft: 4 },
-  brand: { flexDirection: 'row' },
-  infoBlock: {
-    alignItems: 'center',
+  modelBlock: {
+    alignItems: 'flex-start',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 8,
+    width: '100%',
+  },
+  model: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    maxWidth: '90%',
+  },
+  modelText: { marginTop: 5 },
+  modelBrand: {
+    color: theme.colors.primary,
+    marginRight: 4,
+  },
+  infoBlock: {
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  photosContainer: {
+    flex: 1,
+    gap: 2,
+    height: 80,
+    marginBottom: 12,
+    width: '100%',
+  },
+  photosBlock: { flexDirection: 'row', flexGrow: 1, gap: 2 },
+  imageStyle: {
+    borderRadius: 2,
+    height: '100%',
+    width: 110,
   },
 });
 

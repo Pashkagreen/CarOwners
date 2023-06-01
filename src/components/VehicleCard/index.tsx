@@ -6,6 +6,7 @@ import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { hitSlop, theme } from '../../core/theme';
+import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import { VehicleInterface } from '../../store/Vehicles/types';
 import styles from './style';
 
@@ -14,6 +15,7 @@ interface VehicleCardProps {
   index: number;
   onPress: any;
   onDeletePress: any;
+  onPhotoPress: (photos: SetPhotos[], index: number) => () => void;
   onLayout: (e: LayoutChangeEvent) => void;
   cardHeight: number;
   scrollY: any;
@@ -24,6 +26,7 @@ const VehicleCard = ({
   index,
   onPress,
   onDeletePress,
+  onPhotoPress,
   onLayout,
   cardHeight,
   scrollY,
@@ -43,6 +46,7 @@ const VehicleCard = ({
     inputRange: opacityInputRange,
     outputRange: [1, 1, 1, 0],
   });
+
   return (
     <Animated.View style={{ transform: [{ scale }], opacity }}>
       <TouchableOpacity
@@ -50,7 +54,7 @@ const VehicleCard = ({
         onLayout={onLayout}
         onPress={onPress}>
         <View style={styles.modelBlock}>
-          <View style={styles.modelText}>
+          <View>
             <Text>Model: </Text>
           </View>
           <View style={styles.model}>
@@ -69,15 +73,18 @@ const VehicleCard = ({
           <View
             style={styles.photosBlock}
             onStartShouldSetResponder={() => true}>
-            {item?.photos?.map(el => (
-              <TouchableOpacity key={el.uri}>
-                <FastImage
-                  resizeMode="cover"
-                  source={{ uri: el.thumbnailUri }}
-                  style={styles.imageStyle}
-                />
-              </TouchableOpacity>
-            ))}
+            {!!item?.photos?.length &&
+              item.photos.map((el, idx) => (
+                <TouchableOpacity
+                  key={el.uri}
+                  onPress={onPhotoPress(item.photos!, idx)}>
+                  <FastImage
+                    resizeMode="cover"
+                    source={{ uri: el.thumbnailUri }}
+                    style={styles.imageStyle}
+                  />
+                </TouchableOpacity>
+              ))}
           </View>
         </ScrollView>
 

@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
 import { VehicleInterface } from '../../../store/Vehicles/types';
+import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
 import MyVehiclesView from './MyVehiclesView';
 
 type Props = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
@@ -21,6 +22,11 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
 
   const [refreshing, setRefreshing] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
+
+  // ======= Animation Section =========
+  const [viewerItems, setViewerItems] = useState<SetPhotos[]>([]);
+  const [viewerIndex, setViewerIndex] = useState<number>(0);
+  const [isShowViewer, setIsShowViewer] = useState(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
@@ -54,6 +60,14 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
     setCardHeight(height);
   };
 
+  const onPhotoPress = (photos: SetPhotos[], index: number) => () => {
+    setIsShowViewer(true);
+    if (photos) {
+      setViewerItems(photos);
+      setViewerIndex(index);
+    }
+  };
+
   useEffect(() => {
     getData();
   }, []);
@@ -65,10 +79,15 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
       deleteVehicle={deleteVehicle}
       editVehicle={editVehicle}
       headerHeight={headerHeight}
+      isShowViewer={isShowViewer}
       items={vehiclesStore.vehicles}
       loading={vehiclesStore.state}
       refreshing={refreshing}
+      setIsShowViewer={setIsShowViewer}
+      viewerIndex={viewerIndex}
+      viewerItems={viewerItems}
       onLayout={onLayout}
+      onPhotoPress={onPhotoPress}
       onRefresh={onRefresh}
     />
   );

@@ -19,18 +19,17 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   modelBlock: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
     marginBottom: 8,
     width: '100%',
   },
   model: {
-    alignItems: 'flex-start',
+    alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
     maxWidth: '90%',
   },
-  modelText: { marginTop: 5 },
   modelBrand: {
     color: theme.colors.primary,
     marginRight: 4,

@@ -19,6 +19,7 @@ import TextInput from './TextInput';
 import Title from './Title';
 import VehicleCard from './VehicleCard';
 import VehicleCardSkeleton from './VehicleCard/VehicleCardSkeleton';
+import VehiclesCarouselModal from './VehiclesCarouselModal';
 
 export {
   BackButton,
@@ -42,4 +43,5 @@ export {
   HistoryCardSkeleton,
   VehicleCardSkeleton,
   CustomHeader,
+  VehiclesCarouselModal,
 };

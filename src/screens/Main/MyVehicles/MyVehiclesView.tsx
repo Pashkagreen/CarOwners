@@ -14,10 +14,12 @@ import {
   CustomHeader,
   VehicleCard,
   VehicleCardSkeleton,
+  VehiclesCarouselModal,
 } from '../../../components';
 
 import { theme } from '../../../core/theme';
 import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
+import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
 import styles from './style';
 
 interface MyVehiclesProps {
@@ -26,6 +28,11 @@ interface MyVehiclesProps {
   refreshing: boolean;
   headerHeight: number;
   cardHeight: number;
+  viewerIndex: number;
+  isShowViewer: boolean;
+  viewerItems: SetPhotos[];
+  onPhotoPress: (photos: SetPhotos[], index: number) => () => void;
+  setIsShowViewer: (state: boolean) => void;
   onLayout: (e: LayoutChangeEvent) => void;
   onRefresh: () => void;
   deleteVehicle: (item: VehicleInterface) => () => void;
@@ -33,7 +40,15 @@ interface MyVehiclesProps {
   addVehicle: () => void;
 }
 
-interface RenderContent extends Omit<MyVehiclesProps, 'addVehicle'> {
+interface RenderContent
+  extends Omit<
+    MyVehiclesProps,
+    | 'addVehicle'
+    | 'viewerIndex'
+    | 'isShowViewer'
+    | 'viewerItems'
+    | 'setIsShowViewer'
+  > {
   scrollY: any;
 }
 
@@ -44,6 +59,7 @@ const renderContent = ({
   headerHeight,
   cardHeight,
   scrollY,
+  onPhotoPress,
   onLayout,
   onRefresh,
   deleteVehicle,
@@ -83,6 +99,7 @@ const renderContent = ({
             scrollY={scrollY}
             onDeletePress={deleteVehicle(item)}
             onLayout={onLayout}
+            onPhotoPress={onPhotoPress}
             onPress={editVehicle(item)}
           />
         )}
@@ -109,6 +126,11 @@ const MyVehiclesView = ({
   refreshing,
   headerHeight,
   cardHeight,
+  onPhotoPress,
+  isShowViewer,
+  viewerIndex,
+  viewerItems,
+  setIsShowViewer,
   onLayout,
   onRefresh,
   addVehicle,
@@ -118,29 +140,40 @@ const MyVehiclesView = ({
   const scrollY = useRef(new Animated.Value(0)).current;
 
   return (
-    <Background style={styles.background}>
-      <CustomHeader
-        animated={false}
-        headerHeight={headerHeight}
-        iconName={'plus'}
-        rightButton={true}
-        style={styles.header}
-        text={'My Vehicles'}
-        onIconPress={addVehicle}
-      />
-      {renderContent({
-        items,
-        cardHeight,
-        loading,
-        refreshing,
-        headerHeight,
-        onRefresh,
-        editVehicle,
-        deleteVehicle,
-        onLayout,
-        scrollY,
-      })}
-    </Background>
+    <>
+      {isShowViewer && (
+        <VehiclesCarouselModal
+          data={viewerItems}
+          index={viewerIndex}
+          isShowViewer={isShowViewer}
+          setIsShowViewer={setIsShowViewer}
+        />
+      )}
+      <Background style={styles.background}>
+        <CustomHeader
+          animated={false}
+          headerHeight={headerHeight}
+          iconName={'plus'}
+          rightButton={true}
+          style={styles.header}
+          text={'My Vehicles'}
+          onIconPress={addVehicle}
+        />
+        {renderContent({
+          items,
+          cardHeight,
+          loading,
+          refreshing,
+          headerHeight,
+          onRefresh,
+          editVehicle,
+          deleteVehicle,
+          onLayout,
+          scrollY,
+          onPhotoPress,
+        })}
+      </Background>
+    </>
   );
 };
 

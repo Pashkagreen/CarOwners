@@ -1,27 +1,38 @@
-import { memo, useEffect, useRef } from 'react';
-import { ScrollView, TouchableWithoutFeedback, View } from 'react-native';
+import { memo, useEffect, useRef, useState } from 'react';
+import {
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
 
-import FastImage from 'react-native-fast-image';
 import Modal from 'react-native-modal';
+import Animated from 'react-native-reanimated';
 
-import { screenWidth } from '../../core/theme';
+import CarouselItem from './components/CarouselItem';
+
+import { CARD_LENGTH, SPACING } from '../../core/constants';
 import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
-import getStyles from './style';
-
+import styles from './style';
 interface VehicleCarouselProps {
   data: SetPhotos[];
-  index: number;
+  viewerIndex: number;
   isShowViewer: boolean;
   setIsShowViewer: (value: boolean) => void;
 }
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 const VehicleCarouselModal = ({
   data,
-  index,
+  viewerIndex,
   isShowViewer,
   setIsShowViewer,
 }: VehicleCarouselProps) => {
-  const styles = getStyles();
-  const scrollRef = useRef<ScrollView>(null);
+  const scrollRef = useRef<FlatList<any>>(null);
+  const [scrollX, setScrollX] = useState(0);
+
+  const onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    setScrollX(event.nativeEvent.contentOffset.x);
+  };
 
   const onClose = () => {
     setIsShowViewer(false);
@@ -31,43 +42,50 @@ const VehicleCarouselModal = ({
     if (scrollRef.current) {
       setTimeout(
         () =>
-          scrollRef?.current?.scrollTo({
-            x: screenWidth * index,
+          scrollRef.current?.scrollToIndex({
+            index: viewerIndex,
             animated: true,
+            viewPosition: 0.5,
           }),
         200,
       );
     }
-  }, [index]);
+  }, [viewerIndex]);
 
   return (
     <Modal
       propagateSwipe
+      backdropOpacity={0.9}
       isVisible={isShowViewer}
       style={styles.modal}
       swipeDirection={'down'}
       onBackdropPress={onClose}
       onSwipeComplete={onClose}>
-      <ScrollView
-        ref={scrollRef}
-        horizontal
-        scrollEventThrottle={16}
-        showsHorizontalScrollIndicator={false}
-        style={styles.container}>
-        {!!data.length &&
-          data.map(car => (
-            <TouchableWithoutFeedback key={car.fullFileName}>
-              <View style={styles.imageContainer}>
-                <FastImage
-                  key={car.fullFileName}
-                  resizeMode="contain"
-                  source={{ uri: car.uri }}
-                  style={styles.image}
-                />
-              </View>
-            </TouchableWithoutFeedback>
-          ))}
-      </ScrollView>
+      <Animated.View style={styles.container}>
+        {!!data.length && (
+          <AnimatedFlatList
+            ref={scrollRef}
+            disableIntervalMomentum
+            disableScrollViewPanResponder
+            horizontal
+            data={data}
+            decelerationRate={'normal'}
+            keyExtractor={(i, idx) => idx.toString()}
+            renderItem={({ item, index }) => (
+              <CarouselItem
+                index={index}
+                item={item as SetPhotos}
+                length={data.length}
+                scrollX={scrollX}
+              />
+            )}
+            scrollEventThrottle={16}
+            showsHorizontalScrollIndicator={false}
+            snapToInterval={CARD_LENGTH + SPACING * 2}
+            onScroll={onScroll}
+          />
+        )}
+      </Animated.View>
     </Modal>
   );
 };

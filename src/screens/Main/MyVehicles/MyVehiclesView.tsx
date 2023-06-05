@@ -144,9 +144,9 @@ const MyVehiclesView = ({
       {isShowViewer && (
         <VehiclesCarouselModal
           data={viewerItems}
-          index={viewerIndex}
           isShowViewer={isShowViewer}
           setIsShowViewer={setIsShowViewer}
+          viewerIndex={viewerIndex}
         />
       )}
       <Background style={styles.background}>

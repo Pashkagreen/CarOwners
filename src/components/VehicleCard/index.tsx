@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { LayoutChangeEvent, ScrollView, View } from 'react-native';
 import { Animated, TouchableOpacity } from 'react-native';
 
@@ -118,4 +119,4 @@ const VehicleCard = ({
   );
 };
 
-export default VehicleCard;
+export default memo(VehicleCard);

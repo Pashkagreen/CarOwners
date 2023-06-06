@@ -1,10 +1,7 @@
-import { memo } from 'react';
-import {
-  ActivityIndicator,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { memo, useEffect, useRef } from 'react';
+import { TouchableWithoutFeedback, View } from 'react-native';
 
+import Lottie from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 import Animated, {
   Extrapolate,
@@ -28,6 +25,8 @@ const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
   const imageSize = useImageSize(item.uri);
   const size = useSharedValue(0.8);
   const styles = getStyles(imageSize as ImageSize, index, length);
+
+  const animationRef = useRef<Lottie>(null);
 
   const inputRange = [
     (index - 1) * CARD_LENGTH,
@@ -60,22 +59,29 @@ const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
     opacity: opacity.value,
   }));
 
+  useEffect(() => {
+    animationRef.current?.play(0, 5000);
+  }, []);
+
   return (
     <TouchableWithoutFeedback key={index}>
-      {imageSize && cardStyle ? (
-        <Animated.View style={[styles.imageContainer, cardStyle]}>
-          <FastImage
-            key={item.fullFileName}
-            resizeMode="contain"
-            source={{ uri: item.uri }}
-            style={styles.image}
+      <Animated.View style={[styles.imageContainer, cardStyle]}>
+        <FastImage
+          key={item.fullFileName}
+          resizeMode="contain"
+          source={{ uri: item.uri }}
+          style={styles.image}
+        />
+        <View style={styles.loaderContainer}>
+          <Lottie
+            ref={animationRef}
+            autoPlay
+            loop
+            source={require('../../../../assets/carousel_loading.json')}
+            style={styles.lottieLoader}
           />
-        </Animated.View>
-      ) : (
-        <View style={styles.imageContainer}>
-          <ActivityIndicator />
         </View>
-      )}
+      </Animated.View>
     </TouchableWithoutFeedback>
   );
 };

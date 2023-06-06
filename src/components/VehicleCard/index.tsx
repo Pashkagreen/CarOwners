@@ -67,15 +67,15 @@ const VehicleCard = ({
             </Text>
           </View>
         </View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          style={styles.photosContainer}>
-          <View
-            style={styles.photosBlock}
-            onStartShouldSetResponder={() => true}>
-            {!!item?.photos?.length &&
-              item.photos.map((el, idx) => (
+        {!!item?.photos?.length && (
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.photosContainer}>
+            <View
+              style={styles.photosBlock}
+              onStartShouldSetResponder={() => true}>
+              {item.photos.map((el, idx) => (
                 <TouchableOpacity
                   key={el.uri}
                   onPress={onPhotoPress(item.photos!, idx)}>
@@ -86,8 +86,9 @@ const VehicleCard = ({
                   />
                 </TouchableOpacity>
               ))}
-          </View>
-        </ScrollView>
+            </View>
+          </ScrollView>
+        )}
 
         <View style={styles.infoBlock}>
           <View>

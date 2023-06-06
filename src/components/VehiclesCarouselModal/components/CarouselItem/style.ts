@@ -15,10 +15,21 @@ const getStyles = (imageSize: any, index: number, length: number) =>
       marginRight: index === length - 1 ? SIDECARD_LENGTH : SPACING,
       top: (screenHeight - imageSize.height) / 2,
       width: CARD_LENGTH,
+      zIndex: 2,
     },
     image: {
       height: '100%',
       width: '100%',
+    },
+    loaderContainer: {
+      left: CARD_LENGTH / 2 - 50,
+      position: 'absolute',
+      top: imageSize.height / 2 - 50,
+      zIndex: -2,
+    },
+    lottieLoader: {
+      height: 100,
+      width: 100,
     },
   });
 

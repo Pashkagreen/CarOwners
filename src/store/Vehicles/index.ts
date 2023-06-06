@@ -129,7 +129,7 @@ export class VehiclesStore {
       await VehiclesService.deleteVehicle(item?.id);
       flashMessage({
         type: 'info',
-        message: 'Your vehicle deleted.',
+        message: 'Your vehicle successfully deleted.',
       });
       runInAction(() => {
         this.vehicles = this.vehicles.filter(e => e.id !== item?.id);

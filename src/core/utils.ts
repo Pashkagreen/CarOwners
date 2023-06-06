@@ -3,10 +3,11 @@ import { Alert } from 'react-native';
 import { MessageOptions, showMessage } from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
 
+import { ACCESS_KEY } from './constants';
+
 export const getUserCurrentCountry = async (): Promise<string> => {
   let res;
   try {
-    const ACCESS_KEY = 'bcf8028e033e2094a6cebda23275f95b';
     const publicIpAddress = await publicIP();
     const url = `http://api.ipstack.com/${publicIpAddress}?access_key=${ACCESS_KEY}&format=1`;
     res = await fetch(url);

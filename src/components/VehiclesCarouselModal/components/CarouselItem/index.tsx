@@ -22,11 +22,13 @@ interface CarouselItemProps {
   length: number;
 }
 const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
+  const animationRef = useRef<Lottie>(null);
+
   const imageSize = useImageSize(item.uri);
-  const size = useSharedValue(0.8);
   const styles = getStyles(imageSize as ImageSize, index, length);
 
-  const animationRef = useRef<Lottie>(null);
+  const size = useSharedValue(0.8);
+  const opacity = useSharedValue(1);
 
   const inputRange = [
     (index - 1) * CARD_LENGTH,
@@ -41,12 +43,12 @@ const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
     Extrapolate.CLAMP,
   );
 
-  const opacity = useSharedValue(1);
   const opacityInputRange = [
     (index - 1) * CARD_LENGTH,
     index * CARD_LENGTH,
     (index + 1) * CARD_LENGTH,
   ];
+
   opacity.value = interpolate(
     scrollX,
     opacityInputRange,
@@ -60,7 +62,9 @@ const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
   }));
 
   useEffect(() => {
-    animationRef.current?.play(0, 5000);
+    if (animationRef.current) {
+      animationRef.current?.play(0, 8000);
+    }
   }, []);
 
   return (

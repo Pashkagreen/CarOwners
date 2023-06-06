@@ -1,7 +1,8 @@
-import { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { LayoutChangeEvent, ScrollView, View } from 'react-native';
 import { Animated, TouchableOpacity } from 'react-native';
 
+import Lottie from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 import { Text } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -32,6 +33,7 @@ const VehicleCard = ({
   cardHeight,
   scrollY,
 }: VehicleCardProps): JSX.Element => {
+  const [loading, setLoading] = useState(true);
   const inputRange = [-1, 0, cardHeight * index, cardHeight * (index + 4)];
   const opacityInputRange = [
     -1,
@@ -79,10 +81,21 @@ const VehicleCard = ({
                 <TouchableOpacity
                   key={el.uri}
                   onPress={onPhotoPress(item.photos!, idx)}>
+                  {loading && (
+                    <View style={styles.loaderStyle}>
+                      <Lottie
+                        autoPlay
+                        loop
+                        source={require('../../assets/carousel_loading.json')}
+                        style={styles.lottieLoader}
+                      />
+                    </View>
+                  )}
                   <FastImage
                     resizeMode="cover"
                     source={{ uri: el.thumbnailUri }}
                     style={styles.imageStyle}
+                    onLoadEnd={() => setLoading(false)}
                   />
                 </TouchableOpacity>
               ))}

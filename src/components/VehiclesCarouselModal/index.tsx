@@ -10,7 +10,7 @@ import Animated from 'react-native-reanimated';
 
 import CarouselItem from './components/CarouselItem';
 
-import { CARD_LENGTH, SPACING } from '../../core/constants';
+import { SNAP_INTERVAL } from '../../core/constants';
 import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import styles from './style';
 interface VehicleCarouselProps {
@@ -81,7 +81,7 @@ const VehicleCarouselModal = ({
             )}
             scrollEventThrottle={16}
             showsHorizontalScrollIndicator={false}
-            snapToInterval={CARD_LENGTH + SPACING * 2}
+            snapToInterval={SNAP_INTERVAL}
             onScroll={onScroll}
           />
         )}

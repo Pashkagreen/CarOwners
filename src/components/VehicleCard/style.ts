@@ -48,23 +48,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   photosBlock: { flexDirection: 'row', flexGrow: 1, gap: 2 },
-  imageStyle: {
-    borderRadius: 2,
-    height: '100%',
-    width: 110,
-  },
-  loaderStyle: {
-    alignItems: 'center',
-    borderRadius: 2,
-    height: '100%',
-    justifyContent: 'center',
-    width: 110,
-  },
-  lottieLoader: {
-    height: 40,
-    width: 40,
-    zIndex: 100,
-  },
 });
 
 export default styles;

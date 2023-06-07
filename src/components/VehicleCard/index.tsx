@@ -1,11 +1,15 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import { LayoutChangeEvent, ScrollView, View } from 'react-native';
-import { Animated, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
-import Lottie from 'lottie-react-native';
-import FastImage from 'react-native-fast-image';
 import { Text } from 'react-native-paper';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import ScrollablePhotoItem from './components/ScrollablePhotoItem';
 
 import { hitSlop, theme } from '../../core/theme';
 import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
@@ -33,7 +37,6 @@ const VehicleCard = ({
   cardHeight,
   scrollY,
 }: VehicleCardProps): JSX.Element => {
-  const [loading, setLoading] = useState(true);
   const inputRange = [-1, 0, cardHeight * index, cardHeight * (index + 4)];
   const opacityInputRange = [
     -1,
@@ -41,17 +44,28 @@ const VehicleCard = ({
     cardHeight * index,
     cardHeight * (index + 4),
   ];
-  const scale = scrollY.interpolate({
-    inputRange,
-    outputRange: [1, 1, 1, 0.4],
-  });
-  const opacity = scrollY.interpolate({
-    inputRange: opacityInputRange,
-    outputRange: [1, 1, 1, 0],
+
+  const animatedStyle = useAnimatedStyle(() => {
+    const animatedScale = interpolate(
+      scrollY.value,
+      inputRange,
+      [1, 1, 1, 0.4],
+    );
+
+    const animatedOpacity = interpolate(
+      scrollY.value,
+      opacityInputRange,
+      [1, 1, 1, 0],
+    );
+
+    return {
+      transform: [{ scale: animatedScale }],
+      opacity: animatedOpacity,
+    };
   });
 
   return (
-    <Animated.View style={{ transform: [{ scale }], opacity }}>
+    <Animated.View style={animatedStyle}>
       <TouchableOpacity
         style={styles.container}
         onLayout={onLayout}
@@ -77,27 +91,12 @@ const VehicleCard = ({
             <View
               style={styles.photosBlock}
               onStartShouldSetResponder={() => true}>
-              {item.photos.map((el, idx) => (
-                <TouchableOpacity
-                  key={el.uri}
-                  onPress={onPhotoPress(item.photos!, idx)}>
-                  {loading && (
-                    <View style={styles.loaderStyle}>
-                      <Lottie
-                        autoPlay
-                        loop
-                        source={require('../../assets/carousel_loading.json')}
-                        style={styles.lottieLoader}
-                      />
-                    </View>
-                  )}
-                  <FastImage
-                    resizeMode="cover"
-                    source={{ uri: el.thumbnailUri }}
-                    style={styles.imageStyle}
-                    onLoadEnd={() => setLoading(false)}
-                  />
-                </TouchableOpacity>
+              {item.photos.map((photo, idx) => (
+                <ScrollablePhotoItem
+                  key={idx}
+                  photo={photo}
+                  onPhotoPress={onPhotoPress(item?.photos!, idx)}
+                />
               ))}
             </View>
           </ScrollView>

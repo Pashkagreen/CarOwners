@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import {
-  Animated,
+  FlatList,
   LayoutChangeEvent,
   RefreshControl,
   ScrollView,
@@ -8,6 +8,10 @@ import {
 } from 'react-native';
 
 import { Text } from 'react-native-paper';
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from 'react-native-reanimated';
 
 import {
   Background,
@@ -50,7 +54,10 @@ interface RenderContent
     | 'setIsShowViewer'
   > {
   scrollY: any;
+  scrollHandler: any;
 }
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const renderContent = ({
   loading,
@@ -59,6 +66,7 @@ const renderContent = ({
   headerHeight,
   cardHeight,
   scrollY,
+  scrollHandler,
   onPhotoPress,
   onLayout,
   onRefresh,
@@ -76,13 +84,13 @@ const renderContent = ({
   }
   if (loading === 'done' && items.length) {
     return (
-      <Animated.FlatList
+      <AnimatedFlatList
         contentContainerStyle={[
           styles.scrollContainer,
           { paddingBottom: headerHeight },
         ]}
         data={items}
-        keyExtractor={({ id }) => id}
+        keyExtractor={(i, idx) => idx.toString()}
         refreshControl={
           <RefreshControl
             colors={[theme.colors.primary]}
@@ -95,20 +103,17 @@ const renderContent = ({
           <VehicleCard
             cardHeight={cardHeight}
             index={index}
-            item={item}
+            item={item as VehicleInterface}
             scrollY={scrollY}
-            onDeletePress={deleteVehicle(item)}
+            onDeletePress={deleteVehicle(item as VehicleInterface)}
             onLayout={onLayout}
             onPhotoPress={onPhotoPress}
-            onPress={editVehicle(item)}
+            onPress={editVehicle(item as VehicleInterface)}
           />
         )}
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: true },
-        )}
+        onScroll={scrollHandler}
       />
     );
   }
@@ -137,7 +142,13 @@ const MyVehiclesView = ({
   editVehicle,
   deleteVehicle,
 }: MyVehiclesProps): JSX.Element => {
-  const scrollY = useRef(new Animated.Value(0)).current;
+  const scrollY = useSharedValue(0);
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: event => {
+      scrollY.value = event.contentOffset.y;
+    },
+  });
 
   return (
     <>
@@ -165,11 +176,12 @@ const MyVehiclesView = ({
           loading,
           refreshing,
           headerHeight,
+          scrollY,
           onRefresh,
           editVehicle,
           deleteVehicle,
           onLayout,
-          scrollY,
+          scrollHandler,
           onPhotoPress,
         })}
       </Background>

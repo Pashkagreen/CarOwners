@@ -7,7 +7,6 @@ import {
   Background,
   CustomHeader,
   HistoryCard,
-  HistoryCardSkeleton,
 } from '../../../components';
 
 import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
@@ -34,7 +33,6 @@ const renderContent = ({
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}>
-        <HistoryCardSkeleton amount={8} loading={loading === 'pending'} />
       </ScrollView>
     );
   }

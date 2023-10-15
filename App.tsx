@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -12,14 +12,14 @@ import { theme } from './src/core/theme';
 import RootNavigation from './src/navigation';
 import { rootStore, StoreProvider, trunk } from './src/store';
 
-const App = (): JSX.Element => {
+const App = () => {
   useEffect(() => {
     const rehydrate = async () => {
       await trunk.init();
       LottieSplashScreen.hide();
     };
 
-    rehydrate();
+    void rehydrate();
   }, []);
 
   return (

@@ -1,6 +1,3 @@
-import HistoryCardSkeleton from './HistoryCard/components/HistoryCardSkeleton';
-import VehicleCardSkeleton from './VehicleCard/components/VehicleCardSkeleton';
-
 import BackButton from './BackButton';
 import Background from './Background';
 import Button from './Button';
@@ -41,8 +38,6 @@ export {
   GalleryCell,
   MultiPicker,
   Header,
-  HistoryCardSkeleton,
-  VehicleCardSkeleton,
   CustomHeader,
   VehiclesCarouselModal,
 };

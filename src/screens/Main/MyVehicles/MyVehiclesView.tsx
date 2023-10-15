@@ -17,7 +17,6 @@ import {
   Background,
   CustomHeader,
   VehicleCard,
-  VehicleCardSkeleton,
   VehiclesCarouselModal,
 } from '../../../components';
 
@@ -78,7 +77,6 @@ const renderContent = ({
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}>
-        <VehicleCardSkeleton amount={8} loading={loading === 'pending'} />
       </ScrollView>
     );
   }

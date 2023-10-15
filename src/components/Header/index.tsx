@@ -1,14 +1,17 @@
-import React, { memo } from 'react';
-import { Text } from 'react-native';
+import { memo } from 'react';
+
+import { Text } from 'react-native-paper';
 
 import styles from './style';
 
-type Props = {
-  children: React.ReactNode;
-};
+interface HeaderProps {
+  text: string;
+}
 
-const Header = ({ children }: Props) => (
-  <Text style={styles.header}>{children}</Text>
+const Header = ({ text }: HeaderProps) => (
+  <Text style={styles.headerText} variant="titleLarge">
+    {text}
+  </Text>
 );
 
 export default memo(Header);

@@ -2,9 +2,10 @@ import * as React from 'react';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { MyBottomNavigation, TabBarIcon } from '../../components';
+import { Header, TabBarIcon } from '../../components';
 
-import bottomBarConfig from '../../core/bottomBarConfig';
+import bottomBarConfig from '../config/mainStackConfig';
+
 import { MyGarageStackParams } from '../MyGarageStack';
 
 export type MainStackParams = {
@@ -16,11 +17,7 @@ export type MainStackParams = {
 const BottomTab = createBottomTabNavigator<MainStackParams>();
 
 const MainStackScreens = (): JSX.Element => (
-  <BottomTab.Navigator
-    screenOptions={{
-      headerShown: false,
-    }}
-    tabBar={props => <MyBottomNavigation {...props} />}>
+  <BottomTab.Navigator>
     {Object.values(bottomBarConfig).map(bottomBar => (
       <BottomTab.Screen
         key={bottomBar.screenName}
@@ -29,6 +26,12 @@ const MainStackScreens = (): JSX.Element => (
         options={{
           tabBarLabel: bottomBar.screenName,
           tabBarIcon: props => <TabBarIcon name={bottomBar.icon} {...props} />,
+          tabBarLabelStyle: { marginBottom: 8 },
+          headerTitleAlign: 'center',
+          headerShown: bottomBar.headerShown,
+          headerTitle: bottomBar.headerShown
+            ? () => <Header text={bottomBar.title} />
+            : undefined,
         }}
       />
     ))}

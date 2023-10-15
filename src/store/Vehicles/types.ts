@@ -1,3 +1,5 @@
+import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
+
 type FetchState = 'pending' | 'done' | 'error';
 
 interface ModifiedAt {
@@ -24,6 +26,7 @@ interface VehicleInterface {
   price?: string | number;
   mileage?: string | number;
   createdAt?: ModifiedAt;
+  photos?: SetPhotos[] | [];
 }
 
 export type {

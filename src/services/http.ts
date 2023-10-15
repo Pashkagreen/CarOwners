@@ -13,7 +13,7 @@ import {
   BaseError,
   StatusCodes,
   StatusCodeType,
-} from './types';
+} from './types.http';
 
 const BASE_URL =
   'https://us-central1-carowners-97d56.cloudfunctions.net/api/v1';
@@ -30,6 +30,10 @@ const StatusCode: StatusCodeType = {
   [StatusCodes.INTERNAL]: {
     type: 'danger',
     message: 'Internal server error!',
+  },
+  [StatusCodes.NOT_FOUND]: {
+    type: 'danger',
+    message: 'Requested source not found!',
   },
 };
 
@@ -50,7 +54,9 @@ const injectToken = async (config: AdaptAxiosRequestConfig): Promise<any> => {
     }
     return config;
   } catch (error: any) {
-    throw new Error(error);
+    if (error instanceof Error) {
+      throw new Error(error.message);
+    }
   }
 };
 
@@ -127,6 +133,12 @@ class Http {
         type: StatusCode[status].type,
         message: StatusCode[status].message,
         description: data?.message,
+      });
+    } else if (status) {
+      flashMessage({
+        type: 'danger',
+        message: 'Error!',
+        description: 'Unexpected error occurred.',
       });
     }
 

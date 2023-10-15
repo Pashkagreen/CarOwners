@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
@@ -9,14 +10,16 @@ import { Account } from '../../../services/account';
 import UserService from '../../../services/user';
 
 import { codeValidator, phoneNumberValidator } from '../../../core/validators';
-import usePhoneNumber from '../../../hooks/usePhoneNumber';
+import { usePhoneNumber } from '../../../hooks';
 import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
-import LoginView, { validateObject } from './LoginView';
+import { validateObject } from '../../../types';
+import LoginView from './LoginView';
 
 export type Props = StackScreenProps<AuthStackParams, 'Login'>;
 
 const LoginContainer = ({ navigation }: Props): JSX.Element => {
+  const headerHeight = useHeaderHeight();
   const { userStore } = useStore();
   const initialCountry = userStore.user.countryCode;
 
@@ -106,13 +109,18 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
     setLoading(false);
   };
 
-  const navigateToRegistration = () => {
-    navigation.navigate('Registration');
+  const onChange = (cb: typeof setCode) => (text: string) =>
+    cb(prev => ({ ...prev, value: text }));
+
+  const navigateTo = (screenName: keyof AuthStackParams) => () => {
+    navigation.navigate(screenName);
   };
 
-  const navigateToOnboarding = () => {
-    navigation.navigate('Onboarding');
-  };
+  useEffect(() => {
+    if (headerHeight) {
+      userStore.updateHeaderHeight(headerHeight);
+    }
+  }, []);
 
   return (
     <LoginView
@@ -122,13 +130,13 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
       isLoginAvailable={isLoginAvailable}
       loading={loading}
       login={login}
-      navigateToOnboarding={navigateToOnboarding}
-      navigateToRegistration={navigateToRegistration}
+      navigateTo={navigateTo}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}
       setCode={setCode}
       setPhoneNumber={setPhoneNumber}
+      onChange={onChange}
       onChangePhoneNumber={onChangePhoneNumber}
       onSelectCountry={onSelectCountry}
     />

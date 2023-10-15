@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
 
-import { validateObject } from '../screens/Auth/Login/LoginView';
+import { validateObject } from '../types';
 
-const usePhoneNumber = () => {
+export const usePhoneNumber = () => {
   const [iso, setIso] = useState<CountryCode>('US');
 
   const [phoneNumber, setPhoneNumber] = useState<validateObject>({
@@ -38,5 +38,3 @@ const usePhoneNumber = () => {
     onSelectCountry,
   };
 };
-
-export default usePhoneNumber;

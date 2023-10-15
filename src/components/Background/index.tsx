@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
-import { ImageBackground, View } from 'react-native';
+import { ImageBackground, View, ViewStyle } from 'react-native';
 
 import styles from './style';
 
-type Props = {
-  style?: any;
+interface Props {
+  style?: ViewStyle;
   children: React.ReactNode;
-};
+}
 
 const Background = ({ children, style = {} }: Props) => (
   <ImageBackground

@@ -23,7 +23,15 @@ end
 
 target 'CarOwners' do
   config = use_native_modules!
+  use_frameworks! :linkage => :static
+
+  permissions_path = '../node_modules/react-native-permissions/ios'
+
   pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseAppCheckInterop', :modular_headers => true
+  pod 'FirebaseAuthInterop', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+  pod 'GTMSessionFetcher', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   
   # Flags change depending on the env values.
@@ -40,7 +48,7 @@ target 'CarOwners' do
     #
     # Note that if you have use_frameworks! enabled, Flipper will not work and
     # you should disable the next line.
-    :flipper_configuration => flipper_config,
+#    :flipper_configuration => flipper_config,
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )

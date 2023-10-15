@@ -11,9 +11,9 @@ export interface PhoneInputInterface {
   inputRef?: React.Ref<PhoneInputComponent>;
   errorText?: string;
   notShowFlag?: boolean;
-  initialCountry?: string | undefined;
+  initialCountry?: string;
   value: string;
-  uniqueKey?: string | undefined;
+  uniqueKey?: string;
   onChange?: (text: string, uniqueKey: string | undefined) => void;
   onSubmitEditing?: () => void;
 }

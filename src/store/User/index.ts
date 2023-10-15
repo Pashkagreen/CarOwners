@@ -4,9 +4,9 @@ import UserService from '../../services/user';
 
 import { flashMessage } from '../../core/utils';
 
-import { validateObject } from '../../screens/Auth/Login/LoginView';
+import { validateObject } from '../../types';
 import { FetchState } from '../Vehicles/types';
-import { User, UserUpdate } from './types';
+import { User, UserData } from './types';
 
 export class UserStore {
   user: User = {
@@ -16,6 +16,7 @@ export class UserStore {
     email: '',
     countryCode: 'us',
     isAuthorized: false,
+    headerHeight: 0,
   };
   state: FetchState = 'done';
 
@@ -23,15 +24,19 @@ export class UserStore {
     makeAutoObservable(this);
   }
 
-  updateState = (state: FetchState) => {
+  updateHeaderHeight = (height: number): void => {
+    this.user = { ...this.user, headerHeight: height };
+  };
+
+  updateState = (state: FetchState): void => {
     this.state = state;
   };
 
-  setUserData(newUserInfo: UserUpdate) {
+  setUserData(newUserInfo: UserData): void {
     this.user = { ...this.user, ...newUserInfo };
   }
 
-  async getAndSetAuthUser(uid: string) {
+  async getAndSetAuthUser(uid: string): Promise<void> {
     this.updateState('pending');
 
     const { data } = await UserService.getUserData();
@@ -57,7 +62,10 @@ export class UserStore {
     this.updateState('done');
   }
 
-  async registerUser(phoneNumber: validateObject, username: validateObject) {
+  async registerUser(
+    phoneNumber: validateObject,
+    username: validateObject,
+  ): Promise<void> {
     this.updateState('pending');
 
     try {
@@ -85,7 +93,7 @@ export class UserStore {
     this.updateState('done');
   }
 
-  async updateUser(newUserInfo: UserUpdate) {
+  async updateUser(newUserInfo: UserData): Promise<void> {
     this.updateState('pending');
 
     try {
@@ -113,15 +121,15 @@ export class UserStore {
     this.updateState('done');
   }
 
-  updateUserCountry(country: string) {
+  updateUserCountry(country: string): void {
     this.user = { ...this.user, countryCode: country };
   }
 
-  updateAuthStatus(isAuthorized: boolean) {
+  updateAuthStatus(isAuthorized: boolean): void {
     this.user = { ...this.user, isAuthorized: isAuthorized };
   }
 
-  clearUser() {
+  clearUser(): void {
     this.user = {
       uid: '',
       username: '',
@@ -129,6 +137,7 @@ export class UserStore {
       email: '',
       countryCode: 'us',
       isAuthorized: false,
+      headerHeight: 0,
     };
   }
 }

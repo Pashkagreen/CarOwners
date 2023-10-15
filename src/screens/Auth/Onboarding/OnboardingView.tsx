@@ -3,31 +3,29 @@ import React from 'react';
 import {
   Background,
   Button,
-  Header,
   Logo,
   Paragraph,
+  Title,
 } from '../../../components/index';
 
-type Props = {
-  navigateToLogin: () => void;
-  navigateToRegistration: () => void;
-};
+import { AuthStackParams } from '../../../navigation/AuthStack';
 
-const Onboarding = ({
-  navigateToLogin,
-  navigateToRegistration,
-}: Props): JSX.Element => (
+interface OnboardingProps {
+  navigateTo: (screenName: keyof AuthStackParams) => () => void;
+}
+
+const Onboarding = ({ navigateTo }: OnboardingProps): JSX.Element => (
   <Background>
     <Logo />
-    <Header>Car Owners</Header>
+    <Title>Car Owners</Title>
 
     <Paragraph>
       The easiest way to collect information about your cars.
     </Paragraph>
-    <Button mode="contained" onPress={navigateToLogin}>
+    <Button mode="contained" onPress={navigateTo('Login')}>
       Login
     </Button>
-    <Button mode="outlined" onPress={navigateToRegistration}>
+    <Button mode="outlined" onPress={navigateTo('Registration')}>
       Sign Up
     </Button>
   </Background>

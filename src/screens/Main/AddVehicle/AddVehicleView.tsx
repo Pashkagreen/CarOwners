@@ -1,31 +1,34 @@
 import { View } from 'react-native';
 
-import { Controller } from 'react-hook-form';
+import { Controller, UseFormHandleSubmit } from 'react-hook-form';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Text } from 'react-native-paper';
 
 import {
-  BackButton,
   Background,
   Button,
+  MultiPicker,
   TextInput,
 } from '../../../components/index';
 
 import { hitSlop } from '../../../core/theme';
-import { FetchState } from '../../../store/Vehicles/types';
+import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
+import { LocalPhotosState, SetPhotos } from './AddVehicleContainer';
 import { FormData } from './AddVehicleContainer';
 import styles from './style';
 
-type AddVehiclesProps = {
+interface AddVehiclesProps {
   control: any;
   onSubmit: (data: FormData) => void;
-  handleSubmit: any;
+  handleSubmit: UseFormHandleSubmit<FormData>;
   loading: FetchState;
-  isEdit: boolean | undefined;
-  goBack: () => void;
-  vehicleInfo: any;
+  isEdit?: boolean;
+  vehicleInfo?: VehicleInterface;
   errors: any;
-};
+  photos: LocalPhotosState[];
+  onUploadPhotos: (photos: SetPhotos[]) => void;
+  onFinishLoadPhotos: (photos: SetPhotos[]) => void;
+  setLoadingPhotos: (state: boolean) => void;
+}
 
 const AddVehicleView = ({
   control,
@@ -34,19 +37,15 @@ const AddVehicleView = ({
   vehicleInfo,
   loading,
   isEdit,
-  goBack,
+  photos,
   errors,
+  onFinishLoadPhotos,
+  onUploadPhotos,
 }: AddVehiclesProps): JSX.Element => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <View style={styles.headerContainer}>
-        <Text style={styles.headerText} variant="headlineMedium">
-          {isEdit ? 'Update vehicle' : 'Add Vehicle'}
-        </Text>
-        <BackButton goBack={goBack} />
-      </View>
       <Controller
         control={control}
         defaultValue={isEdit ? vehicleInfo?.brand : ''}
@@ -137,6 +136,12 @@ const AddVehicleView = ({
             onChangeText={onChange}
           />
         )}
+      />
+      <MultiPicker
+        text={`Upload your vehicle photos. Max ${photos?.length}/15`}
+        value={vehicleInfo?.photos}
+        onFinishLoadPhotos={onFinishLoadPhotos}
+        onUploadPhotos={onUploadPhotos}
       />
       <View />
       <Button

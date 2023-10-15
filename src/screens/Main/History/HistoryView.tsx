@@ -1,59 +1,96 @@
-import { FlatList, RefreshControl, SafeAreaView, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
-import { ActivityIndicator, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
+import Animated from 'react-native-reanimated';
 
-import { Background, HistoryCard } from '../../../components/index';
+import {
+  Background,
+  CustomHeader,
+  HistoryCard,
+} from '../../../components';
 
-import { theme } from '../../../core/theme';
 import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
 import styles from './style';
 
-type HistoryProps = {
-  refreshing: boolean;
-  onRefresh: () => void;
+interface HistoryProps {
   loading: FetchState;
+  headerHeight: number;
   items: HistoryInterface[];
+}
+
+interface RenderContent extends HistoryProps {
+  scrollY: Animated.Value<number>;
+}
+
+const renderContent = ({
+  loading,
+  items,
+  scrollY,
+  headerHeight,
+}: RenderContent) => {
+  if (loading === 'pending') {
+    return (
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.flatContainer}>
+      </ScrollView>
+    );
+  }
+  if (loading === 'done' && items.length) {
+    return (
+      <Animated.ScrollView
+        alwaysBounceVertical={false}
+        bounces={false}
+        contentContainerStyle={[
+          styles.scrollContainer,
+          { paddingBottom: headerHeight },
+        ]}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        style={[styles.flatContainer, { paddingVertical: headerHeight }]}
+        onScroll={Animated.event([
+          {
+            nativeEvent: { contentOffset: { y: scrollY } },
+          },
+        ])}>
+        {items.map(item => (
+          <HistoryCard key={item.id} item={item} />
+        ))}
+      </Animated.ScrollView>
+    );
+  }
+  if (loading === 'done' && !items.length) {
+    return (
+      <View style={styles.loaderContainer}>
+        <Text variant="headlineSmall">No history provided.</Text>
+      </View>
+    );
+  }
 };
+
 const HistoryView = ({
   loading,
   items,
-  refreshing,
-  onRefresh,
-}: HistoryProps): JSX.Element => (
-  <SafeAreaView style={styles.container}>
+  headerHeight,
+}: HistoryProps): JSX.Element => {
+  const scrollY = new Animated.Value(0);
+  const diffClampScrollY = Animated.diffClamp(scrollY, 0, headerHeight);
+  const headerY = Animated.interpolateNode(diffClampScrollY, {
+    inputRange: [0, headerHeight],
+    outputRange: [0, -headerHeight],
+  });
+
+  return (
     <Background style={styles.background}>
-      <View style={styles.infoBlock}>
-        <Text style={styles.headerText} variant="headlineMedium">
-          History of your vehicles
-        </Text>
-      </View>
-      {loading === 'pending' ? (
-        <View style={styles.loaderContainer}>
-          <ActivityIndicator />
-        </View>
-      ) : items.length ? (
-        <FlatList
-          data={items}
-          keyExtractor={item => item.id}
-          refreshControl={
-            <RefreshControl
-              colors={[theme.colors.primary]}
-              refreshing={refreshing}
-              tintColor={theme.colors.primary}
-              onRefresh={onRefresh}
-            />
-          }
-          renderItem={({ item }) => <HistoryCard item={item} />}
-          showsVerticalScrollIndicator={false}
-          style={styles.flatContainer}
-        />
-      ) : (
-        <View style={styles.loaderContainer}>
-          <Text variant="headlineSmall">No history provided.</Text>
-        </View>
-      )}
+      <CustomHeader
+        animated={true}
+        headerHeight={headerHeight}
+        headerY={headerY}
+        text={'History'}
+      />
+      {renderContent({ loading, items, scrollY, headerHeight })}
     </Background>
-  </SafeAreaView>
-);
+  );
+};
 
 export default HistoryView;

@@ -5,24 +5,20 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import PhoneInputComponent from 'react-native-phone-input';
 
 import {
-  BackButton,
   Background,
   Button,
-  Header,
   Logo,
   PhoneInput,
   TextInput,
+  Title,
 } from '../../../components/index';
 
+import { AuthStackParams } from '../../../navigation/AuthStack';
+import { validateObject } from '../../../types';
 import styles from './style';
 
-type validateObject = {
-  value: string;
-  error: string;
-};
-type RegistrationProps = {
-  navigateToLogin: () => void;
-  navigateToOnboarding: () => void;
+interface RegistrationProps {
+  navigateTo: (screenName: keyof AuthStackParams) => () => void;
   phoneNumber: validateObject;
   code: validateObject;
   username: validateObject;
@@ -33,6 +29,7 @@ type RegistrationProps = {
   setUsername: React.Dispatch<React.SetStateAction<validateObject>>;
   setPhoneNumber: React.Dispatch<React.SetStateAction<validateObject>>;
   setCode: React.Dispatch<React.SetStateAction<validateObject>>;
+  onChange: (cb: any) => (text: string) => void;
   onSignUpPressed: () => void;
   //PhoneInputProps
   inputRef: React.Ref<PhoneInputComponent>;
@@ -40,11 +37,11 @@ type RegistrationProps = {
   initialCountry: string;
   onSelectCountry: (iso2: string) => void;
   onChangePhoneNumber: (phone: string) => void;
-};
+}
 
 const RegistrationView = ({
-  navigateToOnboarding,
-  navigateToLogin,
+  onChange,
+  navigateTo,
   username,
   phoneNumber,
   code,
@@ -64,11 +61,9 @@ const RegistrationView = ({
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>
     <Background>
-      <BackButton goBack={navigateToOnboarding} />
-
       <Logo />
 
-      <Header>Create Account</Header>
+      <Title>Create Account</Title>
 
       <TextInput
         error={!!username.error}
@@ -76,12 +71,12 @@ const RegistrationView = ({
         label="Name"
         returnKeyType="next"
         value={username.value}
-        onChangeText={text => setUsername({ value: text, error: '' })}
+        onChangeText={onChange(setUsername)}
       />
 
       <PhoneInput
         errorText={phoneNumber.error}
-        initialCountry={initialCountry || undefined}
+        initialCountry={initialCountry}
         inputRef={inputRef}
         value={phoneNumber.value}
         onChange={onChangePhoneNumber}
@@ -93,10 +88,11 @@ const RegistrationView = ({
           secureTextEntry
           error={!!code.error}
           errorText={code.error}
+          keyboardType="phone-pad"
           label="Code"
           returnKeyType="done"
           value={code.value}
-          onChangeText={text => setCode({ value: text, error: '' })}
+          onChangeText={onChange(setCode)}
         />
       )}
 
@@ -110,7 +106,7 @@ const RegistrationView = ({
 
       <View style={styles.row}>
         <Text style={styles.label}>Already have an account? </Text>
-        <TouchableOpacity onPress={navigateToLogin}>
+        <TouchableOpacity onPress={navigateTo('Login')}>
           <Text style={styles.link}>Login</Text>
         </TouchableOpacity>
       </View>

@@ -25,7 +25,7 @@ export class VehiclesStore {
     this.state = 'done';
   }
 
-  async getVehicles(force: boolean): Promise<void> {
+  async getVehicles(force?: boolean): Promise<void> {
     if (!force) {
       this.updateState('pending');
     }
@@ -124,12 +124,12 @@ export class VehiclesStore {
     this.updateState('done');
   }
 
-  async deleteVehicle(item: any): Promise<void> {
+  async deleteVehicle(item: VehicleInterface): Promise<void> {
     try {
       await VehiclesService.deleteVehicle(item?.id);
       flashMessage({
         type: 'info',
-        message: 'Your vehicle deleted.',
+        message: 'Your vehicle successfully deleted.',
       });
       runInAction(() => {
         this.vehicles = this.vehicles.filter(e => e.id !== item?.id);

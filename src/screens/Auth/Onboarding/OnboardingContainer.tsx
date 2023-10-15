@@ -21,24 +21,15 @@ const OnboardingContainer = ({ navigation }: Props): JSX.Element => {
     }
   };
 
-  const navigateToLogin = () => {
-    navigation.navigate('Login');
-  };
-
-  const navigateToRegistration = () => {
-    navigation.navigate('Registration');
+  const navigateTo = (screenName: keyof AuthStackParams) => () => {
+    navigation.navigate(screenName);
   };
 
   useEffect(() => {
     getUserCountry();
   }, []);
 
-  return (
-    <OnboardingView
-      navigateToLogin={navigateToLogin}
-      navigateToRegistration={navigateToRegistration}
-    />
-  );
+  return <OnboardingView navigateTo={navigateTo} />;
 };
 
 export default observer(OnboardingContainer);

@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
@@ -13,15 +14,16 @@ import {
   nameValidator,
   phoneNumberValidator,
 } from '../../../core/validators';
-import usePhoneNumber from '../../../hooks/usePhoneNumber';
+import { usePhoneNumber } from '../../../hooks';
 import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
-import { validateObject } from '../Login/LoginView';
+import { validateObject } from '../../../types';
 import RegistrationView from './RegistrationView';
 
 export type Props = StackScreenProps<AuthStackParams, 'Registration'>;
 
 const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
+  const headerHeight = useHeaderHeight();
   const { userStore } = useStore();
   const initialCountry = userStore.user.countryCode;
 
@@ -61,7 +63,10 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
 
       if (usernameError || phoneNumberError || !isValidPhoneNumber) {
         setOtpLoading(false);
-        setPhoneNumber(prev => ({ ...prev, error: phoneNumberError }));
+        setPhoneNumber(prev => ({
+          ...prev,
+          error: phoneNumberError,
+        }));
         setUsername(prev => ({ ...prev, error: usernameError }));
         return;
       }
@@ -117,13 +122,19 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
     setLoading(false);
   };
 
-  const navigateToLogin = () => {
-    navigation.navigate('Login');
+  const onChange =
+    (cb: typeof setUsername | typeof setCode) => (text: string) =>
+      cb({ value: text, error: '' });
+
+  const navigateTo = (screenName: keyof AuthStackParams) => () => {
+    navigation.navigate(screenName);
   };
 
-  const navigateToOnboarding = () => {
-    navigation.navigate('Onboarding');
-  };
+  useEffect(() => {
+    if (headerHeight) {
+      userStore.updateHeaderHeight(headerHeight);
+    }
+  }, []);
 
   return (
     <RegistrationView
@@ -132,8 +143,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
       inputRef={inputRef}
       isSignUpAvailable={isSignUpAvailable}
       loading={loading}
-      navigateToLogin={navigateToLogin}
-      navigateToOnboarding={navigateToOnboarding}
+      navigateTo={navigateTo}
       otpLoading={otpLoading}
       phoneNumber={phoneNumber}
       sendOTPCode={sendOTPCode}
@@ -141,6 +151,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
       setPhoneNumber={setPhoneNumber}
       setUsername={setUsername}
       username={username}
+      onChange={onChange}
       onChangePhoneNumber={onChangePhoneNumber}
       onSelectCountry={onSelectCountry}
       onSignUpPressed={onSignUpPressed}

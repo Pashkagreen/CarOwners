@@ -4,7 +4,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { theme } from '../../core/theme';
 
-const getStyles = (animated: boolean, headerY: any, headerHeight: number) =>
+const getStyles = (headerHeight: number) =>
   StyleSheet.create({
     container: {
       alignContent: 'center',
@@ -18,10 +18,12 @@ const getStyles = (animated: boolean, headerY: any, headerHeight: number) =>
       position: 'absolute',
       right: 0,
       top: 0,
-      transform: animated ? [{ translateY: headerY }] : [],
       zIndex: 1000,
     },
-    text: { color: theme.colors.secondary, fontWeight: 'bold' },
+    text: {
+      color: theme.colors.secondary,
+      fontWeight: 'bold',
+    },
   });
 
 export default getStyles;

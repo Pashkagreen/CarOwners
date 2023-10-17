@@ -77,7 +77,7 @@ const MultiPicker = ({
 
   useEffect(() => {
     if (parameters) {
-      handleOpenPicker();
+      void handleOpenPicker();
     }
   }, [parameters]);
 

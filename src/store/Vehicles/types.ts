@@ -15,7 +15,7 @@ interface HistoryData {
 
 interface HistoryInterface {
   id: string;
-  data: HistoryData[];
+  data: HistoryData;
 }
 
 interface VehicleInterface {

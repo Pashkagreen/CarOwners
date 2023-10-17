@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   buttonBlock: {
+    bottom: 12,
     marginTop: 12,
+    paddingHorizontal: 16,
     width: '100%',
   },
   inputBlock: {

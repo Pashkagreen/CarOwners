@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { observer } from 'mobx-react-lite';
 
@@ -7,25 +7,31 @@ import HistoryView from './HistoryView';
 
 const HistoryContainer = (): JSX.Element => {
   const {
-    vehiclesStore,
+    vehiclesStore: { getVehiclesHistory, history, vehicles, state },
     userStore: {
       user: { headerHeight },
     },
   } = useStore();
 
-  const loadHistory = async () => {
-    await vehiclesStore.getVehiclesHistory();
-  };
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
-    loadHistory();
-  }, [vehiclesStore.vehicles]);
+    void getVehiclesHistory();
+  }, [vehicles]);
+
+  const onRefresh = (): void => {
+    setIsRefreshing(true);
+    void getVehiclesHistory();
+    setIsRefreshing(false);
+  };
 
   return (
     <HistoryView
       headerHeight={headerHeight}
-      items={vehiclesStore.history}
-      loading={vehiclesStore.state}
+      isRefreshing={isRefreshing}
+      items={history}
+      loading={state}
+      onRefresh={onRefresh}
     />
   );
 };

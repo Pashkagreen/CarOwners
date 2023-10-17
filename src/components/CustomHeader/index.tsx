@@ -1,8 +1,7 @@
-import { memo } from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { Text } from 'react-native-paper';
-import Animated from 'react-native-reanimated';
+import Animated, { AnimatedStyle } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { hitSlop } from '../../core/theme';
@@ -10,31 +9,28 @@ import getStyles from './style';
 
 interface CustomHeaderProps {
   text: string;
-  style?: ViewStyle;
-  headerY?: any;
   headerHeight: number;
+  style?: ViewStyle;
   rightButton?: boolean;
   onIconPress?: () => void;
   iconName?: string;
-  animated?: boolean;
+  animatedStyles?: AnimatedStyle;
 }
 const CustomHeader = ({
   text,
   style,
-  headerY,
   headerHeight,
   rightButton = false,
   onIconPress,
   iconName,
-  animated = false,
+  animatedStyles,
 }: CustomHeaderProps) => {
-  const headerYValue = headerY ? headerY : null;
+  const styles = getStyles(headerHeight);
 
-  const styles = getStyles(animated, headerYValue, headerHeight);
   return (
     <>
-      {animated ? (
-        <Animated.View style={[styles.container, style]}>
+      {animatedStyles ? (
+        <Animated.View style={[styles.container, style, animatedStyles]}>
           <Text style={styles.text} variant="titleLarge">
             {text}
           </Text>
@@ -60,4 +56,4 @@ const CustomHeader = ({
   );
 };
 
-export default memo(CustomHeader);
+export default CustomHeader;

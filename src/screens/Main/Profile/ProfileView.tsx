@@ -89,19 +89,19 @@ const ProfileView = ({
             />
           </View>
         </View>
-        <View style={styles.buttonBlock}>
-          <Button
-            loading={loading === 'pending'}
-            mode="contained"
-            onPress={handleSubmit(onSubmit)}>
-            Update info
-          </Button>
-          <Button mode="outlined" onPress={logOut}>
-            Logout
-          </Button>
-        </View>
       </Background>
     </ScrollView>
+    <View style={styles.buttonBlock}>
+      <Button
+        loading={loading === 'pending'}
+        mode="contained"
+        onPress={handleSubmit(onSubmit)}>
+        Update info
+      </Button>
+      <Button mode="outlined" onPress={logOut}>
+        Logout
+      </Button>
+    </View>
   </SafeAreaView>
 );
 

@@ -13,6 +13,7 @@ import MultiPicker from './MultiPicker';
 import Paragraph from './Paragraph';
 import PhoneInput from './PhoneInput';
 import ProgressiveImage from './ProgressiveImage';
+import SkeletonContainer from './SkeletonContainer';
 import TabBarIcon from './TabBarIcon';
 import TextInput from './TextInput';
 import Title from './Title';
@@ -40,4 +41,5 @@ export {
   Header,
   CustomHeader,
   VehiclesCarouselModal,
+  SkeletonContainer,
 };

@@ -51,6 +51,7 @@ export class Storage {
     const ref = storage().ref('cars/' + fileName);
 
     ref.delete().then(() => {
+      //eslint-disable-next-line no-console
       console.log(`${fileName} has been deleted successfully.`);
     });
   }

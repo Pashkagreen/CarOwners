@@ -76,8 +76,8 @@ const renderContent = ({
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={styles.flatContainer}>
-      </ScrollView>
+        style={styles.flatContainer}
+      />
     );
   }
   if (loading === 'done' && items.length) {
@@ -160,7 +160,6 @@ const MyVehiclesView = ({
       )}
       <Background style={styles.background}>
         <CustomHeader
-          animated={false}
           headerHeight={headerHeight}
           iconName={'plus'}
           rightButton={true}

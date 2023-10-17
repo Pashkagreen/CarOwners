@@ -28,7 +28,7 @@ export const checkStoragePermissions = async () => {
       }
     } else {
       const statuses = await requestMultiple([
-        // PERMISSIONS.IOS.CAMERA,
+        PERMISSIONS.IOS.CAMERA,
         PERMISSIONS.IOS.PHOTO_LIBRARY,
       ]);
       if (Object.values(statuses).every(el => el === 'granted')) {

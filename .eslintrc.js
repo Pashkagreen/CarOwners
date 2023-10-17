@@ -15,8 +15,9 @@ module.exports = {
     'arrow-body-style': ['error'],
     'no-shadow': 'off',
     'no-undef': 'off',
-    'no-console': 'off',
+    'no-console': 1,
     'no-unused-vars': 'off',
+    'no-void': 'off',
     'object-curly-spacing': ['error', 'always'],
     'react/prop-types': 'off',
     'no-duplicate-imports': 'off',
@@ -52,20 +53,15 @@ module.exports = {
         groups: [
           // Packages `react`
           ['^(react|react-native)$'],
-
           // libs
           ['^[^.]*$'],
-
           //reducers/services
           ['reducer|service'],
-
           //views and components
           ['view$'],
           ['components'],
-
           //configs/utils
           ['config|utils'],
-
           // styles .
           ['localization$|styles'],
         ],

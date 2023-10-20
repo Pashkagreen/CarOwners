@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   FlatList,
   LayoutChangeEvent,
+  ListRenderItemInfo,
   RefreshControl,
   ScrollView,
   View,
@@ -20,14 +21,16 @@ import {
   VehiclesCarouselModal,
 } from '../../../components';
 
-import { theme } from '../../../core/theme';
-import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
-import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
-import styles from './style';
+import styles from './styles';
 
-interface MyVehiclesProps {
-  items: VehicleInterface[];
-  loading: FetchState;
+import { theme } from '../../../core/theme';
+import { IVehicle } from '../../../store/vehicles/interfaces';
+import { TFetchState } from '../../../types';
+import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
+
+interface IMyVehicles {
+  items: IVehicle[];
+  loading: TFetchState;
   refreshing: boolean;
   headerHeight: number;
   cardHeight: number;
@@ -38,14 +41,14 @@ interface MyVehiclesProps {
   setIsShowViewer: (state: boolean) => void;
   onLayout: (e: LayoutChangeEvent) => void;
   onRefresh: () => void;
-  deleteVehicle: (item: VehicleInterface) => () => void;
-  editVehicle: (item: VehicleInterface) => () => void;
+  deleteVehicle: (item: IVehicle) => void;
+  editVehicle: (item: IVehicle) => void;
   addVehicle: () => void;
 }
 
 interface RenderContent
   extends Omit<
-    MyVehiclesProps,
+    IMyVehicles,
     | 'addVehicle'
     | 'viewerIndex'
     | 'isShowViewer'
@@ -56,7 +59,7 @@ interface RenderContent
   scrollHandler: any;
 }
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<IVehicle>);
 
 const renderContent = ({
   loading,
@@ -71,7 +74,20 @@ const renderContent = ({
   onRefresh,
   deleteVehicle,
   editVehicle,
-}: RenderContent): React.ReactNode => {
+}: RenderContent) => {
+  const renderItem = ({ item, index }: ListRenderItemInfo<IVehicle>) => (
+    <VehicleCard
+      cardHeight={cardHeight}
+      index={index}
+      item={item}
+      scrollY={scrollY}
+      onDeletePress={() => deleteVehicle(item)}
+      onLayout={onLayout}
+      onPhotoPress={onPhotoPress}
+      onPress={() => editVehicle(item)}
+    />
+  );
+
   if (loading === 'pending') {
     return (
       <ScrollView
@@ -88,7 +104,7 @@ const renderContent = ({
           { paddingBottom: headerHeight },
         ]}
         data={items}
-        keyExtractor={(i, idx) => idx.toString()}
+        keyExtractor={(_, idx) => idx.toString()}
         refreshControl={
           <RefreshControl
             colors={[theme.colors.primary]}
@@ -97,18 +113,7 @@ const renderContent = ({
             onRefresh={onRefresh}
           />
         }
-        renderItem={({ item, index }) => (
-          <VehicleCard
-            cardHeight={cardHeight}
-            index={index}
-            item={item as VehicleInterface}
-            scrollY={scrollY}
-            onDeletePress={deleteVehicle(item as VehicleInterface)}
-            onLayout={onLayout}
-            onPhotoPress={onPhotoPress}
-            onPress={editVehicle(item as VehicleInterface)}
-          />
-        )}
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}
         onScroll={scrollHandler}
@@ -123,7 +128,7 @@ const renderContent = ({
     );
   }
 };
-const MyVehiclesView = ({
+const MyVehiclesView: FC<IMyVehicles> = ({
   items,
   loading,
   refreshing,
@@ -139,7 +144,7 @@ const MyVehiclesView = ({
   addVehicle,
   editVehicle,
   deleteVehicle,
-}: MyVehiclesProps): JSX.Element => {
+}) => {
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({

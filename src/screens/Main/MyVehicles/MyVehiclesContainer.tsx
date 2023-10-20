@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { LayoutChangeEvent } from 'react-native';
 
 import { StackScreenProps } from '@react-navigation/stack';
@@ -6,15 +6,15 @@ import { observer } from 'mobx-react-lite';
 
 import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
-import { VehicleInterface } from '../../../store/Vehicles/types';
+import { IVehicle } from '../../../store/vehicles/interfaces';
 import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
 import MyVehiclesView from './MyVehiclesView';
 
-type Props = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
+type TProps = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
 
-const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
+const MyVehiclesContainer: FC<TProps> = ({ navigation }) => {
   let {
-    vehiclesStore,
+    vehiclesStore: { getVehicles, deleteVehicle, vehicles, state },
     userStore: {
       user: { headerHeight },
     },
@@ -28,32 +28,26 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
   const [viewerIndex, setViewerIndex] = useState<number>(0);
   const [isShowViewer, setIsShowViewer] = useState(false);
 
-  const onRefresh = async () => {
+  const onRefresh = async (): Promise<void> => {
     setRefreshing(true);
-    getData(true);
+    await getData(true);
     setRefreshing(false);
   };
 
-  const getData = async (force: boolean = false) => {
-    await vehiclesStore.getVehicles(force);
+  const getData = async (force: boolean = false): Promise<void> => {
+    await getVehicles(force);
   };
 
-  const addVehicle = () => {
+  const addVehicle = (): void =>
     navigation.navigate('AddVehicle', {
       isEdit: false,
     });
-  };
 
-  const editVehicle = (item: VehicleInterface) => () => {
+  const editVehicle = (item: IVehicle): void =>
     navigation.navigate('AddVehicle', {
       vehicleInfo: item,
       isEdit: true,
     });
-  };
-
-  const deleteVehicle = (item: VehicleInterface) => async () => {
-    await vehiclesStore.deleteVehicle(item);
-  };
 
   const onLayout = (event: LayoutChangeEvent) => {
     const { height } = event.nativeEvent.layout;
@@ -69,7 +63,7 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
   };
 
   useEffect(() => {
-    getData();
+    void getData();
   }, []);
 
   return (
@@ -80,8 +74,8 @@ const MyVehiclesContainer = ({ navigation }: Props): JSX.Element => {
       editVehicle={editVehicle}
       headerHeight={headerHeight}
       isShowViewer={isShowViewer}
-      items={vehiclesStore.vehicles}
-      loading={vehiclesStore.state}
+      items={vehicles}
+      loading={state}
       refreshing={refreshing}
       setIsShowViewer={setIsShowViewer}
       viewerIndex={viewerIndex}

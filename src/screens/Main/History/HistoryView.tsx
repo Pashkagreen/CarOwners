@@ -18,24 +18,24 @@ import Animated, {
 
 import { Background, CustomHeader, HistoryCard } from '../../../components';
 
+import styles from './styles';
+
 import { theme } from '../../../core/theme';
-import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
+import { IHistory } from '../../../store/vehicles/interfaces';
+import { TFetchState } from '../../../types';
 import HistoryListLoader from './HistoryCardLoader';
-import styles from './style';
 
-const AnimatedFlatList = Animated.createAnimatedComponent(
-  FlatList<HistoryInterface>,
-);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<IHistory>);
 
-interface HistoryProps {
-  loading: FetchState;
+interface IHistoryProps {
+  loading: TFetchState;
   headerHeight: number;
-  items: HistoryInterface[];
+  items: IHistory[];
   onRefresh: () => void;
   isRefreshing: boolean;
 }
 
-const HistoryView: FC<HistoryProps> = ({
+const HistoryView: FC<IHistoryProps> = ({
   loading,
   items,
   headerHeight,
@@ -67,7 +67,7 @@ const HistoryView: FC<HistoryProps> = ({
     };
   });
 
-  const renderItem: ListRenderItem<HistoryInterface> = ({ item, index }) => (
+  const renderItem: ListRenderItem<IHistory> = ({ item, index }) => (
     <HistoryCard key={item.id} index={index} item={item} />
   );
 

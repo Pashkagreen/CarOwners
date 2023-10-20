@@ -17,6 +17,9 @@ export const resizePhotoParams = {
 // ==== IMAGE CAROUSEL ======
 
 export const CARD_LENGTH = screenWidth * 0.8;
+
 export const SPACING = screenWidth * 0.02;
+
 export const SIDECARD_LENGTH = (screenWidth * 0.18) / 2;
+
 export const SNAP_INTERVAL = CARD_LENGTH + SPACING * 2;

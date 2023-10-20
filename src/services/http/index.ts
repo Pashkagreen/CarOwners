@@ -5,37 +5,13 @@ import axios, {
   AxiosResponse,
 } from 'axios';
 
-import { flashMessage } from '../core/utils';
+import { flashMessage } from '../../core/utils';
 
-import { Account } from './account';
-import {
-  AdaptAxiosRequestConfig,
-  BaseError,
-  StatusCodes,
-  StatusCodeType,
-} from './types.http';
+import { Account } from '../account';
+import { IAdaptAxiosRequestConfig, IBaseError, StatusCode } from './interfaces';
 
 const BASE_URL =
   'https://us-central1-carowners-97d56.cloudfunctions.net/api/v1';
-
-const StatusCode: StatusCodeType = {
-  [StatusCodes.UNAUTHORIZED]: {
-    type: 'danger',
-    message: 'Unauthorized request!',
-  },
-  [StatusCodes.FORBIDDEN]: {
-    type: 'danger',
-    message: 'Forbidden request!',
-  },
-  [StatusCodes.INTERNAL]: {
-    type: 'danger',
-    message: 'Internal server error!',
-  },
-  [StatusCodes.NOT_FOUND]: {
-    type: 'danger',
-    message: 'Requested source not found!',
-  },
-};
 
 const headers: Readonly<Record<string, string | boolean>> = {
   Accept: 'application/json',
@@ -45,13 +21,14 @@ const headers: Readonly<Record<string, string | boolean>> = {
 };
 
 // We can use the following function to inject the JWT token through an interceptor
-const injectToken = async (config: AdaptAxiosRequestConfig): Promise<any> => {
+const injectToken = async (config: IAdaptAxiosRequestConfig): Promise<any> => {
   try {
     const token = await Account.getToken();
 
-    if (token != null) {
+    if (token !== null) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   } catch (error: any) {
     if (error instanceof Error) {
@@ -123,7 +100,7 @@ class Http {
 
   // Handle global app errors
   // We can handle generic app errors depending on the status code
-  private handleError(error: AxiosError<BaseError>) {
+  private handleError(error: AxiosError<IBaseError>) {
     const { response } = error;
     const status = response?.status;
     const data = response?.data;

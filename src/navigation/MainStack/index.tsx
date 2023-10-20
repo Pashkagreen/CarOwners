@@ -16,7 +16,7 @@ export type MainStackParams = {
 
 const BottomTab = createBottomTabNavigator<MainStackParams>();
 
-const MainStackScreens = (): JSX.Element => (
+const MainStackScreens = () => (
   <BottomTab.Navigator>
     {Object.values(bottomBarConfig).map(bottomBar => (
       <BottomTab.Screen

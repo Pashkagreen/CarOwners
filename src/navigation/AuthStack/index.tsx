@@ -14,7 +14,7 @@ export type AuthStackParams = {
 
 const AuthStack = createNativeStackNavigator<AuthStackParams>();
 
-const AuthStackScreens = (): JSX.Element => (
+const AuthStackScreens = () => (
   <AuthStack.Navigator>
     {Object.values(authStackConfig).map(authScreen => (
       <AuthStack.Screen

@@ -2,18 +2,18 @@ import { useState } from 'react';
 
 import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
 
-import { validateObject } from '../types';
+import { IValidateObject } from '../../types';
 
-export const usePhoneNumber = () => {
+const usePhoneNumber = () => {
   const [iso, setIso] = useState<CountryCode>('US');
 
-  const [phoneNumber, setPhoneNumber] = useState<validateObject>({
+  const [phoneNumber, setPhoneNumber] = useState<IValidateObject>({
     value: '',
     error: '',
   });
   const [isValidPhoneNumber, setIsValidPhoneNumber] = useState(false);
 
-  const onChangePhoneNumber = (phone: string) => {
+  const onChangePhoneNumber = (phone: string): void => {
     const phoneNumberString = parsePhoneNumberFromString(
       `Phone: ${phone}.`,
       `${iso}`,
@@ -26,9 +26,7 @@ export const usePhoneNumber = () => {
     setPhoneNumber({ value: standFormat, error: phoneNumber.error });
   };
 
-  const onSelectCountry = (iso2: string) => {
-    setIso(iso2 as CountryCode);
-  };
+  const onSelectCountry = (iso2: string): void => setIso(iso2 as CountryCode);
 
   return {
     phoneNumber,
@@ -38,3 +36,5 @@ export const usePhoneNumber = () => {
     onSelectCountry,
   };
 };
+
+export default usePhoneNumber;

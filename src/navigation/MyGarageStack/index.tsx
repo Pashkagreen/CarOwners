@@ -7,19 +7,19 @@ import { BackButton, Header } from '../../components';
 
 import myGarageStackConfig from '../config/myGarageStackConfig';
 
-import { VehicleInterface } from '../../store/Vehicles/types';
+import { IVehicle } from '../../store/vehicles/interfaces';
 
 export type MyGarageStackParams = {
   MyVehicles: undefined;
   AddVehicle: {
     isEdit?: boolean;
-    vehicleInfo?: VehicleInterface;
+    vehicleInfo?: IVehicle;
   };
 };
 
 const MyGarageStack = createNativeStackNavigator<MyGarageStackParams>();
 
-const MyGarageStackScreens = (): JSX.Element => (
+const MyGarageStackScreens = () => (
   <MyGarageStack.Navigator>
     {Object.values(myGarageStackConfig).map(garageScreen => (
       <MyGarageStack.Screen

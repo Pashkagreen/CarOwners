@@ -5,7 +5,7 @@ import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 
 import { renderAlert } from './utils';
 
-export const checkStoragePermissions = async () => {
+const checkStoragePermissions = async (): Promise<boolean | undefined> => {
   try {
     if (Platform.OS === 'android') {
       await PermissionsAndroid.requestMultiple([
@@ -13,6 +13,7 @@ export const checkStoragePermissions = async () => {
         PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
       ]);
+
       if (
         (await PermissionsAndroid.check('android.permission.CAMERA')) &&
         (await PermissionsAndroid.check(
@@ -31,6 +32,7 @@ export const checkStoragePermissions = async () => {
         PERMISSIONS.IOS.CAMERA,
         PERMISSIONS.IOS.PHOTO_LIBRARY,
       ]);
+
       if (Object.values(statuses).every(el => el === 'granted')) {
         return true;
       } else {
@@ -41,3 +43,5 @@ export const checkStoragePermissions = async () => {
     renderAlert('We can not get camera & library permissions');
   }
 };
+
+export default checkStoragePermissions;

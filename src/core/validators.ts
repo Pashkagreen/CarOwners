@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const vehiclesSchema = yup
+const vehiclesSchema = yup
   .object({
     brand: yup
       .string()
@@ -24,7 +24,7 @@ export const vehiclesSchema = yup
   })
   .required();
 
-export const userSchema = yup.object({
+const userSchema = yup.object({
   username: yup
     .string()
     .required()
@@ -32,19 +32,27 @@ export const userSchema = yup.object({
   email: yup.string().email(),
 });
 
-export const phoneNumberValidator = (phone: string): string => {
+const phoneNumberValidator = (phone: string): string => {
   if (!phone || phone.length <= 0) return 'Phone number cannot be empty.';
   return '';
 };
 
-export const codeValidator = (code: string): string => {
+const codeValidator = (code: string): string => {
   if (!code || code.length <= 0) return 'Code cannot be empty.';
   if (!code || code.length < 6) return 'Code should contain 6 numbers';
   return '';
 };
 
-export const nameValidator = (name: string): string => {
+const nameValidator = (name: string): string => {
   if (!name || name.length <= 0) return 'Name cannot be empty.';
 
   return '';
+};
+
+export {
+  codeValidator,
+  nameValidator,
+  phoneNumberValidator,
+  userSchema,
+  vehiclesSchema,
 };

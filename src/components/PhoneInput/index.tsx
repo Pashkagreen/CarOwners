@@ -7,12 +7,12 @@ import { theme } from '../../core/theme';
 import getStyles from './style';
 
 export interface PhoneInputInterface {
+  value: string;
   disabled?: boolean;
   inputRef?: React.Ref<PhoneInputComponent>;
   errorText?: string;
   notShowFlag?: boolean;
   initialCountry?: string;
-  value: string;
   uniqueKey?: string;
   onChange?: (text: string, uniqueKey: string | undefined) => void;
   onSubmitEditing?: () => void;

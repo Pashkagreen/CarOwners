@@ -2,13 +2,13 @@ import { ReactNativeFirebase } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import md5 from 'md5';
 
-import { SourceType } from '../components/ProgressiveImage';
+import { SourceType } from '../../components/ProgressiveImage';
 
-type UploadImageType = Omit<SourceType, 'filename'>;
+type TUploadImageType = Omit<SourceType, 'filename'>;
 
 export class Storage {
   static async uploadImage(
-    photoSource: UploadImageType,
+    photoSource: TUploadImageType,
     name: string,
     onComplete: (url: string) => void,
     setFileName: (filename: string) => void,
@@ -17,8 +17,10 @@ export class Storage {
     onStartOnFinish: (state: boolean) => void,
   ): Promise<void> {
     onStartOnFinish(true);
+
     if (!photoSource) {
       onStartOnFinish(false);
+
       return;
     }
 
@@ -32,8 +34,8 @@ export class Storage {
     task.on(
       'state_changed',
       snapshot => {
-        const procent = snapshot.totalBytes / 100;
-        const progress = snapshot.bytesTransferred / procent;
+        const percent = snapshot.totalBytes / 100;
+        const progress = snapshot.bytesTransferred / percent;
         onChangeLoading && onChangeLoading(progress);
       },
       error => onError && onError(error),

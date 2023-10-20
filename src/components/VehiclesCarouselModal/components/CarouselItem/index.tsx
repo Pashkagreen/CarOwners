@@ -11,7 +11,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { CARD_LENGTH } from '../../../../core/constants';
-import useImageSize, { ImageSize } from '../../../../hooks/useImageSize';
+import useImageSize, { IImageSize } from '../../../../hooks/use-image-size';
 import { SetPhotos } from '../../../../screens/Main/AddVehicle/AddVehicleContainer';
 import getStyles from './style';
 
@@ -21,11 +21,12 @@ interface CarouselItemProps {
   scrollX: any;
   length: number;
 }
+
 const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
   const animationRef = useRef<Lottie>(null);
 
   const imageSize = useImageSize(item.uri);
-  const styles = getStyles(imageSize as ImageSize, index, length);
+  const styles = getStyles(imageSize as IImageSize, index, length);
 
   const size = useSharedValue(0.8);
   const opacity = useSharedValue(1);

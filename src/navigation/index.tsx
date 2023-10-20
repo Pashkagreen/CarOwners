@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
@@ -8,15 +6,18 @@ import { useStore } from '../store';
 import AuthStackScreens, { AuthStackParams } from './AuthStack';
 import MainStackScreens, { MainStackParams } from './MainStack';
 
-export type RootStackNavigationProp = {
+export type TRootStackNavigation = {
   Auth: AuthStackParams;
   Main: NavigatorScreenParams<MainStackParams>;
 };
 
-function RootNavigation(): JSX.Element {
-  const RootStack = createNativeStackNavigator<RootStackNavigationProp>();
-  const { userStore } = useStore();
-  let isAuthorized = userStore.user.isAuthorized;
+const RootNavigation = () => {
+  const RootStack = createNativeStackNavigator<TRootStackNavigation>();
+  const {
+    userStore: {
+      user: { isAuthorized = false },
+    },
+  } = useStore();
 
   return (
     <RootStack.Navigator
@@ -30,6 +31,6 @@ function RootNavigation(): JSX.Element {
       )}
     </RootStack.Navigator>
   );
-}
+};
 
 export default observer(RootNavigation);

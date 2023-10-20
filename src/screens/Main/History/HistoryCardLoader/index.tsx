@@ -3,8 +3,9 @@ import { View } from 'react-native';
 
 import { SkeletonContainer } from '../../../../components/index';
 
+import getStyles from './styles';
+
 import { screenWidth } from '../../../../core/theme';
-import getStyles from './style';
 
 const backgroundColor = 'lightgrey';
 const highlightColor = 'white';

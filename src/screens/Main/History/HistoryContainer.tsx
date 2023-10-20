@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../../../store';
 import HistoryView from './HistoryView';
 
-const HistoryContainer = (): JSX.Element => {
+const HistoryContainer = () => {
   const {
     vehiclesStore: { getVehiclesHistory, history, vehicles, state },
     userStore: {
@@ -19,9 +19,9 @@ const HistoryContainer = (): JSX.Element => {
     void getVehiclesHistory();
   }, [vehicles]);
 
-  const onRefresh = (): void => {
+  const onRefresh = async (): Promise<void> => {
     setIsRefreshing(true);
-    void getVehiclesHistory();
+    await getVehiclesHistory();
     setIsRefreshing(false);
   };
 

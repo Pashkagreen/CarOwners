@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 
-import { screenWidth } from '../core/theme';
+import { screenWidth } from '../../core/theme';
 
-export interface ImageSize {
+export interface IImageSize {
   width: number;
   height: number;
 }
 
 const useImageSize = (uri: string) => {
-  const [imageSize, setImageSize] = useState<ImageSize>({
+  const [imageSize, setImageSize] = useState<IImageSize>({
     width: 0,
     height: 0,
   });
+
   useEffect(() => {
     Image.getSize(uri, (width, height) => {
       // use aspect ratio to set the size of the image relative to react-native pixels.
@@ -22,6 +23,7 @@ const useImageSize = (uri: string) => {
       });
     });
   }, []);
+
   return imageSize;
 };
 

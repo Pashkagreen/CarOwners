@@ -1,4 +1,4 @@
-interface User {
+interface IUser {
   uid: string;
   username: string;
   phoneNumber: string;
@@ -8,11 +8,8 @@ interface User {
   headerHeight: number;
 }
 
-interface UserData {
-  uid: string;
-  username: string;
-  phoneNumber: string;
+interface IUserData extends Pick<IUser, 'uid' | 'username' | 'phoneNumber'> {
   email?: string;
 }
 
-export type { User, UserData };
+export type { IUser, IUserData };

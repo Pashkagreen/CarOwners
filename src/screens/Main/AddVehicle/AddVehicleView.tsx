@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { View } from 'react-native';
 
 import { Controller, UseFormHandleSubmit } from 'react-hook-form';
@@ -10,27 +11,29 @@ import {
   TextInput,
 } from '../../../components/index';
 
+import styles from './styles';
+
 import { hitSlop } from '../../../core/theme';
-import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
+import { IVehicle } from '../../../store/vehicles/interfaces';
+import { TFetchState } from '../../../types';
 import { LocalPhotosState, SetPhotos } from './AddVehicleContainer';
 import { FormData } from './AddVehicleContainer';
-import styles from './style';
 
-interface AddVehiclesProps {
+interface IAddVehicles {
   control: any;
   onSubmit: (data: FormData) => void;
   handleSubmit: UseFormHandleSubmit<FormData>;
-  loading: FetchState;
-  isEdit?: boolean;
-  vehicleInfo?: VehicleInterface;
+  loading: TFetchState;
+  vehicleInfo?: IVehicle;
   errors: any;
   photos: LocalPhotosState[];
   onUploadPhotos: (photos: SetPhotos[]) => void;
   onFinishLoadPhotos: (photos: SetPhotos[]) => void;
   setLoadingPhotos: (state: boolean) => void;
+  isEdit?: boolean;
 }
 
-const AddVehicleView = ({
+const AddVehicleView: FC<IAddVehicles> = ({
   control,
   onSubmit,
   handleSubmit,
@@ -41,7 +44,7 @@ const AddVehicleView = ({
   errors,
   onFinishLoadPhotos,
   onUploadPhotos,
-}: AddVehiclesProps): JSX.Element => (
+}) => (
   <KeyboardAwareScrollView
     keyboardShouldPersistTaps="handled"
     showsVerticalScrollIndicator={false}>

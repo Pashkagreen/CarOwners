@@ -2,25 +2,26 @@ import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 export class Account {
   static async getUid(): Promise<string | null> {
-    const user = await auth().currentUser;
-    if (user && user.uid) {
-      return user.uid;
+    const user = auth().currentUser;
+    if (!user) {
+      return null;
     }
-    return null;
+
+    return user.uid;
   }
 
   static async getToken(): Promise<string | null> {
     const token = await auth().currentUser?.getIdToken();
-    if (token) {
-      return token;
+    if (!token) {
+      return null;
     }
-    return null;
+
+    return token;
   }
 
   static async signInWithPhoneNumber(
     phone: string,
   ): Promise<FirebaseAuthTypes.ConfirmationResult> {
-    const confirmation = await auth().signInWithPhoneNumber(phone);
-    return confirmation;
+    return auth().signInWithPhoneNumber(phone);
   }
 }

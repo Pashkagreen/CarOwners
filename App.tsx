@@ -3,22 +3,19 @@ import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import FlashMessage from 'react-native-flash-message';
-import LottieSplashScreen from 'react-native-lottie-splash-screen';
 import { Provider as PaperProvider } from 'react-native-paper';
 
 import { navigationRef } from './src/navigation/config';
 
 import { theme } from './src/core/theme';
 import RootNavigation from './src/navigation';
-import { rootStore, StoreProvider, trunk } from './src/store';
+import { rootStore, StoreProvider, rehydrate } from './src/store';
 
 const App = () => {
+  /**
+   * Rehydrate persisted stores & hide Splash screen
+   */
   useEffect(() => {
-    const rehydrate = async () => {
-      await trunk.init();
-      LottieSplashScreen.hide();
-    };
-
     void rehydrate();
   }, []);
 

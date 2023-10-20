@@ -13,12 +13,14 @@ import CarouselItem from './components/CarouselItem';
 import { SNAP_INTERVAL } from '../../core/constants';
 import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import styles from './style';
+
 interface VehicleCarouselProps {
   data: SetPhotos[];
   viewerIndex: number;
   isShowViewer: boolean;
   setIsShowViewer: (value: boolean) => void;
 }
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const VehicleCarouselModal = ({

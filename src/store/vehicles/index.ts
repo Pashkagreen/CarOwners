@@ -1,27 +1,30 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import VehiclesService from '../../services/vehicles';
+import VehiclesService from '../../services/endpoints/vehicles';
 
 import { flashMessage } from '../../core/utils';
 
-import { FetchState, HistoryInterface, VehicleInterface } from './types';
+import { TFetchState } from '../../types';
+import { IHistory, IVehicle } from './interfaces';
 
 export class VehiclesStore {
-  vehicles: VehicleInterface[] = [];
-  history: HistoryInterface[] = [];
-  state: FetchState = 'done';
+  public vehicles: IVehicle[] = [];
+
+  public history: IHistory[] = [];
+
+  public state: TFetchState = 'done';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  async getVehicles(force?: boolean): Promise<void> {
+  public getVehicles = async (force?: boolean): Promise<void> => {
     if (!force) {
       this.setState('pending');
     }
 
     try {
-      const data: VehicleInterface[] = await VehiclesService.getAll();
+      const data: IVehicle[] = await VehiclesService.getAll();
 
       if (!data?.length) {
         return;
@@ -33,9 +36,9 @@ export class VehiclesStore {
     }
 
     this.setState('done');
-  }
+  };
 
-  getVehiclesHistory = async (force?: boolean): Promise<void> => {
+  public getVehiclesHistory = async (force?: boolean): Promise<void> => {
     if (!force) {
       this.setState('pending');
     }
@@ -55,13 +58,13 @@ export class VehiclesStore {
     this.setState('done');
   };
 
-  async createVehicle(newData: VehicleInterface): Promise<void> {
+  public createVehicle = async (newData: IVehicle): Promise<void> => {
     this.setState('pending');
 
     try {
       const { data } = await VehiclesService.createVehicle(newData);
 
-      if (data.id) {
+      if (data?.id) {
         flashMessage({
           type: 'success',
           message: 'Congratulations!',
@@ -76,12 +79,12 @@ export class VehiclesStore {
     }
 
     this.setState('done');
-  }
+  };
 
-  async updateVehicle(
-    vehicleId: string | undefined,
-    newData: VehicleInterface,
-  ): Promise<void> {
+  public updateVehicle = async (
+    vehicleId: string,
+    newData: IVehicle,
+  ): Promise<void> => {
     this.setState('pending');
 
     try {
@@ -94,9 +97,7 @@ export class VehiclesStore {
           description: 'You successfully updated a vehicle info.',
         });
         this.setVehicles(
-          (this.vehicles = this.vehicles.map(i =>
-            i.id === vehicleId ? { ...data } : i,
-          )),
+          this.vehicles.map(i => (i.id === vehicleId ? { ...data } : i)),
         );
       }
     } catch (e) {
@@ -104,9 +105,9 @@ export class VehiclesStore {
     }
 
     this.setState('done');
-  }
+  };
 
-  async deleteVehicle(item: VehicleInterface): Promise<void> {
+  public deleteVehicle = async (item: IVehicle): Promise<void> => {
     try {
       await VehiclesService.deleteVehicle(item?.id);
       flashMessage({
@@ -118,23 +119,23 @@ export class VehiclesStore {
     } catch (e) {
       this.setState('error');
     }
-  }
+  };
 
-  public clearVehicles(): void {
+  public clearVehicles = (): void => {
     this.setHistory([]);
     this.setVehicles([]);
     this.setState('done');
-  }
+  };
 
-  public setState = (state: FetchState): void => {
+  public setState = (state: TFetchState): void => {
     this.state = state;
   };
 
-  public setVehicles = (items: VehicleInterface[]): void => {
+  public setVehicles = (items: IVehicle[]): void => {
     this.vehicles = items;
   };
 
-  public setHistory = (items: HistoryInterface[]): void => {
+  public setHistory = (items: IHistory[]): void => {
     this.history = items;
   };
 }

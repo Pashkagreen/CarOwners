@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
@@ -9,15 +9,18 @@ import { AuthStackParams } from '../../../navigation/AuthStack';
 import { useStore } from '../../../store';
 import OnboardingView from './OnboardingView';
 
-export type Props = StackScreenProps<AuthStackParams, 'Onboarding'>;
+export type TProps = StackScreenProps<AuthStackParams, 'Onboarding'>;
 
-const OnboardingContainer = ({ navigation }: Props): JSX.Element => {
-  const { userStore } = useStore();
+const OnboardingContainer: FC<TProps> = ({ navigation }) => {
+  const {
+    userStore: { setUserCountry },
+  } = useStore();
 
   const getUserCountry = async () => {
     const country = await getUserCurrentCountry();
+
     if (country) {
-      userStore.updateUserCountry(country);
+      setUserCountry(country);
     }
   };
 
@@ -26,7 +29,7 @@ const OnboardingContainer = ({ navigation }: Props): JSX.Element => {
   };
 
   useEffect(() => {
-    getUserCountry();
+    void getUserCountry();
   }, []);
 
   return <OnboardingView navigateTo={navigateTo} />;

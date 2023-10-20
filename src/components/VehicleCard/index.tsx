@@ -13,11 +13,11 @@ import ScrollablePhotoItem from './components/ScrollablePhotoItem';
 
 import { hitSlop, theme } from '../../core/theme';
 import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
-import { VehicleInterface } from '../../store/Vehicles/types';
+import { IVehicle } from '../../store/vehicles/interfaces';
 import styles from './style';
 
 interface VehicleCardProps {
-  item: VehicleInterface;
+  item: IVehicle;
   index: number;
   onPress: any;
   onDeletePress: any;

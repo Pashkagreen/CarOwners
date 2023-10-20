@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -14,16 +14,16 @@ import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
 import { useStore } from '../../../store';
 import AddVehicleView from './AddVehicleView';
 
-type Props = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
+type TProps = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;
 
 export interface SetPhotos {
-  id?: string | number[];
   uri: string;
   thumbnailUri: string;
   fullFileName: string;
   thumbnailFileName: string;
+  id?: string | number[];
 }
 
 //Type Guards for Photos
@@ -35,11 +35,17 @@ export const isUploadedPhoto = (array: any[]): array is SetPhotos[] =>
 
 export type LocalPhotosState = SetPhotos | ImageProp;
 
-const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
+const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   const isEdit = route.params?.isEdit;
   const vehicleInfo = route.params?.vehicleInfo;
 
-  const { vehiclesStore } = useStore();
+  const {
+    vehiclesStore: {
+      createVehicle: createVehicleEntity,
+      updateVehicle: updateVehicleEntity,
+      state,
+    },
+  } = useStore();
 
   const {
     control,
@@ -55,11 +61,10 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
     vehicleInfo?.photos || [],
   );
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormData): Promise<void> =>
     isEdit ? updateVehicle(data) : createVehicle(data);
-  };
 
-  const onFinishLoadPhotos = (p: SetPhotos[]) => {
+  const onFinishLoadPhotos = (p: SetPhotos[]): void => {
     setLoadingPhotos(false);
 
     setPhotos(
@@ -73,10 +78,10 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
     );
   };
 
-  const onUploadPhotos = (p: SetPhotos[]) =>
+  const onUploadPhotos = (p: SetPhotos[]): void | boolean =>
     p.length > 0 && setLoadingPhotos(true);
 
-  const createVehicle = async (newData: FormData) => {
+  const createVehicle = async (newData: FormData): Promise<void> => {
     let modifiedData = { ...newData };
 
     if (loadingPhotos) {
@@ -94,7 +99,7 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
       modifiedData.photos = [];
     }
 
-    await vehiclesStore.createVehicle(modifiedData);
+    await createVehicleEntity(modifiedData);
 
     goBack();
   };
@@ -117,14 +122,12 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
       modifiedData.photos = [];
     }
 
-    await vehiclesStore.updateVehicle(vehicleInfo?.id, modifiedData);
+    await updateVehicleEntity(vehicleInfo?.id, modifiedData);
 
     goBack();
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
+  const goBack = (): void => navigation.goBack();
 
   return (
     <AddVehicleView
@@ -132,7 +135,7 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
       errors={errors}
       handleSubmit={handleSubmit}
       isEdit={isEdit}
-      loading={vehiclesStore.state}
+      loading={state}
       photos={photos}
       setLoadingPhotos={setLoadingPhotos}
       vehicleInfo={vehicleInfo}

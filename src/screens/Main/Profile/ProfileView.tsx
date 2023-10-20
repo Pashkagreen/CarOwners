@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 
 import { Controller, UseFormHandleSubmit } from 'react-hook-form';
@@ -10,14 +11,15 @@ import {
   TextInput,
 } from '../../../components/index';
 
-import { User } from '../../../store/User/types';
-import { FetchState } from '../../../store/Vehicles/types';
-import { FormData } from './ProfileContainer';
-import styles from './style';
+import styles from './styles';
 
-interface ProfileProps {
-  userData: User;
-  loading: FetchState;
+import { IUser } from '../../../store/user/interfaces';
+import { TFetchState } from '../../../types';
+import { FormData } from './ProfileContainer';
+
+interface IProfile {
+  userData: IUser;
+  loading: TFetchState;
   control: any;
   errors: any;
   handleSubmit: UseFormHandleSubmit<FormData>;
@@ -25,7 +27,7 @@ interface ProfileProps {
   logOut: () => void;
 }
 
-const ProfileView = ({
+const ProfileView: FC<IProfile> = ({
   logOut,
   control,
   errors,
@@ -33,7 +35,7 @@ const ProfileView = ({
   onSubmit,
   loading,
   userData,
-}: ProfileProps): JSX.Element => (
+}) => (
   <SafeAreaView style={styles.container}>
     <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <Background style={styles.background}>

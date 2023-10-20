@@ -11,6 +11,7 @@
     "lint:check": "eslint --ext '.ts,.tsx' 'src/**/*.{ts,tsx,*.ts,*tsx}'",
     "lint:format": "eslint --fix --ext '.ts,.tsx' 'src/**/*.{ts,tsx,*.ts,*tsx}'",
     "ts:check": "tsc --project ./tsconfig.json --skipLibCheck --noemit",
+    "install_packages": "rm -rf node_modules && yarn install --frozen-lockfile",
     "postinstall": "react-native setup-ios-permissions"
   },
   "reactNativePermissionsIOS": [

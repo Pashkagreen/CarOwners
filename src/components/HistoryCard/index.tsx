@@ -7,11 +7,11 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { formatDateFromSeconds } from '../../core/utils';
 
 import { theme } from '../../core/theme';
-import { HistoryInterface } from '../../store/Vehicles/types';
+import { IHistory } from '../../store/vehicles/interfaces';
 import styles from './style';
 
 interface HistoryCardProps {
-  item: HistoryInterface;
+  item: IHistory;
   index: number;
 }
 

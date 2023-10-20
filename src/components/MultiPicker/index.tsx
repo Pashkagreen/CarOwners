@@ -6,7 +6,7 @@ import { Text } from 'react-native-paper';
 
 import { Storage } from '../../services/storage';
 
-import { checkStoragePermissions } from '../../core/permissions';
+import checkStoragePermissions from '../../core/permissions';
 import {
   LocalPhotosState,
   SetPhotos,

@@ -12,11 +12,11 @@ import Animated, {
 
 import { CARD_LENGTH } from '../../../../core/constants';
 import useImageSize, { IImageSize } from '../../../../hooks/use-image-size';
-import { SetPhotos } from '../../../../screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../../../../screens/Main/AddVehicle/AddVehicleContainer';
 import getStyles from './style';
 
 interface CarouselItemProps {
-  item: SetPhotos;
+  item: IUploadedPhoto;
   index: number;
   scrollX: any;
   length: number;

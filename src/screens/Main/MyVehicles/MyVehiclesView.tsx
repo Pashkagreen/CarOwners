@@ -26,7 +26,7 @@ import styles from './styles';
 import { theme } from '../../../core/theme';
 import { IVehicle } from '../../../store/vehicles/interfaces';
 import { TFetchState } from '../../../types';
-import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../AddVehicle/AddVehicleContainer';
 
 interface IMyVehicles {
   items: IVehicle[];
@@ -36,8 +36,8 @@ interface IMyVehicles {
   cardHeight: number;
   viewerIndex: number;
   isShowViewer: boolean;
-  viewerItems: SetPhotos[];
-  onPhotoPress: (photos: SetPhotos[], index: number) => () => void;
+  viewerItems: IUploadedPhoto[];
+  onPhotoPress: (photos: IUploadedPhoto[], index: number) => () => void;
   setIsShowViewer: (state: boolean) => void;
   onLayout: (e: LayoutChangeEvent) => void;
   onRefresh: () => void;

@@ -15,7 +15,7 @@ import {
 
 import styles from './styles';
 
-import { AuthStackParams } from '../../../navigation/AuthStack';
+import { AuthStackParams } from '../../../navigation/roots/auth';
 import { IValidateObject } from '../../../types';
 
 interface ILogin {

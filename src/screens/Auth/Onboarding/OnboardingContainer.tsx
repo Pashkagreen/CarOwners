@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { getUserCurrentCountry } from '../../../core/utils';
 
-import { AuthStackParams } from '../../../navigation/AuthStack';
+import { AuthStackParams } from '../../../navigation/roots/auth';
 import { useStore } from '../../../store';
 import OnboardingView from './OnboardingView';
 

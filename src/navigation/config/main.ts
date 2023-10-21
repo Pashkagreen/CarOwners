@@ -1,5 +1,5 @@
 import screens from '../../screens';
-import MyGarageStackScreens from '../MyGarageStack';
+import MyGarageStackScreens from '../roots/my-garage';
 
 export default {
   MyGarage: {

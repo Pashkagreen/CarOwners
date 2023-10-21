@@ -3,8 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { observer } from 'mobx-react-lite';
 
 import { useStore } from '../store';
-import AuthStackScreens, { AuthStackParams } from './AuthStack';
-import MainStackScreens, { MainStackParams } from './MainStack';
+import AuthStackScreens, { AuthStackParams } from './roots/auth';
+import MainStackScreens, { MainStackParams } from './roots/main';
 
 export type TRootStackNavigation = {
   Auth: AuthStackParams;

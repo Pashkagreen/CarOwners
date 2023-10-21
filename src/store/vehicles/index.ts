@@ -1,6 +1,8 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import VehiclesService from '../../services/endpoints/vehicles';
+import VehiclesService, {
+  IVehicleCreate,
+} from '../../services/endpoints/vehicles';
 
 import { flashMessage } from '../../core/utils';
 
@@ -58,7 +60,7 @@ export class VehiclesStore {
     this.setState('done');
   };
 
-  public createVehicle = async (newData: IVehicle): Promise<void> => {
+  public createVehicle = async (newData: IVehicleCreate): Promise<void> => {
     this.setState('pending');
 
     try {
@@ -83,7 +85,7 @@ export class VehiclesStore {
 
   public updateVehicle = async (
     vehicleId: string,
-    newData: IVehicle,
+    newData: IVehicleCreate,
   ): Promise<void> => {
     this.setState('pending');
 

@@ -11,7 +11,7 @@ import UserService from '../../../services/endpoints/user';
 
 import { codeValidator, phoneNumberValidator } from '../../../core/validators';
 import { usePhoneNumber } from '../../../hooks';
-import { AuthStackParams } from '../../../navigation/AuthStack';
+import { AuthStackParams } from '../../../navigation/roots/auth';
 import { useStore } from '../../../store';
 import { IValidateObject } from '../../../types';
 import LoginView from './LoginView';

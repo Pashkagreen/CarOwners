@@ -18,7 +18,7 @@ import { flashMessage } from '../../core/utils';
 
 import { resizePhotoParams } from '../../core/constants';
 import { theme } from '../../core/theme';
-import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import FullImageModal from '../FullImageModal';
 import ProgressiveImage, { SourceType } from '../ProgressiveImage';
 import styles from './style';
@@ -27,7 +27,7 @@ interface ImageProps {
   disabled?: boolean;
   withLoad?: boolean;
   source: SourceType;
-  onLoadFinish: (args: SetPhotos) => void;
+  onLoadFinish: (args: IUploadedPhoto) => void;
   containerStyles?: ViewStyle;
   imageStyle?: ImageStyle;
   emptyStyle?: ViewStyle;

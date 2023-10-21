@@ -16,7 +16,7 @@ import styles from './styles';
 import { hitSlop } from '../../../core/theme';
 import { IVehicle } from '../../../store/vehicles/interfaces';
 import { TFetchState } from '../../../types';
-import { LocalPhotosState, SetPhotos } from './AddVehicleContainer';
+import { IUploadedPhoto, LocalPhotosState } from './AddVehicleContainer';
 import { FormData } from './AddVehicleContainer';
 
 interface IAddVehicles {
@@ -27,8 +27,8 @@ interface IAddVehicles {
   vehicleInfo?: IVehicle;
   errors: any;
   photos: LocalPhotosState[];
-  onUploadPhotos: (photos: SetPhotos[]) => void;
-  onFinishLoadPhotos: (photos: SetPhotos[]) => void;
+  onUploadPhotos: (photos: LocalPhotosState[]) => void;
+  onFinishLoadPhotos: (photos: IUploadedPhoto[]) => void;
   setLoadingPhotos: (state: boolean) => void;
   isEdit?: boolean;
 }

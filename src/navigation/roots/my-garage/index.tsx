@@ -3,11 +3,11 @@ import { Platform } from 'react-native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { BackButton, Header } from '../../components';
+import { BackButton, Header } from '../../../components';
 
-import myGarageStackConfig from '../config/myGarageStackConfig';
+import myGarageStackConfig from '../../config/my-garage';
 
-import { IVehicle } from '../../store/vehicles/interfaces';
+import { IVehicle } from '../../../store/vehicles/interfaces';
 
 export type MyGarageStackParams = {
   MyVehicles: undefined;

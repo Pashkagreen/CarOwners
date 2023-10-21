@@ -4,11 +4,11 @@ import { TouchableOpacity, View } from 'react-native';
 import Lottie from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 
-import { SetPhotos } from '../../../../screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../../../../screens/Main/AddVehicle/AddVehicleContainer';
 import styles from './style';
 
 interface ScrollablePhotoItemProps {
-  photo: SetPhotos;
+  photo: IUploadedPhoto;
   onPhotoPress: () => void;
 }
 

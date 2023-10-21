@@ -8,7 +8,7 @@ import {
   Title,
 } from '../../../components/index';
 
-import { AuthStackParams } from '../../../navigation/AuthStack';
+import { AuthStackParams } from '../../../navigation/roots/auth';
 
 interface IOnboarding {
   navigateTo: (screenName: keyof AuthStackParams) => () => void;

@@ -4,10 +4,10 @@ import { LayoutChangeEvent } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { observer } from 'mobx-react-lite';
 
-import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
+import { MyGarageStackParams } from '../../../navigation/roots/my-garage';
 import { useStore } from '../../../store';
 import { IVehicle } from '../../../store/vehicles/interfaces';
-import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../AddVehicle/AddVehicleContainer';
 import MyVehiclesView from './MyVehiclesView';
 
 type TProps = StackScreenProps<MyGarageStackParams, 'MyVehicles'>;
@@ -24,7 +24,7 @@ const MyVehiclesContainer: FC<TProps> = ({ navigation }) => {
   const [cardHeight, setCardHeight] = useState(0);
 
   // ======= Animation Section =========
-  const [viewerItems, setViewerItems] = useState<SetPhotos[]>([]);
+  const [viewerItems, setViewerItems] = useState<IUploadedPhoto[]>([]);
   const [viewerIndex, setViewerIndex] = useState<number>(0);
   const [isShowViewer, setIsShowViewer] = useState(false);
 
@@ -54,7 +54,7 @@ const MyVehiclesContainer: FC<TProps> = ({ navigation }) => {
     setCardHeight(height);
   };
 
-  const onPhotoPress = (photos: SetPhotos[], index: number) => () => {
+  const onPhotoPress = (photos: IUploadedPhoto[], index: number) => () => {
     setIsShowViewer(true);
     if (photos) {
       setViewerItems(photos);

@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ScrollablePhotoItem from './components/ScrollablePhotoItem';
 
 import { hitSlop, theme } from '../../core/theme';
-import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import { IVehicle } from '../../store/vehicles/interfaces';
 import styles from './style';
 
@@ -21,7 +21,7 @@ interface VehicleCardProps {
   index: number;
   onPress: any;
   onDeletePress: any;
-  onPhotoPress: (photos: SetPhotos[], index: number) => () => void;
+  onPhotoPress: (photos: IUploadedPhoto[], index: number) => () => void;
   onLayout: (e: LayoutChangeEvent) => void;
   cardHeight: number;
   scrollY: any;

@@ -1,4 +1,4 @@
-import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 
 interface IModifiedAt {
   _nanoseconds: number;
@@ -24,7 +24,7 @@ interface IVehicle {
   price?: string | number;
   mileage?: string | number;
   createdAt?: IModifiedAt;
-  photos?: SetPhotos[] | [];
+  photos?: IUploadedPhoto[] | [];
 }
 
 export type { IModifiedAt, IHistoryRecord, IHistory, IVehicle };

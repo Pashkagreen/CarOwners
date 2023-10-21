@@ -1,3 +1,4 @@
+import { IUploadedPhoto } from '../../../screens/Main/AddVehicle/AddVehicleContainer';
 import { IHistory, IVehicle } from '../../../store/vehicles/interfaces';
 import { http } from '../../http';
 import { IServerSuccess } from '../../http/interfaces';
@@ -12,18 +13,24 @@ interface IHistoryResponse {
   };
 }
 
+export interface IVehicleCreate extends Omit<IVehicle, 'id'> {
+  photos?: IUploadedPhoto[];
+}
+
 class VehiclesService {
   static async getAll(): Promise<IVehicle[]> {
     return (await http.get('/vehicles')).data;
   }
 
-  static async createVehicle(vehicleInfo: IVehicle): Promise<IVehicleResponse> {
+  static async createVehicle(
+    vehicleInfo: IVehicleCreate,
+  ): Promise<IVehicleResponse> {
     return await http.post('/vehicles', vehicleInfo);
   }
 
   static async updateVehicle(
     vehicleId: string,
-    vehicleInfo: IVehicle,
+    vehicleInfo: IVehicleCreate,
   ): Promise<IVehicleResponse> {
     return await http.patch(`/vehicles/${vehicleId}`, vehicleInfo);
   }

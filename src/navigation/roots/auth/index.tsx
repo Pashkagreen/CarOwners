@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { BackButton } from '../../components';
+import { BackButton } from '../../../components';
 
-import authStackConfig from '../config/authStackConfig';
+import authStackConfig from '../../config/auth';
 
 export type AuthStackParams = {
   Login: undefined;

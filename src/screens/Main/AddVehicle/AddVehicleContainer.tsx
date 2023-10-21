@@ -10,7 +10,7 @@ import * as yup from 'yup';
 import { flashMessage } from '../../../core/utils';
 
 import { vehiclesSchema } from '../../../core/validators';
-import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
+import { MyGarageStackParams } from '../../../navigation/roots/my-garage';
 import { useStore } from '../../../store';
 import AddVehicleView from './AddVehicleView';
 
@@ -18,7 +18,7 @@ type TProps = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;
 
-export interface SetPhotos {
+export interface IUploadedPhoto {
   uri: string;
   thumbnailUri: string;
   fullFileName: string;
@@ -26,14 +26,13 @@ export interface SetPhotos {
   id?: string | number[];
 }
 
-//Type Guards for Photos
-export const isLocalPhoto = (array: any[]): array is ImageProp[] =>
-  array.every(el => el.path);
-
-export const isUploadedPhoto = (array: any[]): array is SetPhotos[] =>
+/**
+ * Type guard for uploaded photo
+ */
+export const isUploadedPhoto = (array: any[]): array is IUploadedPhoto[] =>
   array.every(el => el.id);
 
-export type LocalPhotosState = SetPhotos | ImageProp;
+export type LocalPhotosState = IUploadedPhoto | ImageProp;
 
 const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   const isEdit = route.params?.isEdit;
@@ -64,7 +63,7 @@ const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   const onSubmit = (data: FormData): Promise<void> =>
     isEdit ? updateVehicle(data) : createVehicle(data);
 
-  const onFinishLoadPhotos = (p: SetPhotos[]): void => {
+  const onFinishLoadPhotos = (p: IUploadedPhoto[]): void => {
     setLoadingPhotos(false);
 
     setPhotos(
@@ -78,51 +77,43 @@ const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
     );
   };
 
-  const onUploadPhotos = (p: SetPhotos[]): void | boolean =>
+  const onUploadPhotos = (p: LocalPhotosState[]): void | boolean =>
     p.length > 0 && setLoadingPhotos(true);
 
   const createVehicle = async (newData: FormData): Promise<void> => {
-    let modifiedData = { ...newData };
-
-    if (loadingPhotos) {
+    if (!isUploadedPhoto(photos) || loadingPhotos) {
       flashMessage({
         type: 'warning',
         message: 'Oops!',
         description: 'Photos are not uploaded yet.',
       });
+
       return;
     }
 
-    if (photos.length) {
-      modifiedData.photos = photos;
-    } else {
-      modifiedData.photos = [];
-    }
-
-    await createVehicleEntity(modifiedData);
+    await createVehicleEntity({
+      ...newData,
+      photos: photos ?? [],
+    });
 
     goBack();
   };
 
   const updateVehicle = async (newData: FormData) => {
-    let modifiedData = { ...newData };
-
-    if (loadingPhotos) {
+    if (!isUploadedPhoto(photos) || loadingPhotos) {
       flashMessage({
         type: 'warning',
         message: 'Oops!',
         description: 'Photos are not uploaded yet.',
       });
+
       return;
     }
 
-    if (photos.length) {
-      modifiedData.photos = photos;
-    } else {
-      modifiedData.photos = [];
-    }
-
-    await updateVehicleEntity(vehicleInfo?.id, modifiedData);
+    await updateVehicleEntity(vehicleInfo?.id as string, {
+      ...newData,
+      photos: photos ?? [],
+    });
 
     goBack();
   };

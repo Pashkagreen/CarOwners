@@ -25,7 +25,7 @@ import styles from './style';
 
 interface ImageProps {
   source: SourceType;
-  onLoadFinish: (args: IUploadedPhoto) => void;
+  onLoadFinish: (photos: IUploadedPhoto) => void;
   disabled?: boolean;
   withLoad?: boolean;
   containerStyles?: ViewStyle;
@@ -42,7 +42,6 @@ const Image = ({
   imageStyle = {},
   emptyStyle = {},
 }: ImageProps) => {
-  const [repeatCount, setRepeatCount] = useState(0);
   const [error, setError] = useState(false);
   const [openImage, setOpenImage] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
@@ -97,12 +96,8 @@ const Image = ({
         setLoadingImage,
       );
     } catch (err) {
-      if (repeatCount > 5) {
-        setError(true);
-        return;
-      }
-      void loadImageToStorage();
-      setRepeatCount(old => old + 1);
+      setError(true);
+      return;
     }
   };
 
@@ -120,7 +115,6 @@ const Image = ({
   useEffect(() => {
     if (withLoad && source && !source.uri && !source.thumbnailUri) {
       setError(false);
-      setRepeatCount(0);
       void loadImageToStorage();
     }
   }, [source]);

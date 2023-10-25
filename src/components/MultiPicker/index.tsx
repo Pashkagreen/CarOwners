@@ -1,4 +1,4 @@
-import React, { FC, memo, useEffect, useState } from 'react';
+import React, { FC, memo, useState } from 'react';
 import { Keyboard, View } from 'react-native';
 
 import ImagePicker from 'react-native-image-crop-picker';
@@ -8,10 +8,7 @@ import { Text } from 'react-native-paper';
 import { Storage } from '../../services/storage';
 
 import checkStoragePermissions from '../../core/permissions';
-import {
-  isUploadedPhoto,
-  IUploadedPhoto,
-} from '../../screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import GalleryCell from '../GalleryCell';
 import Image from '../Image';
 import { SourceType } from '../ProgressiveImage';
@@ -75,11 +72,64 @@ const MultiPicker: FC<IMultiPicker> = ({
     }
   };
 
-  useEffect(() => {
-    if (isUploadedPhoto(localPhotos)) {
-      onFinishLoadPhotos(localPhotos);
-    }
-  }, [localPhotos]);
+  const onRemove = async (photo: IUploadedPhoto): Promise<void> => {
+    const { fullFileName, thumbnailFileName, path, uri } = photo ?? {};
+
+    await Promise.all([
+      Storage.deleteImage(fullFileName),
+      Storage.deleteImage(thumbnailFileName),
+    ]);
+
+    setLocalPhotos(old =>
+      old.filter(item => {
+        if (item.path) {
+          return item.path !== path;
+        }
+
+        if (item.uri) {
+          return item.uri !== uri;
+        }
+
+        return false;
+      }),
+    );
+
+    onFinishLoadPhotos(
+      localPhotos.filter(item => {
+        if (item.path) {
+          return item.path !== path;
+        }
+
+        if (item.uri) {
+          return item.uri !== uri;
+        }
+
+        return false;
+      }),
+    );
+  };
+
+  const onLoadFinish =
+    (el: IUploadedPhoto) =>
+    (source: IUploadedPhoto): void => {
+      setLocalPhotos(old =>
+        old.map(item => {
+          if (item.path === el.path) {
+            return { ...item, ...source };
+          }
+          return item;
+        }),
+      );
+
+      onFinishLoadPhotos(
+        localPhotos.map(item => {
+          if (item.path === el.path) {
+            return { ...item, ...source };
+          }
+          return item;
+        }),
+      );
+    };
 
   return (
     <View style={styles.wrapper}>
@@ -88,51 +138,24 @@ const MultiPicker: FC<IMultiPicker> = ({
         {!showMode && maxFiles > 0 && (
           <GalleryCell style={styles.image} onPress={handleOpenPicker} />
         )}
-        {localPhotos?.length &&
-          localPhotos.map(el => (
-            <GalleryCell
-              key={el.path}
-              disabled={loading}
-              image={
-                <Image
-                  containerStyles={styles.includeImage}
-                  imageStyle={styles.includeImage}
-                  source={el as SourceType}
-                  onLoadFinish={source => {
-                    setLocalPhotos(old =>
-                      old.map(item => {
-                        if (item.path === el.path) {
-                          return { ...item, ...source };
-                        }
-                        return item;
-                      }),
-                    );
-                  }}
-                />
-              }
-              showMode={false}
-              style={[styles.image]}
-              text={'Upload photos of your vehicles'}
-              onRemove={async () => {
-                await Promise.all([
-                  Storage.deleteImage(el.fullFileName),
-                  Storage.deleteImage(el.thumbnailFileName),
-                ]);
-
-                setLocalPhotos(old =>
-                  old.filter(item => {
-                    if (item.path) {
-                      return item.path !== el.path;
-                    } else if (item.uri) {
-                      return item.uri !== el.uri;
-                    }
-
-                    return false;
-                  }),
-                );
-              }}
-            />
-          ))}
+        {localPhotos.map(el => (
+          <GalleryCell
+            key={el.path || el.id}
+            disabled={loading}
+            image={
+              <Image
+                containerStyles={styles.includeImage}
+                imageStyle={styles.includeImage}
+                source={el as SourceType}
+                onLoadFinish={onLoadFinish(el)}
+              />
+            }
+            showMode={false}
+            style={styles.image}
+            text="Upload photos of your vehicles"
+            onRemove={() => onRemove(el)}
+          />
+        ))}
       </View>
     </View>
   );

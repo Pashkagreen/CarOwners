@@ -20,21 +20,25 @@ const headers: Readonly<Record<string, string | boolean>> = {
   'X-Requested-With': 'XMLHttpRequest',
 };
 
-// We can use the following function to inject the JWT token through an interceptor
-const injectToken = async (config: IAdaptAxiosRequestConfig): Promise<any> => {
+/**
+ * We can use the following function to inject the JWT token through an interceptor
+ */
+const injectToken = async (
+  config: IAdaptAxiosRequestConfig,
+): Promise<IAdaptAxiosRequestConfig> => {
   try {
     const token = await Account.getToken();
 
     if (token !== null) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
-    return config;
   } catch (error: any) {
     if (error instanceof Error) {
       throw new Error(error.message);
     }
   }
+
+  return config;
 };
 
 class Http {

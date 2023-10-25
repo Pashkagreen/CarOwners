@@ -18,7 +18,7 @@ import getStyles from './style';
 interface CarouselItemProps {
   item: IUploadedPhoto;
   index: number;
-  scrollX: any;
+  scrollX: number;
   length: number;
 }
 

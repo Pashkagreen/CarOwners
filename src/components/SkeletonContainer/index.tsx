@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { LayoutRectangle, StyleSheet, View } from 'react-native';
 
 import MaskedView from '@react-native-masked-view/masked-view';
@@ -27,7 +27,7 @@ const SkeletonContainer: FC<SkeletonProps> = ({
   const [layout, setLayout] = React.useState<LayoutRectangle>();
   const shared = useSharedValue(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     shared.value = withRepeat(withTiming(1, { duration: 1000 }), Infinity);
   }, []);
 

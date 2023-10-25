@@ -23,14 +23,14 @@ export interface IUploadedPhoto extends Partial<IImage> {
   thumbnailUri: string;
   fullFileName: string;
   thumbnailFileName: string;
-  id?: string | number[];
+  id?: string;
 }
 
 /**
  * Type guard for uploaded photo
  */
-export const isUploadedPhoto = (array: any[]): array is IUploadedPhoto[] =>
-  array.every(el => el.id);
+export const isUploadedPhoto = (array: IUploadedPhoto[]): boolean =>
+  array.every(el => el.id && el.uri && el.thumbnailUri);
 
 const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   const isEdit = route.params?.isEdit;
@@ -66,7 +66,7 @@ const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
 
     setPhotos(
       p.map(el => ({
-        id: uuid.v4(),
+        id: uuid.v4() as string,
         uri: el.uri,
         thumbnailUri: el.thumbnailUri,
         fullFileName: el.fullFileName,

@@ -4,8 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AsyncTrunk } from 'mobx-sync';
 import LottieSplashScreen from 'react-native-lottie-splash-screen';
 
-import { UserStore } from './User';
-import { VehiclesStore } from './Vehicles';
+import { UserStore } from './user';
+import { VehiclesStore } from './vehicles';
 
 class RootStore {
   userStore: UserStore;

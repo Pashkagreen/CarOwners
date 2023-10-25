@@ -2,6 +2,7 @@ import React, { FC, memo, useEffect, useState } from 'react';
 import { Keyboard, View } from 'react-native';
 
 import ImagePicker from 'react-native-image-crop-picker';
+import { Image as IImage } from 'react-native-image-crop-picker';
 import { Text } from 'react-native-paper';
 
 import { Storage } from '../../services/storage';
@@ -10,35 +11,33 @@ import checkStoragePermissions from '../../core/permissions';
 import {
   isUploadedPhoto,
   IUploadedPhoto,
-  LocalPhotosState,
 } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import GalleryCell from '../GalleryCell';
 import Image from '../Image';
+import { SourceType } from '../ProgressiveImage';
 import styles from './style';
 
 interface IMultiPicker {
   onFinishLoadPhotos: (photos: IUploadedPhoto[]) => void;
-  onUploadPhotos: (photos: LocalPhotosState[]) => void;
+  onUploadPhotos: (photos: IImage[]) => void;
   text: string;
-  value?: IUploadedPhoto[];
+  defaultPhotos?: IUploadedPhoto[];
   showMode?: boolean;
-  parameters?: any[];
 }
 
 const MultiPicker: FC<IMultiPicker> = ({
   onFinishLoadPhotos,
   onUploadPhotos,
-  value,
   showMode,
-  parameters,
   text,
+  defaultPhotos,
 }) => {
-  const [localMainPhotos, setLocalMainPhotos] = useState<LocalPhotosState[]>(
-    value ?? [],
+  const [localPhotos, setLocalPhotos] = useState<IUploadedPhoto[]>(
+    defaultPhotos ?? [],
   );
   const [loading, setLoading] = useState(false);
 
-  const maxFiles = 15 - localMainPhotos.length;
+  const maxFiles = 15 - localPhotos.length;
 
   const handleOpenPicker = async (): Promise<void> => {
     Keyboard.dismiss();
@@ -64,12 +63,12 @@ const MultiPicker: FC<IMultiPicker> = ({
       );
 
       const filteredPhoto = filteredSource.filter(el =>
-        localMainPhotos.every(photo => photo.path !== el.path),
+        localPhotos.every(photo => photo.path !== el.path),
       );
 
       onUploadPhotos(filteredPhoto);
 
-      setLocalMainPhotos(old => [...old, ...filteredPhoto]);
+      setLocalPhotos(old => [...old, ...(filteredPhoto as IUploadedPhoto[])]);
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -77,16 +76,10 @@ const MultiPicker: FC<IMultiPicker> = ({
   };
 
   useEffect(() => {
-    if (isUploadedPhoto(localMainPhotos)) {
-      onFinishLoadPhotos(localMainPhotos);
+    if (isUploadedPhoto(localPhotos)) {
+      onFinishLoadPhotos(localPhotos);
     }
-  }, [localMainPhotos]);
-
-  useEffect(() => {
-    if (parameters) {
-      void handleOpenPicker();
-    }
-  }, [parameters]);
+  }, [localPhotos]);
 
   return (
     <View style={styles.wrapper}>
@@ -95,18 +88,18 @@ const MultiPicker: FC<IMultiPicker> = ({
         {!showMode && maxFiles > 0 && (
           <GalleryCell style={styles.image} onPress={handleOpenPicker} />
         )}
-        {localMainPhotos?.length &&
-          localMainPhotos.map(el => (
+        {localPhotos?.length &&
+          localPhotos.map(el => (
             <GalleryCell
-              key={el.uri || el.path}
+              key={el.path}
               disabled={loading}
               image={
                 <Image
                   containerStyles={styles.includeImage}
                   imageStyle={styles.includeImage}
-                  source={el}
+                  source={el as SourceType}
                   onLoadFinish={source => {
-                    setLocalMainPhotos(old =>
+                    setLocalPhotos(old =>
                       old.map(item => {
                         if (item.path === el.path) {
                           return { ...item, ...source };
@@ -126,13 +119,14 @@ const MultiPicker: FC<IMultiPicker> = ({
                   Storage.deleteImage(el.thumbnailFileName),
                 ]);
 
-                setLocalMainPhotos(old =>
+                setLocalPhotos(old =>
                   old.filter(item => {
                     if (item.path) {
                       return item.path !== el.path;
                     } else if (item.uri) {
                       return item.uri !== el.uri;
                     }
+
                     return false;
                   }),
                 );

@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useForm } from 'react-hook-form';
-import { Image as ImageProp } from 'react-native-image-crop-picker';
+import { Image as IImage } from 'react-native-image-crop-picker';
 import uuid from 'react-native-uuid';
 import * as yup from 'yup';
 
@@ -18,7 +18,7 @@ type TProps = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;
 
-export interface IUploadedPhoto {
+export interface IUploadedPhoto extends Partial<IImage> {
   uri: string;
   thumbnailUri: string;
   fullFileName: string;
@@ -31,8 +31,6 @@ export interface IUploadedPhoto {
  */
 export const isUploadedPhoto = (array: any[]): array is IUploadedPhoto[] =>
   array.every(el => el.id);
-
-export type LocalPhotosState = IUploadedPhoto | ImageProp;
 
 const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   const isEdit = route.params?.isEdit;
@@ -56,7 +54,7 @@ const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   });
 
   const [loadingPhotos, setLoadingPhotos] = useState(false);
-  const [photos, setPhotos] = useState<LocalPhotosState[]>(
+  const [photos, setPhotos] = useState<IUploadedPhoto[]>(
     vehicleInfo?.photos || [],
   );
 
@@ -77,8 +75,8 @@ const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
     );
   };
 
-  const onUploadPhotos = (p: LocalPhotosState[]): void | boolean =>
-    p.length > 0 && setLoadingPhotos(true);
+  const onUploadPhotos = (images: IImage[]): void | boolean =>
+    images.length > 0 && setLoadingPhotos(true);
 
   const createVehicle = async (newData: FormData): Promise<void> => {
     if (!isUploadedPhoto(photos) || loadingPhotos) {

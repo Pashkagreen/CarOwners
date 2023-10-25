@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { View } from 'react-native';
 
 import { Controller, UseFormHandleSubmit } from 'react-hook-form';
+import { Image as IImage } from 'react-native-image-crop-picker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import {
@@ -16,7 +17,7 @@ import styles from './styles';
 import { hitSlop } from '../../../core/theme';
 import { IVehicle } from '../../../store/vehicles/interfaces';
 import { TFetchState } from '../../../types';
-import { IUploadedPhoto, LocalPhotosState } from './AddVehicleContainer';
+import { IUploadedPhoto } from './AddVehicleContainer';
 import { FormData } from './AddVehicleContainer';
 
 interface IAddVehicles {
@@ -26,8 +27,8 @@ interface IAddVehicles {
   loading: TFetchState;
   vehicleInfo?: IVehicle;
   errors: any;
-  photos: LocalPhotosState[];
-  onUploadPhotos: (photos: LocalPhotosState[]) => void;
+  photos: IUploadedPhoto[];
+  onUploadPhotos: (photos: IImage[]) => void;
   onFinishLoadPhotos: (photos: IUploadedPhoto[]) => void;
   setLoadingPhotos: (state: boolean) => void;
   isEdit?: boolean;
@@ -141,8 +142,8 @@ const AddVehicleView: FC<IAddVehicles> = ({
         )}
       />
       <MultiPicker
+        defaultPhotos={vehicleInfo?.photos}
         text={`Upload your vehicle photos. Max ${photos?.length}/15`}
-        value={vehicleInfo?.photos}
         onFinishLoadPhotos={onFinishLoadPhotos}
         onUploadPhotos={onUploadPhotos}
       />

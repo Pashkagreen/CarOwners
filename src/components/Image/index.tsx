@@ -24,23 +24,23 @@ import ProgressiveImage, { SourceType } from '../ProgressiveImage';
 import styles from './style';
 
 interface ImageProps {
-  disabled?: boolean;
-  withLoad?: boolean;
   source: SourceType;
   onLoadFinish: (args: IUploadedPhoto) => void;
+  disabled?: boolean;
+  withLoad?: boolean;
   containerStyles?: ViewStyle;
   imageStyle?: ImageStyle;
   emptyStyle?: ViewStyle;
 }
 
 const Image = ({
+  disabled,
+  onLoadFinish,
+  source,
+  withLoad = true,
   containerStyles = {},
   imageStyle = {},
   emptyStyle = {},
-  disabled,
-  onLoadFinish = () => {},
-  source,
-  withLoad = true,
 }: ImageProps) => {
   const [repeatCount, setRepeatCount] = useState(0);
   const [error, setError] = useState(false);
@@ -101,7 +101,7 @@ const Image = ({
         setError(true);
         return;
       }
-      loadImageToStorage();
+      void loadImageToStorage();
       setRepeatCount(old => old + 1);
     }
   };
@@ -121,36 +121,40 @@ const Image = ({
     if (withLoad && source && !source.uri && !source.thumbnailUri) {
       setError(false);
       setRepeatCount(0);
-      loadImageToStorage();
+      void loadImageToStorage();
     }
   }, [source]);
 
   const renderImage = () => {
-    if (source) {
-      if (source.path) {
-        return (
-          <FastImage
-            source={{ uri: source.path }}
-            style={[styles.imageStyle, imageStyle]}
-          />
-        );
-      } else if (source.uri) {
-        return (
-          <ProgressiveImage
-            imageStyle={[styles.imageStyle, imageStyle]}
-            source={source}
-          />
-        );
-      }
-    } else {
+    if (!source) {
       return (
         <View style={styles.loading}>
           <ActivityIndicator color={theme.colors.white} />
         </View>
       );
     }
+
+    if (source.path) {
+      return (
+        <FastImage
+          source={{ uri: source.path }}
+          style={[styles.imageStyle, imageStyle]}
+        />
+      );
+    }
+
+    if (source.uri) {
+      return (
+        <ProgressiveImage
+          imageStyle={[styles.imageStyle, imageStyle]}
+          source={source}
+        />
+      );
+    }
+
     return <View style={[styles.imageStyle, emptyStyle]} />;
   };
+
   return (
     <TouchableOpacity
       disabled={disabled}
@@ -163,17 +167,16 @@ const Image = ({
         />
       )}
       {renderImage()}
-
       {withLoad && loadingImage && (
         <View style={styles.loading}>
           <ActivityIndicator color={theme.colors.white} />
         </View>
       )}
-      {error ? (
+      {error && (
         <View style={styles.loading}>
           <Icon color={theme.colors.error} name="times" size={16} />
         </View>
-      ) : null}
+      )}
     </TouchableOpacity>
   );
 };

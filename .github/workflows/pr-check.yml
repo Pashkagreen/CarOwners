@@ -24,9 +24,15 @@ jobs:
 
       - name: Install dependencies
         run: yarn install_packages
+        
+      - name: Format ESLint
+        run: yarn lint:format
 
-      - name: Check eslint
+      - name: Check ESLint
         run: yarn lint:check
+
+      - name: Check TypeScript
+        run: yarn ts:check
 
       - uses: naveenk1223/action-pr-title@master
         with:

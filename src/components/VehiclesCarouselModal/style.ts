@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { screenHeight, screenWidth } from '../../core/theme';
+import { screenHeight, screenWidth } from '@theme';
 
 const styles = StyleSheet.create({
   modal: {

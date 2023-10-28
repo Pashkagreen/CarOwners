@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import PhoneInputComponent from 'react-native-phone-input';
-
 import {
   Background,
   Button,
@@ -11,12 +8,13 @@ import {
   PhoneInput,
   TextInput,
   Title,
-} from '../../../components/index';
+} from '@components/index';
+import { AuthStackParams } from '@navigation/roots/auth';
+import { IValidateObject } from '@types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PhoneInputComponent from 'react-native-phone-input';
 
 import styles from './styles';
-
-import { AuthStackParams } from '../../../navigation/roots/auth';
-import { IValidateObject } from '../../../types';
 
 interface ILogin {
   navigateTo: (screenName: keyof AuthStackParams) => () => void;
@@ -70,6 +68,7 @@ const LoginView: FC<ILogin> = ({
       {isLoginAvailable && (
         <TextInput
           secureTextEntry
+          additionalStyles={styles.button}
           error={!!code.error}
           errorText={code.error}
           keyboardType="phone-pad"
@@ -82,6 +81,7 @@ const LoginView: FC<ILogin> = ({
       <Button
         loading={isLoginAvailable ? loading : otpLoading}
         mode="contained"
+        style={styles.button}
         onPress={isLoginAvailable ? login : sendOTPCode}>
         {isLoginAvailable ? 'Login' : 'Send OTP'}
       </Button>

@@ -7,6 +7,10 @@ import {
   View,
 } from 'react-native';
 
+import { Background, CustomHeader, HistoryCard } from '@components/index';
+import { IHistory } from '@stores/vehicles/interfaces';
+import { theme } from '@theme';
+import { TFetchState } from '@types';
 import { Text } from 'react-native-paper';
 import Animated, {
   clamp,
@@ -16,14 +20,9 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { Background, CustomHeader, HistoryCard } from '../../../components';
-
 import styles from './styles';
 
-import { theme } from '../../../core/theme';
-import { IHistory } from '../../../store/vehicles/interfaces';
-import { TFetchState } from '../../../types';
-import HistoryListLoader from './HistoryCardLoader';
+import HistoryListLoader from './HistoryListLoader';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<IHistory>);
 

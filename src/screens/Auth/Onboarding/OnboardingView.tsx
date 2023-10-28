@@ -1,14 +1,7 @@
 import React, { FC } from 'react';
 
-import {
-  Background,
-  Button,
-  Logo,
-  Paragraph,
-  Title,
-} from '../../../components/index';
-
-import { AuthStackParams } from '../../../navigation/roots/auth';
+import { Background, Button, Logo, Paragraph, Title } from '@components/index';
+import { AuthStackParams } from '@navigation/roots/auth';
 
 interface IOnboarding {
   navigateTo: (screenName: keyof AuthStackParams) => () => void;

@@ -1,5 +1,6 @@
-import { IUploadedPhoto } from '../../../screens/Main/AddVehicle/AddVehicleContainer';
-import { IHistory, IVehicle } from '../../../store/vehicles/interfaces';
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
+import { IHistory, IVehicle } from '@stores/vehicles/interfaces';
+
 import { http } from '../../http';
 import { IServerSuccess } from '../../http/interfaces';
 

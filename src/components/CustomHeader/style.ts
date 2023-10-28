@@ -1,8 +1,7 @@
 import { Platform, StyleSheet } from 'react-native';
 
+import { theme } from '@theme';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-
-import { theme } from '../../core/theme';
 
 const getStyles = (headerHeight: number) =>
   StyleSheet.create({

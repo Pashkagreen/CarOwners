@@ -7,18 +7,16 @@ import {
   ViewStyle,
 } from 'react-native';
 
+import { resizePhotoParams } from '@constants';
 import { ReactNativeFirebase } from '@react-native-firebase/app';
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
+import { Storage } from '@services/storage';
+import { theme } from '@theme';
+import { flashMessage } from '@utils';
 import FastImage, { ImageStyle } from 'react-native-fast-image';
 import ImageResizer from 'react-native-image-resizer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { Storage } from '../../services/storage';
-
-import { flashMessage } from '../../core/utils';
-
-import { resizePhotoParams } from '../../core/constants';
-import { theme } from '../../core/theme';
-import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import FullImageModal from '../FullImageModal';
 import ProgressiveImage, { SourceType } from '../ProgressiveImage';
 import styles from './style';

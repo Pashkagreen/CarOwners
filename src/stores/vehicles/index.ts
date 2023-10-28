@@ -1,12 +1,8 @@
+import VehiclesService, { IVehicleCreate } from '@services/endpoints/vehicles';
+import { TFetchState } from '@types';
+import { flashMessage } from '@utils';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import VehiclesService, {
-  IVehicleCreate,
-} from '../../services/endpoints/vehicles';
-
-import { flashMessage } from '../../core/utils';
-
-import { TFetchState } from '../../types';
 import { IHistory, IVehicle } from './interfaces';
 
 export class VehiclesStore {

@@ -1,14 +1,13 @@
 import React, { FC, memo, useState } from 'react';
 import { Keyboard, View } from 'react-native';
 
+import checkStoragePermissions from '@permissions';
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
+import { Storage } from '@services/storage';
 import ImagePicker from 'react-native-image-crop-picker';
 import { Image as IImage } from 'react-native-image-crop-picker';
 import { Text } from 'react-native-paper';
 
-import { Storage } from '../../services/storage';
-
-import checkStoragePermissions from '../../core/permissions';
-import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import GalleryCell from '../GalleryCell';
 import Image from '../Image';
 import { SourceType } from '../ProgressiveImage';

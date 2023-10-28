@@ -358,7 +358,7 @@ PODS:
     - React-Core
   - react-native-lottie-splash-screen (1.1.2):
     - React
-  - react-native-safe-area-context (4.7.3):
+  - react-native-safe-area-context (4.7.4):
     - React-Core
   - React-perflogger (0.71.8)
   - React-RCTActionSheet (0.71.8):
@@ -465,7 +465,7 @@ PODS:
     - Firebase/Storage (= 10.7.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.13.3):
+  - RNGestureHandler (2.13.4):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNImageCropPicker (0.39.0):
@@ -477,7 +477,7 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
-  - RNPermissions (3.10.0):
+  - RNPermissions (3.10.1):
     - React-Core
   - RNReanimated (3.5.4):
     - DoubleConversion
@@ -508,7 +508,7 @@ PODS:
     - React-RCTText
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNScreens (3.26.0):
+  - RNScreens (3.27.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
   - RNVectorIcons (9.2.0):
@@ -757,7 +757,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: 3269f75c251cdcd61ab51b911dd30d6fff8c6169
   react-native-image-resizer: d9fb629a867335bdc13230ac2a58702bb8c8828f
   react-native-lottie-splash-screen: 4e1b1fd9d6633f9cd2106d6877eb5ba0147f3e2b
-  react-native-safe-area-context: 238cd8b619e05cb904ccad97ef42e84d1b5ae6ec
+  react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
   React-perflogger: d21f182895de9d1b077f8a3cd00011095c8c9100
   React-RCTActionSheet: 0151f83ef92d2a7139bba7dfdbc8066632a6d47b
   React-RCTAnimation: 5ec9c0705bb2297549c120fe6473aa3e4a01e215
@@ -778,11 +778,11 @@ SPEC CHECKSUMS:
   RNFBApp: 0d8bf86673bbad0524d1ceac3944d71ccf48a0e4
   RNFBAuth: a8f774e0dd28c1b0f4c3ab8a52333276b34fd3a4
   RNFBStorage: 7f918c7377c4f780820cee398769c0119587849a
-  RNGestureHandler: fa40ab6b6cafaa7609294d31f8e8fbbd0cce8ea6
+  RNGestureHandler: 6e46dde1f87e5f018a54fe5d40cd0e0b942b49ee
   RNImageCropPicker: 14fe1c29298fb4018f3186f455c475ab107da332
-  RNPermissions: cf6497cbf04d75b1a0ff0725a60bb5c3bfb3ca28
+  RNPermissions: 284f57bef3060c81302a03dade2da10ffd932f95
   RNReanimated: be07c7ae209074d0e8a84cf38b7909457ac59a32
-  RNScreens: 2a28f2973f4d0d4623e18629ebfc2c4adaceb39a
+  RNScreens: 3c2d122f5e08c192e254c510b212306da97d2581
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d

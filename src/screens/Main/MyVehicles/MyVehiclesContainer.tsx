@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { LayoutChangeEvent } from 'react-native';
 
+import { MyGarageStackParams } from '@navigation/roots/my-garage';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useStore } from '@stores';
+import { IVehicle } from '@stores/vehicles/interfaces';
 import { observer } from 'mobx-react-lite';
 
-import { MyGarageStackParams } from '../../../navigation/roots/my-garage';
-import { useStore } from '../../../store';
-import { IVehicle } from '../../../store/vehicles/interfaces';
 import { IUploadedPhoto } from '../AddVehicle/AddVehicleContainer';
 import MyVehiclesView from './MyVehiclesView';
 

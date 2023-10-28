@@ -8,24 +8,23 @@ import {
   View,
 } from 'react-native';
 
+import {
+  Background,
+  CustomHeader,
+  VehicleCard,
+  VehiclesCarouselModal,
+} from '@components/index';
+import { IVehicle } from '@stores/vehicles/interfaces';
+import { theme } from '@theme';
+import { TFetchState } from '@types';
 import { Text } from 'react-native-paper';
 import Animated, {
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
 
-import {
-  Background,
-  CustomHeader,
-  VehicleCard,
-  VehiclesCarouselModal,
-} from '../../../components';
-
 import styles from './styles';
 
-import { theme } from '../../../core/theme';
-import { IVehicle } from '../../../store/vehicles/interfaces';
-import { TFetchState } from '../../../types';
 import { IUploadedPhoto } from '../AddVehicle/AddVehicleContainer';
 
 interface IMyVehicles {

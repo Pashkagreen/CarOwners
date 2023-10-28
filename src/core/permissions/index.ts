@@ -1,9 +1,8 @@
 import { Platform } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
 
+import { renderAlert } from '@utils';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
-
-import { renderAlert } from './utils';
 
 const checkStoragePermissions = async (): Promise<boolean | undefined> => {
   try {

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { theme } from '../../../core/theme';
+import { theme } from '@theme';
 
 const styles = StyleSheet.create({
   row: {
@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
   link: {
     color: theme.colors.primary,
     fontWeight: 'bold',
+  },
+  button: {
+    marginTop: 16,
   },
 });
 

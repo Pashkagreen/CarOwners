@@ -1,12 +1,12 @@
 import { Keyboard } from 'react-native';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useStore } from '@stores';
+import { userSchema } from '@validators';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { userSchema } from '../../../core/validators';
-import { useStore } from '../../../store';
 import ProfileView from './ProfileView';
 
 export type FormData = yup.InferType<typeof userSchema>;

@@ -5,13 +5,13 @@ import {
   NativeSyntheticEvent,
 } from 'react-native';
 
+import { SNAP_INTERVAL } from '@constants';
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
 import Modal from 'react-native-modal';
 import Animated from 'react-native-reanimated';
 
 import CarouselItem from './components/CarouselItem';
 
-import { SNAP_INTERVAL } from '../../core/constants';
-import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import styles from './style';
 
 interface VehicleCarouselProps {

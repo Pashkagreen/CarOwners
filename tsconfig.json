@@ -1,6 +1,61 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
-    "forceConsistentCasingInFileNames": false
-  }
+    "target": "esnext",
+    "module": "commonjs",
+    "types": ["react-native", "node"],
+    "lib": [
+      "es2019",
+      "es2020.bigint",
+      "es2020.promise",
+      "es2020.string",
+      "es2020.symbol.wellknown",
+      "es2021.promise",
+      "es2021.string",
+      "es2021.weakref"
+    ],
+    "allowJs": true,
+    "jsx": "react-native",
+    "noEmit": true,
+    "isolatedModules": true,
+    "strict": false,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": false,
+    "allowImportingTsExtensions": true,
+    "baseUrl": "./",
+    "rootDirs": [
+      "./src"
+    ],
+    "paths": {
+      "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@types": ["./src/types.ts"],
+      "@constants": ["./src/core/constants"],
+      "@permissions": ["./src/core/permissions"],
+      "@theme": ["./src/core/theme"],
+      "@utils": ["./src/core/utils"],
+      "@validators": ["./src/core/validators"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@modals/*": ["./src/modals/*"],
+      "@services/*": ["./src/services/*"],
+      "@stores/*": ["./src/stores/*"],
+      "@stores": ["./src/stores/index.ts"],
+      "@navigation/*": ["./src/navigation/*"],
+      "@screens/*": ["./src/screens/*"]
+    }
+  },
+  "include": [
+    "src",
+    "src/**/*.ts",
+    "src/**/*.js",
+    "src/**/*.tsx",
+    "./App.tsx",
+    "./src/**/*",
+    "src/**/*",
+    "src/**/*.*"
+  ],
+  "exclude": ["node_modules"]
 }

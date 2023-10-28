@@ -1,17 +1,16 @@
 import { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { MyGarageStackParams } from '@navigation/roots/my-garage';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useStore } from '@stores';
+import { flashMessage } from '@utils';
+import { vehiclesSchema } from '@validators';
 import { useForm } from 'react-hook-form';
 import { Image as IImage } from 'react-native-image-crop-picker';
 import uuid from 'react-native-uuid';
 import * as yup from 'yup';
 
-import { flashMessage } from '../../../core/utils';
-
-import { vehiclesSchema } from '../../../core/validators';
-import { MyGarageStackParams } from '../../../navigation/roots/my-garage';
-import { useStore } from '../../../store';
 import AddVehicleView from './AddVehicleView';
 
 type TProps = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;

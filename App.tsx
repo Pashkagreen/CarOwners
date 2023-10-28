@@ -1,23 +1,19 @@
 import React, { useEffect } from 'react';
 import { StatusBar } from 'react-native';
 
+import { navigationRef } from '@navigation/config';
+import RootNavigator from '@navigation/index';
 import { NavigationContainer } from '@react-navigation/native';
+import { rehydrate, rootStore, StoreProvider } from '@stores';
+import { theme } from '@theme';
 import FlashMessage from 'react-native-flash-message';
 import { Provider as PaperProvider } from 'react-native-paper';
-
-import { navigationRef } from './src/navigation/config';
-
-import { theme } from './src/core/theme';
-import RootNavigation from './src/navigation';
-import { rootStore, StoreProvider, rehydrate } from './src/store';
 
 const App = () => {
   /**
    * Rehydrate persisted stores & hide Splash screen
    */
-  useEffect(() => {
-    void rehydrate();
-  }, []);
+  useEffect(() => void rehydrate(), []);
 
   return (
     <StoreProvider value={rootStore}>
@@ -27,7 +23,7 @@ const App = () => {
             backgroundColor={theme.colors.white}
             barStyle={'dark-content'}
           />
-          <RootNavigation />
+          <RootNavigator />
         </NavigationContainer>
         <FlashMessage position="top" />
       </PaperProvider>

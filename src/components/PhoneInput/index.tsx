@@ -1,9 +1,9 @@
 import React, { memo, useState } from 'react';
 import { Text, View } from 'react-native';
 
+import { theme } from '@theme';
 import PhoneInputComponent from 'react-native-phone-input';
 
-import { theme } from '../../core/theme';
 import getStyles from './style';
 
 export interface PhoneInputInterface {

@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
+import { IValidateObject } from '@types';
 import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
-
-import { IValidateObject } from '../../types';
 
 const usePhoneNumber = () => {
   const [iso, setIso] = useState<CountryCode>('US');

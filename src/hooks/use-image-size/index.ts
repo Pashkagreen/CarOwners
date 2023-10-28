@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Image } from 'react-native';
 
-import { screenWidth } from '../../core/theme';
+import { screenWidth } from '@theme';
 
 export interface IImageSize {
   width: number;

@@ -1,4 +1,5 @@
-import { IUserData } from '../../../store/user/interfaces';
+import { IUserData } from '@stores/user/interfaces';
+
 import { http } from '../../http';
 import { IServerSuccess } from '../../http/interfaces';
 

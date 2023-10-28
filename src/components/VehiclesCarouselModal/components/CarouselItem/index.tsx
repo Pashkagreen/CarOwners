@@ -1,6 +1,9 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 
+import { CARD_LENGTH } from '@constants';
+import useImageSize, { IImageSize } from '@hooks/use-image-size';
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
 import Lottie from 'lottie-react-native';
 import FastImage from 'react-native-fast-image';
 import Animated, {
@@ -10,9 +13,6 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { CARD_LENGTH } from '../../../../core/constants';
-import useImageSize, { IImageSize } from '../../../../hooks/use-image-size';
-import { IUploadedPhoto } from '../../../../screens/Main/AddVehicle/AddVehicleContainer';
 import getStyles from './style';
 
 interface CarouselItemProps {
@@ -23,6 +23,7 @@ interface CarouselItemProps {
 }
 
 const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
+  const [loading, setLoading] = useState(false);
   const animationRef = useRef<Lottie>(null);
 
   const imageSize = useImageSize(item.uri);
@@ -76,16 +77,19 @@ const CarouselItem = ({ item, index, scrollX, length }: CarouselItemProps) => {
           resizeMode="contain"
           source={{ uri: item.uri }}
           style={styles.image}
+          onLoadStart={() => setLoading(true)}
         />
-        <View style={styles.loaderContainer}>
-          <Lottie
-            ref={animationRef}
-            autoPlay
-            loop
-            source={require('../../../../assets/carousel_loading.json')}
-            style={styles.lottieLoader}
-          />
-        </View>
+        {loading && (
+          <View style={styles.loaderContainer}>
+            <Lottie
+              ref={animationRef}
+              autoPlay
+              loop
+              source={require('../../../../assets/carousel_loading.json')}
+              style={styles.lottieLoader}
+            />
+          </View>
+        )}
       </Animated.View>
     </TouchableWithoutFeedback>
   );

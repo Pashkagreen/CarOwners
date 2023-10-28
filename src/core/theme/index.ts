@@ -3,7 +3,9 @@ import { Dimensions } from 'react-native';
 import { DefaultTheme } from 'react-native-paper';
 
 const { height, width } = Dimensions.get('window');
+
 export const screenHeight: number = height;
+
 export const screenWidth: number = width;
 
 export const theme = {
@@ -15,6 +17,7 @@ export const theme = {
     error: '#f13a59',
     black: '#000000',
     white: '#fff',
+    gray500: '#6B7280',
   },
 };
 

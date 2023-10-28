@@ -1,4 +1,4 @@
-import screens from '../../screens';
+import screens from '@screens/index.ts';
 
 export default {
   Onboarding: {

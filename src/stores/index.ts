@@ -12,8 +12,8 @@ class RootStore {
   vehiclesStore: VehiclesStore;
 
   constructor() {
-    this.vehiclesStore = new VehiclesStore();
     this.userStore = new UserStore();
+    this.vehiclesStore = new VehiclesStore();
   }
 }
 

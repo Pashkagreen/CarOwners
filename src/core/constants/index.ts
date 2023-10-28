@@ -1,6 +1,5 @@
+import { screenWidth } from '@theme';
 import { ResizeFormat } from 'react-native-image-resizer';
-
-import { screenWidth } from './theme';
 
 // ==== PUBLIC API KEY ===
 export const ACCESS_KEY = 'bcf8028e033e2094a6cebda23275f95b';

@@ -1,9 +1,8 @@
 import { Alert } from 'react-native';
 
+import { ACCESS_KEY } from '@constants';
 import { MessageOptions, showMessage } from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
-
-import { ACCESS_KEY } from './constants';
 
 const getUserCurrentCountry = async (): Promise<string> => {
   let res;

@@ -1,11 +1,10 @@
+import { flashMessage } from '@utils';
 import axios, {
   AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
 } from 'axios';
-
-import { flashMessage } from '../../core/utils';
 
 import { Account } from '../account';
 import { IAdaptAxiosRequestConfig, IBaseError, StatusCode } from './interfaces';

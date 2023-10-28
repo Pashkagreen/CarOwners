@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import { SkeletonContainer } from '../../../../components/index';
+import { SkeletonContainer } from '@components/index';
+import { screenWidth } from '@theme';
 
 import getStyles from './styles';
-
-import { screenWidth } from '../../../../core/theme';
 
 const backgroundColor = 'lightgrey';
 const highlightColor = 'white';
@@ -25,20 +24,16 @@ const HistoryCardSkeleton = () => {
   );
 };
 
-export const HistoryListLoader = () => {
-  const styles = getStyles(backgroundColor);
-
-  return (
-    <SkeletonContainer
-      backgroundColor={backgroundColor}
-      highlightColor={highlightColor}>
-      <View style={styles.container}>
-        {new Array(10).fill(null).map((_, index) => (
-          <HistoryCardSkeleton key={index} />
-        ))}
-      </View>
-    </SkeletonContainer>
-  );
-};
+export const HistoryListLoader = () => (
+  <SkeletonContainer
+    backgroundColor={backgroundColor}
+    highlightColor={highlightColor}>
+    <>
+      {new Array(10).fill(null).map((_, index) => (
+        <HistoryCardSkeleton key={index} />
+      ))}
+    </>
+  </SkeletonContainer>
+);
 
 export default HistoryListLoader;

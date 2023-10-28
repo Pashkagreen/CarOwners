@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import PhoneInputComponent from 'react-native-phone-input';
-
 import {
   Background,
   Button,
@@ -11,12 +8,13 @@ import {
   PhoneInput,
   TextInput,
   Title,
-} from '../../../components/index';
+} from '@components/index';
+import { AuthStackParams } from '@navigation/roots/auth';
+import { IValidateObject } from '@types';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import PhoneInputComponent from 'react-native-phone-input';
 
 import styles from './styles';
-
-import { AuthStackParams } from '../../../navigation/roots/auth';
-import { IValidateObject } from '../../../types';
 
 interface IRegistration {
   navigateTo: (screenName: keyof AuthStackParams) => () => void;
@@ -64,6 +62,7 @@ const RegistrationView: FC<IRegistration> = ({
       <Logo />
       <Title>Create Account</Title>
       <TextInput
+        additionalStyles={styles.name}
         error={!!username.error}
         errorText={username.error}
         label="Name"
@@ -82,6 +81,7 @@ const RegistrationView: FC<IRegistration> = ({
       {isSignUpAvailable && (
         <TextInput
           secureTextEntry
+          additionalStyles={styles.code}
           error={!!code.error}
           errorText={code.error}
           keyboardType="phone-pad"

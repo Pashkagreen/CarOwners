@@ -2,29 +2,30 @@ import React, { memo } from 'react';
 import { LayoutChangeEvent, ScrollView, View } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
+import { IVehicle } from '@stores/vehicles/interfaces';
+import { hitSlop, theme } from '@theme';
 import { Text } from 'react-native-paper';
 import Animated, {
   interpolate,
+  SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import ScrollablePhotoItem from './components/ScrollablePhotoItem';
 
-import { hitSlop, theme } from '../../core/theme';
-import { IUploadedPhoto } from '../../screens/Main/AddVehicle/AddVehicleContainer';
-import { IVehicle } from '../../store/vehicles/interfaces';
 import styles from './style';
 
 interface VehicleCardProps {
   item: IVehicle;
   index: number;
-  onPress: any;
-  onDeletePress: any;
+  onPress: () => void;
+  onDeletePress: () => void;
   onPhotoPress: (photos: IUploadedPhoto[], index: number) => () => void;
   onLayout: (e: LayoutChangeEvent) => void;
   cardHeight: number;
-  scrollY: any;
+  scrollY: SharedValue<number>;
 }
 
 const VehicleCard = ({
@@ -101,7 +102,6 @@ const VehicleCard = ({
             </View>
           </ScrollView>
         )}
-
         <View style={styles.infoBlock}>
           <View>
             <Text>Year: </Text>

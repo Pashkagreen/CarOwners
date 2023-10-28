@@ -1,8 +1,8 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useStore } from '@stores';
 import { observer } from 'mobx-react-lite';
 
-import { useStore } from '../store';
 import AuthStackScreens, { AuthStackParams } from './roots/auth';
 import MainStackScreens, { MainStackParams } from './roots/main';
 
@@ -11,7 +11,7 @@ export type TRootStackNavigation = {
   Main: NavigatorScreenParams<MainStackParams>;
 };
 
-const RootNavigation = () => {
+const RootNavigator = () => {
   const RootStack = createNativeStackNavigator<TRootStackNavigation>();
   const {
     userStore: {
@@ -33,4 +33,4 @@ const RootNavigation = () => {
   );
 };
 
-export default observer(RootNavigation);
+export default observer(RootNavigator);

@@ -1,8 +1,7 @@
+import { SourceType } from '@components/ProgressiveImage';
 import { ReactNativeFirebase } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import md5 from 'md5';
-
-import { SourceType } from '../../components/ProgressiveImage';
 
 type TUploadImageType = Omit<SourceType, 'filename'>;
 

@@ -1,10 +1,8 @@
+import UserService from '@services/endpoints/user';
+import { IValidateObject, TFetchState } from '@types';
+import { flashMessage } from '@utils';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import UserService from '../../services/endpoints/user';
-
-import { flashMessage } from '../../core/utils';
-
-import { IValidateObject, TFetchState } from '../../types';
 import { IUser, IUserData } from './interfaces';
 
 export class UserStore {

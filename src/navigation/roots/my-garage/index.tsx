@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Platform } from 'react-native';
 
+import { BackButton, Header } from '@components/index';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import { BackButton, Header } from '../../../components';
+import { IVehicle } from '@stores/vehicles/interfaces';
 
 import myGarageStackConfig from '../../config/my-garage';
-
-import { IVehicle } from '../../../store/vehicles/interfaces';
 
 export type MyGarageStackParams = {
   MyVehicles: undefined;

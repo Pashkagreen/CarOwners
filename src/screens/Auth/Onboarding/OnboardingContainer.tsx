@@ -1,12 +1,11 @@
 import { FC, useEffect } from 'react';
 
+import { AuthStackParams } from '@navigation/roots/auth';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useStore } from '@stores';
+import { getUserCurrentCountry } from '@utils';
 import { observer } from 'mobx-react-lite';
 
-import { getUserCurrentCountry } from '../../../core/utils';
-
-import { AuthStackParams } from '../../../navigation/roots/auth';
-import { useStore } from '../../../store';
 import OnboardingView from './OnboardingView';
 
 export type TProps = StackScreenProps<AuthStackParams, 'Onboarding'>;

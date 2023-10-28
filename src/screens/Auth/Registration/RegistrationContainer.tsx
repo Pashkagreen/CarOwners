@@ -1,23 +1,22 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
+import usePhoneNumber from '@hooks/use-phone-number';
+import { AuthStackParams } from '@navigation/roots/auth';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
-import { observer } from 'mobx-react-lite';
-
-import { Account } from '../../../services/account';
-import UserService from '../../../services/endpoints/user';
-
+import { Account } from '@services/account';
+import UserService from '@services/endpoints/user';
+import { useStore } from '@stores';
+import { IValidateObject } from '@types';
 import {
   codeValidator,
   nameValidator,
   phoneNumberValidator,
-} from '../../../core/validators';
-import { usePhoneNumber } from '../../../hooks';
-import { AuthStackParams } from '../../../navigation/roots/auth';
-import { useStore } from '../../../store';
-import { IValidateObject } from '../../../types';
+} from '@validators';
+import { observer } from 'mobx-react-lite';
+
 import RegistrationView from './RegistrationView';
 
 export type TProps = StackScreenProps<AuthStackParams, 'Registration'>;

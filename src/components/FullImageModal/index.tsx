@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import { ActivityIndicator, Modal, TouchableOpacity, View } from 'react-native';
 
+import { theme } from '@theme';
 import FastImage, { Source } from 'react-native-fast-image';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { theme } from '../../core/theme';
 import getStyles from './style';
 
 interface FullImageModalProps {

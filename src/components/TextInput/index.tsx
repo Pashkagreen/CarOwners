@@ -1,19 +1,22 @@
 import React, { memo } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, ViewStyle } from 'react-native';
 
+import { theme } from '@theme';
 import { TextInput as Input } from 'react-native-paper';
 
-import { theme } from '../../core/theme';
 import styles from './style';
 
-type Props = React.ComponentProps<typeof Input> & { errorText?: string };
+type Props = React.ComponentProps<typeof Input> & {
+  additionalStyles?: ViewStyle;
+  errorText?: string;
+};
 
-const TextInput = ({ errorText, ...props }: Props) => (
+const TextInput = ({ errorText, additionalStyles, ...props }: Props) => (
   <View style={styles.container}>
     <Input
       mode="outlined"
       selectionColor={theme.colors.primary}
-      style={styles.input}
+      style={[styles.input, additionalStyles]}
       underlineColor="transparent"
       {...props}
     />

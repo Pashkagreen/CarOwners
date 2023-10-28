@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
+import { useStore } from '@stores';
 import { observer } from 'mobx-react-lite';
 
-import { useStore } from '../../../store';
 import HistoryView from './HistoryView';
 
 const HistoryContainer = () => {

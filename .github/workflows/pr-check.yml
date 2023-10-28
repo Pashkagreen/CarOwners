@@ -23,7 +23,7 @@ jobs:
 
 
       - name: Install dependencies
-        run: yarn install_packages
+        run: yarn install:packages
         
       - name: Format ESLint
         run: yarn lint:format

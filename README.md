@@ -1,7 +1,7 @@
 # CarOwners
 Hi everyone!
 
-# Car owners test task (Mobile) 📰🗞️
+# Car owners (Mobile) 📰🗞️
 
 ### Features
 

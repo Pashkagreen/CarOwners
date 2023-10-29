@@ -1,28 +1,22 @@
-import { Alert } from 'react-native';
-
 import { ACCESS_KEY } from '@constants';
+import { format } from 'date-fns';
 import { MessageOptions, showMessage } from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
 
+interface IUserLocation {
+  country_code2: string;
+}
+
 const getUserCurrentCountry = async (): Promise<string> => {
-  let res;
+  const userLocation: IUserLocation = await fetch(
+    `https://api.ipgeolocation.io/ipgeo?apiKey=${ACCESS_KEY}&ip=${await publicIP()}`,
+  ).then(res => res.json());
 
-  try {
-    const publicIpAddress = await publicIP();
-
-    const url = `http://api.ipstack.com/${publicIpAddress}?access_key=${ACCESS_KEY}&format=1`;
-
-    res = await fetch(url);
-    res = await res.json();
-
-    if (res.error) {
-      return '';
-    }
-
-    return res.country_code.toLowerCase();
-  } catch (err) {
+  if (!userLocation) {
     return '';
   }
+
+  return userLocation?.country_code2?.toLowerCase();
 };
 
 const flashMessage = ({ message, description, type }: MessageOptions): void => {
@@ -34,34 +28,7 @@ const flashMessage = ({ message, description, type }: MessageOptions): void => {
   });
 };
 
-const formatDateFromSeconds = (seconds: number): string => {
-  const date = new Date(seconds * 1000); // convert to milliseconds
-  const day = date.getDate().toString().padStart(2, '0'); // get day and pad with leading zero if necessary
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // get month (adding 1 because January is 0) and pad with leading zero if necessary
-  const year = date.getFullYear().toString(); // get full year
-  const hours = date.getHours().toString().padStart(2, '0'); // get hours and pad with leading zero if necessary
-  const minutes = date.getMinutes().toString().padStart(2, '0'); // get minutes and pad with leading zero if necessary
-  return `${day}/${month}/${year} ${hours}:${minutes}`; // concatenate and return the formatted date string
-};
+const formatDateFromSeconds = (seconds: number): string =>
+  format(new Date(seconds * 1000), 'dd/MM/yyyy hh:mm:ss');
 
-const renderAlert = (text: string): boolean => {
-  Alert.alert(
-    'Error!',
-    text,
-    [
-      {
-        text: 'close',
-        onPress: () => {},
-      },
-    ],
-    { cancelable: false },
-  );
-  return false;
-};
-
-export {
-  getUserCurrentCountry,
-  flashMessage,
-  renderAlert,
-  formatDateFromSeconds,
-};
+export { getUserCurrentCountry, flashMessage, formatDateFromSeconds };

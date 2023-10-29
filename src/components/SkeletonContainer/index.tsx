@@ -1,5 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import { LayoutRectangle, StyleSheet, View } from 'react-native';
+import { LayoutChangeEvent, LayoutRectangle, View } from 'react-native';
 
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'react-native-linear-gradient';
@@ -11,26 +11,47 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+import HistoryCard from './components/HistoryCard';
+import VehicleCard from './components/VehicleCard';
+
+import skeletonParameters from './data.ts';
 import styles from './style';
 
-interface SkeletonProps {
-  children: React.ReactElement;
+interface ISkeleton {
   backgroundColor: string;
   highlightColor: string;
+  children: React.ReactElement;
 }
 
-const SkeletonContainer: FC<SkeletonProps> = ({
+type TProps = FC<ISkeleton> & {
+  HistoryCard: typeof HistoryCard;
+  VehicleCard: typeof VehicleCard;
+};
+
+const SkeletonContainer: TProps = ({
   children,
   backgroundColor,
   highlightColor,
-}) => {
+}: ISkeleton) => {
   const [layout, setLayout] = React.useState<LayoutRectangle>();
   const shared = useSharedValue(0);
 
+  const { absoluteFill, start, end, gradientColors } = skeletonParameters;
+
+  const onLayoutChange = ({
+    nativeEvent: { layout: viewLayout },
+  }: LayoutChangeEvent): void => setLayout(viewLayout);
+
+  /**
+   * Skeleton animation
+   */
   useEffect(() => {
     shared.value = withRepeat(withTiming(1, { duration: 1000 }), Infinity);
   }, []);
 
+  /**
+   * Skeleton style
+   */
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       {
@@ -44,11 +65,7 @@ const SkeletonContainer: FC<SkeletonProps> = ({
   }));
 
   if (!layout) {
-    return (
-      <View onLayout={event => setLayout(event.nativeEvent.layout)}>
-        {children}
-      </View>
-    );
+    return <View onLayout={onLayoutChange}>{children}</View>;
   }
 
   return (
@@ -59,27 +76,25 @@ const SkeletonContainer: FC<SkeletonProps> = ({
         height: layout.height,
       }}>
       <View style={[styles.background, { backgroundColor }]} />
-      <Animated.View style={[StyleSheet.absoluteFill, animatedStyle]}>
+      <Animated.View style={[absoluteFill, animatedStyle]}>
         <MaskedView
           maskElement={
             <LinearGradient
-              colors={['transparent', 'black', 'transparent']}
-              end={{ x: 1, y: 0 }}
-              start={{ x: 0, y: 0 }}
-              style={StyleSheet.absoluteFill}
+              colors={gradientColors}
+              end={end}
+              start={start}
+              style={absoluteFill}
             />
           }
-          style={StyleSheet.absoluteFill}>
-          <View
-            style={[
-              StyleSheet.absoluteFill,
-              { backgroundColor: highlightColor },
-            ]}
-          />
+          style={absoluteFill}>
+          <View style={[absoluteFill, { backgroundColor: highlightColor }]} />
         </MaskedView>
       </Animated.View>
     </MaskedView>
   );
 };
+
+SkeletonContainer.HistoryCard = HistoryCard;
+SkeletonContainer.VehicleCard = VehicleCard;
 
 export default SkeletonContainer;

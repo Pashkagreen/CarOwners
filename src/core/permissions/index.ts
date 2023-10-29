@@ -1,46 +1,54 @@
 import { Platform } from 'react-native';
 import { PermissionsAndroid } from 'react-native';
 
-import { renderAlert } from '@utils';
+import { flashMessage } from '@utils';
 import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 
-const checkStoragePermissions = async (): Promise<boolean | undefined> => {
-  try {
-    if (Platform.OS === 'android') {
-      await PermissionsAndroid.requestMultiple([
-        PermissionsAndroid.PERMISSIONS.CAMERA,
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      ]);
+const showError = (): void =>
+  flashMessage({
+    message: 'Error',
+    description: 'We can not get camera & library permissions',
+    type: 'danger',
+  });
 
-      if (
-        (await PermissionsAndroid.check('android.permission.CAMERA')) &&
-        (await PermissionsAndroid.check(
-          'android.permission.READ_EXTERNAL_STORAGE',
-        )) &&
-        (await PermissionsAndroid.check(
-          'android.permission.WRITE_EXTERNAL_STORAGE',
-        ))
-      ) {
-        return true;
-      } else {
-        renderAlert('We can not get camera & library permissions');
-      }
-    } else {
-      const statuses = await requestMultiple([
-        PERMISSIONS.IOS.CAMERA,
-        PERMISSIONS.IOS.PHOTO_LIBRARY,
-      ]);
+const checkStoragePermissions = async (): Promise<boolean> => {
+  if (Platform.OS === 'android') {
+    await PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    ]);
 
-      if (Object.values(statuses).every(el => el === 'granted')) {
-        return true;
-      } else {
-        renderAlert('We can not get camera & library permissions');
-      }
+    const checkResult = await Promise.all([
+      PermissionsAndroid.check('android.permission.CAMERA'),
+      PermissionsAndroid.check('android.permission.READ_EXTERNAL_STORAGE'),
+      PermissionsAndroid.check('android.permission.WRITE_EXTERNAL_STORAGE'),
+    ]);
+
+    if (!checkResult.every(Boolean)) {
+      showError();
+
+      return false;
     }
-  } catch (e) {
-    renderAlert('We can not get camera & library permissions');
+
+    return true;
   }
+
+  /**
+   * Platform.OS === 'IOS'
+   */
+  const statuses = await requestMultiple([
+    PERMISSIONS.IOS.CAMERA,
+    PERMISSIONS.IOS.PHOTO_LIBRARY,
+  ]);
+
+  if (!Object.values(statuses).every(el => el === 'granted')) {
+    showError();
+
+    return false;
+  }
+
+  return true;
 };
 
 export default checkStoragePermissions;

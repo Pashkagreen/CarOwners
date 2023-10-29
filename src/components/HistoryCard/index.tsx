@@ -9,12 +9,12 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 
 import styles from './style';
 
-interface HistoryCardProps {
+interface IHistoryCard {
   item: IHistory;
   index: number;
 }
 
-const HistoryCard: FC<HistoryCardProps> = ({ item, index }) => {
+const HistoryCard: FC<IHistoryCard> = ({ item, index }) => {
   const { id, data } = item ?? {};
   const { create, update, delete: deleteInfo } = data ?? {};
 

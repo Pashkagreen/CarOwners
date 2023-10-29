@@ -17,6 +17,7 @@ export const theme = {
     error: '#f13a59',
     black: '#000000',
     white: '#fff',
+    lightGrey: 'lightgrey',
     gray500: '#6B7280',
   },
 };

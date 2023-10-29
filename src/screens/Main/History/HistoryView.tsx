@@ -1,11 +1,5 @@
 import { FC } from 'react';
-import {
-  FlatList,
-  ListRenderItem,
-  RefreshControl,
-  ScrollView,
-  View,
-} from 'react-native';
+import { FlatList, ListRenderItem, RefreshControl, View } from 'react-native';
 
 import { Background, CustomHeader, HistoryCard } from '@components/index';
 import { IHistory } from '@stores/vehicles/interfaces';
@@ -91,11 +85,7 @@ const HistoryView: FC<IHistoryProps> = ({
       />
       <>
         {loading === 'pending' ? (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={[styles.flatContainer]}>
-            <HistoryListLoader />
-          </ScrollView>
+          <HistoryListLoader />
         ) : (
           <AnimatedFlatList
             contentContainerStyle={[

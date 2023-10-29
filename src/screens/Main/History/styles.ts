@@ -14,15 +14,10 @@ const styles = StyleSheet.create({
   },
   scrollContainer: { paddingBottom: 64 },
   loaderContainer: {
-    backgroundColor: 'white',
-    bottom: 0,
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 64,
+    alignItems: 'center',
+    height: '100%',
+    top: 180,
     width: '100%',
-    zIndex: 100,
   },
   background: {
     alignItems: 'flex-start',

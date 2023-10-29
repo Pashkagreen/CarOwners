@@ -4,7 +4,6 @@ import {
   LayoutChangeEvent,
   ListRenderItemInfo,
   RefreshControl,
-  ScrollView,
   View,
 } from 'react-native';
 
@@ -17,8 +16,11 @@ import {
 import { IVehicle } from '@stores/vehicles/interfaces';
 import { theme } from '@theme';
 import { TFetchState } from '@types';
+import { NativeScrollEvent } from 'react-native/Libraries/Components/ScrollView/ScrollView';
+import { NativeSyntheticEvent } from 'react-native/Libraries/Types/CoreEventTypes';
 import { Text } from 'react-native-paper';
 import Animated, {
+  SharedValue,
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated';
@@ -26,6 +28,7 @@ import Animated, {
 import styles from './styles';
 
 import { IUploadedPhoto } from '../AddVehicle/AddVehicleContainer';
+import VehicleListLoader from './VehicleListLoader';
 
 interface IMyVehicles {
   items: IVehicle[];
@@ -54,8 +57,8 @@ interface RenderContent
     | 'viewerItems'
     | 'setIsShowViewer'
   > {
-  scrollY: any;
-  scrollHandler: any;
+  scrollY: SharedValue<number>;
+  scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 }
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<IVehicle>);
@@ -88,13 +91,9 @@ const renderContent = ({
   );
 
   if (loading === 'pending') {
-    return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.flatContainer}
-      />
-    );
+    return <VehicleListLoader />;
   }
+
   if (loading === 'done' && items.length) {
     return (
       <AnimatedFlatList
@@ -119,7 +118,8 @@ const renderContent = ({
       />
     );
   }
-  if (loading === 'done' && !items.length) {
+
+  if (loading === 'done' && !items?.length) {
     return (
       <View style={styles.loaderContainer}>
         <Text variant="headlineSmall">Add your first car!</Text>

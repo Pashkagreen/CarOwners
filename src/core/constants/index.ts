@@ -2,7 +2,7 @@ import { screenWidth } from '@theme';
 import { ResizeFormat } from 'react-native-image-resizer';
 
 // ==== PUBLIC API KEY ===
-export const ACCESS_KEY = 'bcf8028e033e2094a6cebda23275f95b';
+export const ACCESS_KEY = '783f8483a7ab47749f8a8d35ad2402b5';
 
 // ==== IMAGE PICKER ====
 export const resizePhotoParams = {

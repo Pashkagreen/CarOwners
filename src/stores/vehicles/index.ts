@@ -25,15 +25,16 @@ export class VehiclesStore {
       const data: IVehicle[] = await VehiclesService.getAll();
 
       if (!data?.length) {
+        this.setState('done');
+
         return;
       }
 
       this.setVehicles(data);
+      this.setState('done');
     } catch (e) {
       this.setState('error');
     }
-
-    this.setState('done');
   };
 
   public getVehiclesHistory = async (force?: boolean): Promise<void> => {
@@ -44,16 +45,17 @@ export class VehiclesStore {
     try {
       const { data } = await VehiclesService.getAllHistory();
 
-      if (!data?.history.length) {
+      if (!data?.history?.length) {
+        this.setState('done');
+
         return;
       }
 
       this.setHistory(data.history);
+      this.setState('done');
     } catch (e) {
       this.setState('error');
     }
-
-    this.setState('done');
   };
 
   public createVehicle = async (newData: IVehicleCreate): Promise<void> => {

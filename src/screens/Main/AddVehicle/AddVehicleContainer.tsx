@@ -1,45 +1,47 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { MyGarageStackParams } from '@navigation/roots/my-garage';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useStore } from '@stores';
+import { flashMessage } from '@utils';
+import { vehiclesSchema } from '@validators';
 import { useForm } from 'react-hook-form';
-import { Image as ImageProp } from 'react-native-image-crop-picker';
+import { Image as IImage } from 'react-native-image-crop-picker';
 import uuid from 'react-native-uuid';
 import * as yup from 'yup';
 
-import { flashMessage } from '../../../core/utils';
-
-import { vehiclesSchema } from '../../../core/validators';
-import { MyGarageStackParams } from '../../../navigation/MyGarageStack';
-import { useStore } from '../../../store';
 import AddVehicleView from './AddVehicleView';
 
-type Props = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
+type TProps = StackScreenProps<MyGarageStackParams, 'AddVehicle'>;
 
 export type FormData = yup.InferType<typeof vehiclesSchema>;
 
-export interface SetPhotos {
-  id?: string | number[];
+export interface IUploadedPhoto extends Partial<IImage> {
   uri: string;
   thumbnailUri: string;
   fullFileName: string;
   thumbnailFileName: string;
+  id?: string;
 }
 
-//Type Guards for Photos
-export const isLocalPhoto = (array: any[]): array is ImageProp[] =>
-  array.every(el => el.path);
+/**
+ * Type guard for uploaded photo
+ */
+export const isUploadedPhoto = (array: IUploadedPhoto[]): boolean =>
+  array.every(el => el.id && el.uri && el.thumbnailUri);
 
-export const isUploadedPhoto = (array: any[]): array is SetPhotos[] =>
-  array.every(el => el.id);
-
-export type LocalPhotosState = SetPhotos | ImageProp;
-
-const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
+const AddVehicleContainer: FC<TProps> = ({ navigation, route }) => {
   const isEdit = route.params?.isEdit;
   const vehicleInfo = route.params?.vehicleInfo;
 
-  const { vehiclesStore } = useStore();
+  const {
+    vehiclesStore: {
+      createVehicle: createVehicleEntity,
+      updateVehicle: updateVehicleEntity,
+      state,
+    },
+  } = useStore();
 
   const {
     control,
@@ -51,20 +53,19 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
   });
 
   const [loadingPhotos, setLoadingPhotos] = useState(false);
-  const [photos, setPhotos] = useState<LocalPhotosState[]>(
+  const [photos, setPhotos] = useState<IUploadedPhoto[]>(
     vehicleInfo?.photos || [],
   );
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormData): Promise<void> =>
     isEdit ? updateVehicle(data) : createVehicle(data);
-  };
 
-  const onFinishLoadPhotos = (p: SetPhotos[]) => {
+  const onFinishLoadPhotos = (p: IUploadedPhoto[]): void => {
     setLoadingPhotos(false);
 
     setPhotos(
       p.map(el => ({
-        id: uuid.v4(),
+        id: uuid.v4() as string,
         uri: el.uri,
         thumbnailUri: el.thumbnailUri,
         fullFileName: el.fullFileName,
@@ -73,58 +74,48 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
     );
   };
 
-  const onUploadPhotos = (p: SetPhotos[]) =>
-    p.length > 0 && setLoadingPhotos(true);
+  const onUploadPhotos = (images: IImage[]): void | boolean =>
+    images.length > 0 && setLoadingPhotos(true);
 
-  const createVehicle = async (newData: FormData) => {
-    let modifiedData = { ...newData };
-
-    if (loadingPhotos) {
+  const createVehicle = async (newData: FormData): Promise<void> => {
+    if (!isUploadedPhoto(photos) || loadingPhotos) {
       flashMessage({
         type: 'warning',
         message: 'Oops!',
         description: 'Photos are not uploaded yet.',
       });
+
       return;
     }
 
-    if (photos.length) {
-      modifiedData.photos = photos;
-    } else {
-      modifiedData.photos = [];
-    }
-
-    await vehiclesStore.createVehicle(modifiedData);
+    await createVehicleEntity({
+      ...newData,
+      photos: photos ?? [],
+    });
 
     goBack();
   };
 
   const updateVehicle = async (newData: FormData) => {
-    let modifiedData = { ...newData };
-
-    if (loadingPhotos) {
+    if (!isUploadedPhoto(photos) || loadingPhotos) {
       flashMessage({
         type: 'warning',
         message: 'Oops!',
         description: 'Photos are not uploaded yet.',
       });
+
       return;
     }
 
-    if (photos.length) {
-      modifiedData.photos = photos;
-    } else {
-      modifiedData.photos = [];
-    }
-
-    await vehiclesStore.updateVehicle(vehicleInfo?.id, modifiedData);
+    await updateVehicleEntity(vehicleInfo?.id as string, {
+      ...newData,
+      photos: photos ?? [],
+    });
 
     goBack();
   };
 
-  const goBack = () => {
-    navigation.goBack();
-  };
+  const goBack = (): void => navigation.goBack();
 
   return (
     <AddVehicleView
@@ -132,7 +123,7 @@ const AddVehicleContainer = ({ navigation, route }: Props): JSX.Element => {
       errors={errors}
       handleSubmit={handleSubmit}
       isEdit={isEdit}
-      loading={vehiclesStore.state}
+      loading={state}
       photos={photos}
       setLoadingPhotos={setLoadingPhotos}
       vehicleInfo={vehicleInfo}

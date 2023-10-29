@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
+import { theme } from '@theme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { theme } from '../../core/theme';
 import styles from './style';
 
 interface GalleryCellProps {

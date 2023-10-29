@@ -1,25 +1,24 @@
 import { StyleSheet } from 'react-native';
 
-import { theme } from '../../core/theme';
+import { theme } from '@theme';
 
 const getStyles = (focused: boolean) =>
   StyleSheet.create({
     container: {
-      marginVertical: 12,
       width: '100%',
     },
     input: {
       backgroundColor: theme.colors.surface,
-      borderColor: focused ? theme.colors.primary : theme.colors.outline,
+      borderColor: focused ? theme.colors.primary : theme.colors.gray500,
       borderRadius: 4,
       borderWidth: focused ? 2 : 1,
-      padding: 16,
+      padding: 12,
     },
     error: {
       color: theme.colors.error,
       fontSize: 14,
       paddingHorizontal: 4,
-      paddingTop: 4,
+      paddingTop: 6,
     },
     flagIcon: {
       marginLeft: 4,

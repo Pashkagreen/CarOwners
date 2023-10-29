@@ -1,39 +1,45 @@
-import { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
+import usePhoneNumber from '@hooks/use-phone-number';
+import { AuthStackParams } from '@navigation/roots/auth';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
-import { observer } from 'mobx-react-lite';
-
-import { Account } from '../../../services/account';
-import UserService from '../../../services/user';
-
+import { Account } from '@services/account';
+import UserService from '@services/endpoints/user';
+import { useStore } from '@stores';
+import { IValidateObject } from '@types';
 import {
   codeValidator,
   nameValidator,
   phoneNumberValidator,
-} from '../../../core/validators';
-import { usePhoneNumber } from '../../../hooks';
-import { AuthStackParams } from '../../../navigation/AuthStack';
-import { useStore } from '../../../store';
-import { validateObject } from '../../../types';
+} from '@validators';
+import { observer } from 'mobx-react-lite';
+
 import RegistrationView from './RegistrationView';
 
-export type Props = StackScreenProps<AuthStackParams, 'Registration'>;
+export type TProps = StackScreenProps<AuthStackParams, 'Registration'>;
 
-const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
+const RegistrationContainer: FC<TProps> = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
-  const { userStore } = useStore();
-  const initialCountry = userStore.user.countryCode;
+  const {
+    userStore: {
+      user: { countryCode },
+      updateHeaderHeight,
+      registerUser,
+    },
+  } = useStore();
 
   const inputRef = useRef(null);
-  const [username, setUsername] = useState<validateObject>({
+  const [username, setUsername] = useState<IValidateObject>({
     value: '',
     error: '',
   });
 
-  //phone state
+  /**
+   * Phone state
+   */
   const {
     phoneNumber,
     setPhoneNumber,
@@ -42,10 +48,14 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
     onSelectCountry,
   } = usePhoneNumber();
 
-  //code state
-  const [code, setCode] = useState<validateObject>({ value: '', error: '' });
+  /**
+   * OTP state
+   */
+  const [code, setCode] = useState<IValidateObject>({ value: '', error: '' });
 
-  //loading state
+  /**
+   * Loading state
+   */
   const [loading, setLoading] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
   const [isSignUpAvailable, setIsSignUpAvailable] = useState(false);
@@ -109,7 +119,7 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
         const token = await Account.getToken();
 
         if (token) {
-          await userStore.registerUser(phoneNumber, username);
+          await registerUser(phoneNumber, username);
         }
       }
     } catch (error: any) {
@@ -132,14 +142,14 @@ const RegistrationContainer = ({ navigation }: Props): JSX.Element => {
 
   useEffect(() => {
     if (headerHeight) {
-      userStore.updateHeaderHeight(headerHeight);
+      updateHeaderHeight(headerHeight);
     }
   }, []);
 
   return (
     <RegistrationView
       code={code}
-      initialCountry={initialCountry}
+      initialCountry={countryCode}
       inputRef={inputRef}
       isSignUpAvailable={isSignUpAvailable}
       loading={loading}

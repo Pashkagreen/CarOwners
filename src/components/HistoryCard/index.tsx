@@ -1,21 +1,20 @@
 import { FC } from 'react';
 import { View } from 'react-native';
 
+import { IHistory } from '@stores/vehicles/interfaces';
+import { theme } from '@theme';
+import { formatDateFromSeconds } from '@utils';
 import { Text } from 'react-native-paper';
 import Animated, { FadeIn } from 'react-native-reanimated';
 
-import { formatDateFromSeconds } from '../../core/utils';
-
-import { theme } from '../../core/theme';
-import { HistoryInterface } from '../../store/Vehicles/types';
 import styles from './style';
 
-interface HistoryCardProps {
-  item: HistoryInterface;
+interface IHistoryCard {
+  item: IHistory;
   index: number;
 }
 
-const HistoryCard: FC<HistoryCardProps> = ({ item, index }) => {
+const HistoryCard: FC<IHistoryCard> = ({ item, index }) => {
   const { id, data } = item ?? {};
   const { create, update, delete: deleteInfo } = data ?? {};
 

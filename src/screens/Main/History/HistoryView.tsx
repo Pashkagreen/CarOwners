@@ -1,12 +1,10 @@
 import { FC } from 'react';
-import {
-  FlatList,
-  ListRenderItem,
-  RefreshControl,
-  ScrollView,
-  View,
-} from 'react-native';
+import { FlatList, ListRenderItem, RefreshControl, View } from 'react-native';
 
+import { Background, CustomHeader, HistoryCard } from '@components/index';
+import { IHistory } from '@stores/vehicles/interfaces';
+import { theme } from '@theme';
+import { TFetchState } from '@types';
 import { Text } from 'react-native-paper';
 import Animated, {
   clamp,
@@ -16,26 +14,21 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 
-import { Background, CustomHeader, HistoryCard } from '../../../components';
+import styles from './styles';
 
-import { theme } from '../../../core/theme';
-import { FetchState, HistoryInterface } from '../../../store/Vehicles/types';
-import HistoryListLoader from './HistoryCardLoader';
-import styles from './style';
+import HistoryListLoader from './HistoryListLoader';
 
-const AnimatedFlatList = Animated.createAnimatedComponent(
-  FlatList<HistoryInterface>,
-);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<IHistory>);
 
-interface HistoryProps {
-  loading: FetchState;
+interface IHistoryProps {
+  loading: TFetchState;
   headerHeight: number;
-  items: HistoryInterface[];
+  items: IHistory[];
   onRefresh: () => void;
   isRefreshing: boolean;
 }
 
-const HistoryView: FC<HistoryProps> = ({
+const HistoryView: FC<IHistoryProps> = ({
   loading,
   items,
   headerHeight,
@@ -67,7 +60,7 @@ const HistoryView: FC<HistoryProps> = ({
     };
   });
 
-  const renderItem: ListRenderItem<HistoryInterface> = ({ item, index }) => (
+  const renderItem: ListRenderItem<IHistory> = ({ item, index }) => (
     <HistoryCard key={item.id} index={index} item={item} />
   );
 
@@ -92,11 +85,7 @@ const HistoryView: FC<HistoryProps> = ({
       />
       <>
         {loading === 'pending' ? (
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={[styles.flatContainer]}>
-            <HistoryListLoader />
-          </ScrollView>
+          <HistoryListLoader />
         ) : (
           <AnimatedFlatList
             contentContainerStyle={[

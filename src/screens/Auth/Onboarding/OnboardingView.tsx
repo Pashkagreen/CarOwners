@@ -1,24 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-import {
-  Background,
-  Button,
-  Logo,
-  Paragraph,
-  Title,
-} from '../../../components/index';
+import { Background, Button, Logo, Paragraph, Title } from '@components/index';
+import { AuthStackParams } from '@navigation/roots/auth';
 
-import { AuthStackParams } from '../../../navigation/AuthStack';
-
-interface OnboardingProps {
+interface IOnboarding {
   navigateTo: (screenName: keyof AuthStackParams) => () => void;
 }
 
-const Onboarding = ({ navigateTo }: OnboardingProps): JSX.Element => (
+const Onboarding: FC<IOnboarding> = ({ navigateTo }) => (
   <Background>
     <Logo />
     <Title>Car Owners</Title>
-
     <Paragraph>
       The easiest way to collect information about your cars.
     </Paragraph>

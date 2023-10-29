@@ -13,9 +13,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		216A39964EE96652E5462A49 /* Pods_CarOwners.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCFECF8AB7E23DB642C3DDA /* Pods_CarOwners.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		82EB60872AE12318004ABA61 /* blue_car.json in Resources */ = {isa = PBXBuildFile; fileRef = 82EB60862AE12318004ABA61 /* blue_car.json */; };
 		CE7097C329DDA7F90055A875 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE7097C229DDA7F90055A875 /* GoogleService-Info.plist */; };
 		CE9A17AF2A210FF20067E6BA /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A17AE2A210FF20067E6BA /* Dynamic.swift */; };
-		CECB01252A24ACE800CE952D /* blue_car.json in Resources */ = {isa = PBXBuildFile; fileRef = CECB01242A24ACE800CE952D /* blue_car.json */; };
 		EFAFC4EE4381306DDCF9CFD1 /* Pods_CarOwners_CarOwnersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F4B77D5F3AF3B220645E1F /* Pods_CarOwners_CarOwnersTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +41,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CarOwners/main.m; sourceTree = "<group>"; };
 		81840B9FA87231D828DFDDE0 /* Pods-CarOwners.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners.release.xcconfig"; path = "Target Support Files/Pods-CarOwners/Pods-CarOwners.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CarOwners/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		82EB60862AE12318004ABA61 /* blue_car.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = blue_car.json; path = CarOwners/blue_car.json; sourceTree = SOURCE_ROOT; };
 		98198DDB2193EC301E852E70 /* Pods-CarOwners.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners.debug.xcconfig"; path = "Target Support Files/Pods-CarOwners/Pods-CarOwners.debug.xcconfig"; sourceTree = "<group>"; };
 		AE336CA41DC3F2332F1F698E /* Pods-CarOwners-CarOwnersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners-CarOwnersTests.debug.xcconfig"; path = "Target Support Files/Pods-CarOwners-CarOwnersTests/Pods-CarOwners-CarOwnersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C77B968040F37FB1FEE37355 /* Pods-CarOwners-CarOwnersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners-CarOwnersTests.release.xcconfig"; path = "Target Support Files/Pods-CarOwners-CarOwnersTests/Pods-CarOwners-CarOwnersTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,7 +65,6 @@
 		CECA877529E197A8000183D9 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		CECA877629E197A8000183D9 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		CECA877729E197A8000183D9 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
-		CECB01242A24ACE800CE952D /* blue_car.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = blue_car.json; path = ../../../../Downloads/blue_car.json; sourceTree = "<group>"; };
 		D4F4B77D5F3AF3B220645E1F /* Pods_CarOwners_CarOwnersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarOwners_CarOwnersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -109,7 +109,7 @@
 		13B07FAE1A68108700A75B9A /* CarOwners */ = {
 			isa = PBXGroup;
 			children = (
-				CECB01242A24ACE800CE952D /* blue_car.json */,
+				82EB60862AE12318004ABA61 /* blue_car.json */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				CE9A17AE2A210FF20067E6BA /* Dynamic.swift */,
@@ -297,7 +297,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				CECB01252A24ACE800CE952D /* blue_car.json in Resources */,
+				82EB60872AE12318004ABA61 /* blue_car.json in Resources */,
 				CE7097C329DDA7F90055A875 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

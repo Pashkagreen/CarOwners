@@ -1,19 +1,23 @@
 import { Keyboard } from 'react-native';
 
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useStore } from '@stores';
+import { userSchema } from '@validators';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-import { userSchema } from '../../../core/validators';
-import { useStore } from '../../../store';
 import ProfileView from './ProfileView';
 
 export type FormData = yup.InferType<typeof userSchema>;
 
-const ProfileContainer = (): JSX.Element => {
-  const { userStore } = useStore();
-  const { vehiclesStore } = useStore();
+const ProfileContainer = () => {
+  const {
+    userStore: { user, state, updateUser, clearUser },
+  } = useStore();
+  const {
+    vehiclesStore: { clearVehicles },
+  } = useStore();
 
   const {
     control,
@@ -24,22 +28,22 @@ const ProfileContainer = (): JSX.Element => {
     resolver: yupResolver(userSchema),
   });
 
-  const logOut = async (): Promise<void> => {
-    vehiclesStore.clearVehicles();
-    userStore.clearUser();
+  const logOut = (): void => {
+    clearVehicles();
+    clearUser();
   };
 
   const updateInfo = async (userData: FormData): Promise<void> => {
     Keyboard.dismiss();
 
     const updateData = {
-      uid: userStore.user.uid,
-      phoneNumber: userStore.user.phoneNumber,
+      uid: user.uid,
+      phoneNumber: user.phoneNumber,
       username: userData.username,
       email: userData?.email,
     };
 
-    await userStore.updateUser(updateData);
+    await updateUser(updateData);
   };
 
   return (
@@ -47,9 +51,9 @@ const ProfileContainer = (): JSX.Element => {
       control={control}
       errors={errors}
       handleSubmit={handleSubmit}
-      loading={userStore.state}
+      loading={state}
       logOut={logOut}
-      userData={userStore.user}
+      userData={user}
       onSubmit={updateInfo}
     />
   );

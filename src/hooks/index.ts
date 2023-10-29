@@ -1,3 +1,4 @@
-import { usePhoneNumber } from './usePhoneNumber';
+import useImageSize from './use-image-size';
+import usePhoneNumber from './use-phone-number';
 
-export { usePhoneNumber };
+export { usePhoneNumber, useImageSize };

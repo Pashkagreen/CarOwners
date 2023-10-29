@@ -1,9 +1,9 @@
 import React, { memo } from 'react';
 import { TouchableOpacity } from 'react-native';
 
+import { hitSlop, theme } from '@theme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { hitSlop, theme } from '../../core/theme';
 import styles from './style';
 
 interface Props {

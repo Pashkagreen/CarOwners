@@ -1,23 +1,19 @@
+import { FC } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 
+import { Background, Button, PhoneInput, TextInput } from '@components/index';
+import { IUser } from '@stores/user/interfaces';
+import { TFetchState } from '@types';
 import { Controller, UseFormHandleSubmit } from 'react-hook-form';
 import { Text } from 'react-native-paper';
 
-import {
-  Background,
-  Button,
-  PhoneInput,
-  TextInput,
-} from '../../../components/index';
+import styles from './styles';
 
-import { User } from '../../../store/User/types';
-import { FetchState } from '../../../store/Vehicles/types';
 import { FormData } from './ProfileContainer';
-import styles from './style';
 
-interface ProfileProps {
-  userData: User;
-  loading: FetchState;
+interface IProfile {
+  userData: IUser;
+  loading: TFetchState;
   control: any;
   errors: any;
   handleSubmit: UseFormHandleSubmit<FormData>;
@@ -25,7 +21,7 @@ interface ProfileProps {
   logOut: () => void;
 }
 
-const ProfileView = ({
+const ProfileView: FC<IProfile> = ({
   logOut,
   control,
   errors,
@@ -33,7 +29,7 @@ const ProfileView = ({
   onSubmit,
   loading,
   userData,
-}: ProfileProps): JSX.Element => (
+}) => (
   <SafeAreaView style={styles.container}>
     <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
       <Background style={styles.background}>
@@ -46,10 +42,10 @@ const ProfileView = ({
               name="username"
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
+                  additionalStyles={styles.inputBlock}
                   error={errors?.username}
                   errorText={errors?.username?.message}
                   mode="outlined"
-                  style={styles.inputBlock}
                   value={value}
                   onBlur={onBlur}
                   onChangeText={onChange}
@@ -68,11 +64,11 @@ const ProfileView = ({
               name="email"
               render={({ field: { onChange, onBlur, value } }) => (
                 <TextInput
+                  additionalStyles={styles.inputBlock}
                   error={errors?.email}
                   errorText={errors?.email?.message}
                   keyboardType="email-address"
                   mode="outlined"
-                  style={styles.inputBlock}
                   value={value}
                   onBlur={onBlur}
                   onChangeText={onChange}

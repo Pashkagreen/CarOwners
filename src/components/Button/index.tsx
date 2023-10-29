@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 
+import { theme } from '@theme';
 import { Button as PaperButton } from 'react-native-paper';
 
-import { theme } from '../../core/theme';
 import styles from './style';
 
 type Props = React.ComponentProps<typeof PaperButton>;

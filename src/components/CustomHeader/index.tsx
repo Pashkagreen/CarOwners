@@ -1,10 +1,10 @@
 import { TouchableOpacity, View, ViewStyle } from 'react-native';
 
+import { hitSlop } from '@theme';
 import { Text } from 'react-native-paper';
 import Animated, { AnimatedStyle } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { hitSlop } from '../../core/theme';
 import getStyles from './style';
 
 interface CustomHeaderProps {

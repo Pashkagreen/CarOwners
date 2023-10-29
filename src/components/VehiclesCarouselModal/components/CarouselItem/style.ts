@@ -1,11 +1,7 @@
 import { StyleSheet } from 'react-native';
 
-import {
-  CARD_LENGTH,
-  SIDECARD_LENGTH,
-  SPACING,
-} from '../../../../core/constants';
-import { screenHeight } from '../../../../core/theme';
+import { CARD_LENGTH, SIDECARD_LENGTH, SPACING } from '@constants';
+import { screenHeight } from '@theme';
 
 const getStyles = (imageSize: any, index: number, length: number) =>
   StyleSheet.create({

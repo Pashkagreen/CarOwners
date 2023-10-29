@@ -5,20 +5,22 @@ import {
   NativeSyntheticEvent,
 } from 'react-native';
 
+import { SNAP_INTERVAL } from '@constants';
+import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
 import Modal from 'react-native-modal';
 import Animated from 'react-native-reanimated';
 
 import CarouselItem from './components/CarouselItem';
 
-import { SNAP_INTERVAL } from '../../core/constants';
-import { SetPhotos } from '../../screens/Main/AddVehicle/AddVehicleContainer';
 import styles from './style';
+
 interface VehicleCarouselProps {
-  data: SetPhotos[];
+  data: IUploadedPhoto[];
   viewerIndex: number;
   isShowViewer: boolean;
   setIsShowViewer: (value: boolean) => void;
 }
+
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const VehicleCarouselModal = ({
@@ -74,7 +76,7 @@ const VehicleCarouselModal = ({
             renderItem={({ item, index }) => (
               <CarouselItem
                 index={index}
-                item={item as SetPhotos}
+                item={item as IUploadedPhoto}
                 length={data.length}
                 scrollX={scrollX}
               />

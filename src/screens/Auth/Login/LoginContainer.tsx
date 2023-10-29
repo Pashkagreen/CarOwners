@@ -1,31 +1,37 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { Keyboard } from 'react-native';
 
+import usePhoneNumber from '@hooks/use-phone-number';
+import { AuthStackParams } from '@navigation/roots/auth';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Account } from '@services/account';
+import UserService from '@services/endpoints/user';
+import { useStore } from '@stores';
+import { IValidateObject } from '@types';
+import { codeValidator, phoneNumberValidator } from '@validators';
 import { observer } from 'mobx-react-lite';
 
-import { Account } from '../../../services/account';
-import UserService from '../../../services/user';
-
-import { codeValidator, phoneNumberValidator } from '../../../core/validators';
-import { usePhoneNumber } from '../../../hooks';
-import { AuthStackParams } from '../../../navigation/AuthStack';
-import { useStore } from '../../../store';
-import { validateObject } from '../../../types';
 import LoginView from './LoginView';
 
-export type Props = StackScreenProps<AuthStackParams, 'Login'>;
+export type TProps = StackScreenProps<AuthStackParams, 'Login'>;
 
-const LoginContainer = ({ navigation }: Props): JSX.Element => {
+const LoginContainer: FC<TProps> = ({ navigation }) => {
   const headerHeight = useHeaderHeight();
-  const { userStore } = useStore();
-  const initialCountry = userStore.user.countryCode;
+  const {
+    userStore: {
+      user: { countryCode },
+      getAndSetAuthUser,
+      updateHeaderHeight,
+    },
+  } = useStore();
 
   const inputRef = useRef(null);
 
-  //phone state
+  /**
+   * Phone state
+   */
   const {
     phoneNumber,
     setPhoneNumber,
@@ -34,10 +40,14 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
     onSelectCountry,
   } = usePhoneNumber();
 
-  //code state
-  const [code, setCode] = useState<validateObject>({ value: '', error: '' });
+  /**
+   * OTP state
+   */
+  const [code, setCode] = useState<IValidateObject>({ value: '', error: '' });
 
-  //loading state
+  /**
+   * Loading state
+   */
   const [loading, setLoading] = useState(false);
   const [otpLoading, setOtpLoading] = useState(false);
   const [isLoginAvailable, setIsLoginAvailable] = useState(false);
@@ -96,7 +106,7 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
         const token = await Account.getToken();
 
         if (token) {
-          await userStore.getAndSetAuthUser(uid);
+          await getAndSetAuthUser(uid);
         }
       }
     } catch (error: any) {
@@ -118,14 +128,14 @@ const LoginContainer = ({ navigation }: Props): JSX.Element => {
 
   useEffect(() => {
     if (headerHeight) {
-      userStore.updateHeaderHeight(headerHeight);
+      updateHeaderHeight(headerHeight);
     }
   }, []);
 
   return (
     <LoginView
       code={code}
-      initialCountry={initialCountry}
+      initialCountry={countryCode}
       inputRef={inputRef}
       isLoginAvailable={isLoginAvailable}
       loading={loading}

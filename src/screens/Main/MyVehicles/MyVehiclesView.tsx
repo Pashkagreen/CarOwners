@@ -1,62 +1,67 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
   FlatList,
   LayoutChangeEvent,
+  ListRenderItemInfo,
   RefreshControl,
-  ScrollView,
   View,
 } from 'react-native';
-
-import { Text } from 'react-native-paper';
-import Animated, {
-  useAnimatedScrollHandler,
-  useSharedValue,
-} from 'react-native-reanimated';
 
 import {
   Background,
   CustomHeader,
   VehicleCard,
   VehiclesCarouselModal,
-} from '../../../components';
+} from '@components/index';
+import { IVehicle } from '@stores/vehicles/interfaces';
+import { theme } from '@theme';
+import { TFetchState } from '@types';
+import { NativeScrollEvent } from 'react-native/Libraries/Components/ScrollView/ScrollView';
+import { NativeSyntheticEvent } from 'react-native/Libraries/Types/CoreEventTypes';
+import { Text } from 'react-native-paper';
+import Animated, {
+  SharedValue,
+  useAnimatedScrollHandler,
+  useSharedValue,
+} from 'react-native-reanimated';
 
-import { theme } from '../../../core/theme';
-import { FetchState, VehicleInterface } from '../../../store/Vehicles/types';
-import { SetPhotos } from '../AddVehicle/AddVehicleContainer';
-import styles from './style';
+import styles from './styles';
 
-interface MyVehiclesProps {
-  items: VehicleInterface[];
-  loading: FetchState;
+import { IUploadedPhoto } from '../AddVehicle/AddVehicleContainer';
+import VehicleListLoader from './VehicleListLoader';
+
+interface IMyVehicles {
+  items: IVehicle[];
+  loading: TFetchState;
   refreshing: boolean;
   headerHeight: number;
   cardHeight: number;
   viewerIndex: number;
   isShowViewer: boolean;
-  viewerItems: SetPhotos[];
-  onPhotoPress: (photos: SetPhotos[], index: number) => () => void;
+  viewerItems: IUploadedPhoto[];
+  onPhotoPress: (photos: IUploadedPhoto[], index: number) => () => void;
   setIsShowViewer: (state: boolean) => void;
   onLayout: (e: LayoutChangeEvent) => void;
   onRefresh: () => void;
-  deleteVehicle: (item: VehicleInterface) => () => void;
-  editVehicle: (item: VehicleInterface) => () => void;
+  deleteVehicle: (item: IVehicle) => void;
+  editVehicle: (item: IVehicle) => void;
   addVehicle: () => void;
 }
 
 interface RenderContent
   extends Omit<
-    MyVehiclesProps,
+    IMyVehicles,
     | 'addVehicle'
     | 'viewerIndex'
     | 'isShowViewer'
     | 'viewerItems'
     | 'setIsShowViewer'
   > {
-  scrollY: any;
-  scrollHandler: any;
+  scrollY: SharedValue<number>;
+  scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void;
 }
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList<IVehicle>);
 
 const renderContent = ({
   loading,
@@ -71,15 +76,24 @@ const renderContent = ({
   onRefresh,
   deleteVehicle,
   editVehicle,
-}: RenderContent): React.ReactNode => {
+}: RenderContent) => {
+  const renderItem = ({ item, index }: ListRenderItemInfo<IVehicle>) => (
+    <VehicleCard
+      cardHeight={cardHeight}
+      index={index}
+      item={item}
+      scrollY={scrollY}
+      onDeletePress={() => deleteVehicle(item)}
+      onLayout={onLayout}
+      onPhotoPress={onPhotoPress}
+      onPress={() => editVehicle(item)}
+    />
+  );
+
   if (loading === 'pending') {
-    return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.flatContainer}
-      />
-    );
+    return <VehicleListLoader />;
   }
+
   if (loading === 'done' && items.length) {
     return (
       <AnimatedFlatList
@@ -88,7 +102,7 @@ const renderContent = ({
           { paddingBottom: headerHeight },
         ]}
         data={items}
-        keyExtractor={(i, idx) => idx.toString()}
+        keyExtractor={(_, idx) => idx.toString()}
         refreshControl={
           <RefreshControl
             colors={[theme.colors.primary]}
@@ -97,25 +111,15 @@ const renderContent = ({
             onRefresh={onRefresh}
           />
         }
-        renderItem={({ item, index }) => (
-          <VehicleCard
-            cardHeight={cardHeight}
-            index={index}
-            item={item as VehicleInterface}
-            scrollY={scrollY}
-            onDeletePress={deleteVehicle(item as VehicleInterface)}
-            onLayout={onLayout}
-            onPhotoPress={onPhotoPress}
-            onPress={editVehicle(item as VehicleInterface)}
-          />
-        )}
+        renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         style={styles.flatContainer}
         onScroll={scrollHandler}
       />
     );
   }
-  if (loading === 'done' && !items.length) {
+
+  if (loading === 'done' && !items?.length) {
     return (
       <View style={styles.loaderContainer}>
         <Text variant="headlineSmall">Add your first car!</Text>
@@ -123,7 +127,7 @@ const renderContent = ({
     );
   }
 };
-const MyVehiclesView = ({
+const MyVehiclesView: FC<IMyVehicles> = ({
   items,
   loading,
   refreshing,
@@ -139,7 +143,7 @@ const MyVehiclesView = ({
   addVehicle,
   editVehicle,
   deleteVehicle,
-}: MyVehiclesProps): JSX.Element => {
+}) => {
   const scrollY = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler({

@@ -1,4 +1,4 @@
-import { IUploadedPhoto } from '@screens/Main/AddVehicle/AddVehicleContainer';
+import { IUploadedPhoto } from '@screens/main/add-vehicle';
 
 interface IModifiedAt {
   _nanoseconds: number;

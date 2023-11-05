@@ -1,4 +1,4 @@
-import { SourceType } from '@components/ProgressiveImage';
+import { SourceType } from '@components/progressive-image';
 import { ReactNativeFirebase } from '@react-native-firebase/app';
 import storage from '@react-native-firebase/storage';
 import md5 from 'md5';

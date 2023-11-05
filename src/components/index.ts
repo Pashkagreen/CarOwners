@@ -1,24 +1,22 @@
-import BackButton from './BackButton';
-import Background from './Background';
-import Button from './Button';
-import CustomHeader from './CustomHeader';
-import FullImageModal from './FullImageModal';
-import GalleryCell from './GalleryCell';
-import Header from './Header';
-import HistoryCard from './HistoryCard';
-import Image from './Image';
-import Loader from './Loader';
-import Logo from './Logo';
-import MultiPicker from './MultiPicker';
-import Paragraph from './Paragraph';
-import PhoneInput from './PhoneInput';
-import ProgressiveImage from './ProgressiveImage';
-import SkeletonContainer from './SkeletonContainer';
-import TabBarIcon from './TabBarIcon';
-import TextInput from './TextInput';
-import Title from './Title';
-import VehicleCard from './VehicleCard';
-import VehiclesCarouselModal from './VehiclesCarouselModal';
+import BackButton from './back-button';
+import Background from './background';
+import Button from './button';
+import CustomHeader from './custom-header';
+import GalleryCell from './gallery-cell';
+import Header from './header';
+import HistoryCard from './history-card';
+import Image from './image';
+import Loader from './loader';
+import Logo from './logo';
+import MultiPicker from './multi-picker';
+import Paragraph from './paragraph';
+import PhoneInput from './phone-input';
+import ProgressiveImage from './progressive-image';
+import SkeletonContainer from './skeleton-container';
+import TabBarIcon from './tab-bar-icon';
+import TextInput from './text-input';
+import Title from './title';
+import VehicleCard from './vehicle-card';
 
 export {
   BackButton,
@@ -33,13 +31,11 @@ export {
   VehicleCard,
   HistoryCard,
   PhoneInput,
-  FullImageModal,
   ProgressiveImage,
   Image,
   GalleryCell,
   MultiPicker,
   Header,
   CustomHeader,
-  VehiclesCarouselModal,
   SkeletonContainer,
 };

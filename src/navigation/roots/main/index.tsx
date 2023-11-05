@@ -1,8 +1,7 @@
 import * as React from 'react';
 
+import { Header, TabBarIcon } from '@components/index';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-import { Header, TabBarIcon } from '../../../components';
 
 import bottomBarConfig from '../../config/main';
 

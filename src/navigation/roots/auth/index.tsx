@@ -1,8 +1,7 @@
 import * as React from 'react';
 
+import BackButton from '@components/back-button';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-import { BackButton } from '../../../components';
 
 import authStackConfig from '../../config/auth';
 

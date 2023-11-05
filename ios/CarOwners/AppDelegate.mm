@@ -6,6 +6,10 @@
 
 #import "CarOwners-Swift.h" // here, change project name to yours
 
+#import <AppCenterReactNative.h>
+#import <AppCenterReactNativeAnalytics.h>
+#import <AppCenterReactNativeCrashes.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -39,6 +43,10 @@
       [t playWithAnimationView:animationView];
       // If you want the animation layout to be forced to remove when hide is called, use this code
       [RNSplashScreen setAnimationFinished:true];
+      
+      [AppCenterReactNative register];
+      [AppCenterReactNativeAnalytics registerWithInitiallyEnabled:true];
+      [AppCenterReactNativeCrashes registerWithAutomaticProcessing];
     }
    
     return success;

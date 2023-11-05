@@ -24,19 +24,17 @@ const MyVehiclesContainer: FC<TProps> = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
   const [cardHeight, setCardHeight] = useState(0);
 
-  // ======= Animation Section =========
+  /**
+   * Animation
+   */
   const [viewerItems, setViewerItems] = useState<IUploadedPhoto[]>([]);
   const [viewerIndex, setViewerIndex] = useState<number>(0);
   const [isShowViewer, setIsShowViewer] = useState(false);
 
   const onRefresh = async (): Promise<void> => {
     setRefreshing(true);
-    await getData(true);
+    await getVehicles(true);
     setRefreshing(false);
-  };
-
-  const getData = async (force: boolean = false): Promise<void> => {
-    await getVehicles(force);
   };
 
   const addVehicle = (): void =>
@@ -50,22 +48,22 @@ const MyVehiclesContainer: FC<TProps> = ({ navigation }) => {
       isEdit: true,
     });
 
-  const onLayout = (event: LayoutChangeEvent) => {
+  const onLayout = (event: LayoutChangeEvent): void => {
     const { height } = event.nativeEvent.layout;
     setCardHeight(height);
   };
 
-  const onPhotoPress = (photos: IUploadedPhoto[], index: number) => () => {
-    setIsShowViewer(true);
-    if (photos) {
-      setViewerItems(photos);
-      setViewerIndex(index);
-    }
-  };
+  const onPhotoPress =
+    (photos: IUploadedPhoto[], index: number) => (): void => {
+      setIsShowViewer(true);
 
-  useEffect(() => {
-    void getData();
-  }, []);
+      if (photos) {
+        setViewerItems(photos);
+        setViewerIndex(index);
+      }
+    };
+
+  useEffect(() => void getVehicles(false), []);
 
   return (
     <MyVehiclesView

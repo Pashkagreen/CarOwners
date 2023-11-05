@@ -10,6 +10,7 @@ import { Account } from '@services/account';
 import UserService from '@services/endpoints/user';
 import { useStore } from '@stores';
 import { IValidateObject } from '@types';
+import { logEvent } from '@utils';
 import { codeValidator, phoneNumberValidator } from '@validators';
 import { observer } from 'mobx-react-lite';
 
@@ -106,6 +107,9 @@ const LoginContainer: FC<TProps> = ({ navigation }) => {
         const token = await Account.getToken();
 
         if (token) {
+          logEvent('Login', {
+            phoneNumber: phoneNumber.value,
+          });
           await getAndSetAuthUser(uid);
         }
       }

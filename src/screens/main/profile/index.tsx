@@ -2,6 +2,7 @@ import { Keyboard } from 'react-native';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useStore } from '@stores';
+import { logEvent } from '@utils';
 import { userSchema } from '@validators';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
@@ -29,6 +30,9 @@ const ProfileContainer = () => {
   });
 
   const logOut = (): void => {
+    logEvent('Logout', {
+      phoneNumber: user.phoneNumber,
+    });
     clearVehicles();
     clearUser();
   };

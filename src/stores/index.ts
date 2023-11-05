@@ -2,7 +2,6 @@ import { createContext, useContext } from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AsyncTrunk } from 'mobx-sync';
-import LottieSplashScreen from 'react-native-lottie-splash-screen';
 
 import { UserStore } from './user';
 import { VehiclesStore } from './vehicles';
@@ -25,7 +24,6 @@ const trunk = new AsyncTrunk(rootStore, {
 
 export const rehydrate = async (): Promise<void> => {
   await trunk.init();
-  LottieSplashScreen.hide();
 };
 
 export const StoreContext = createContext(rootStore);

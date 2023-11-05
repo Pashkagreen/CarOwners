@@ -7,8 +7,9 @@ import { PERMISSIONS, requestMultiple } from 'react-native-permissions';
 const showError = (): void =>
   flashMessage({
     message: 'Error',
-    description: 'We can not get camera & library permissions',
-    type: 'danger',
+    description:
+      'We can not get camera & library permissions. Please enable it in your application settings.',
+    type: 'info',
   });
 
 const checkStoragePermissions = async (): Promise<boolean> => {
@@ -16,19 +17,18 @@ const checkStoragePermissions = async (): Promise<boolean> => {
     await PermissionsAndroid.requestMultiple([
       PermissionsAndroid.PERMISSIONS.CAMERA,
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     ]);
 
     const checkResult = await Promise.all([
       PermissionsAndroid.check('android.permission.CAMERA'),
       PermissionsAndroid.check('android.permission.READ_EXTERNAL_STORAGE'),
-      PermissionsAndroid.check('android.permission.WRITE_EXTERNAL_STORAGE'),
     ]);
 
     if (!checkResult.every(Boolean)) {
-      showError();
-
-      return false;
+      await PermissionsAndroid.requestMultiple([
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      ]);
     }
 
     return true;

@@ -1,4 +1,6 @@
 import { ACCESS_KEY } from '@constants';
+import { trackEvent } from 'appcenter-analytics';
+import { hasCrashedInLastSession } from 'appcenter-crashes';
 import { format } from 'date-fns';
 import { MessageOptions, showMessage } from 'react-native-flash-message';
 import publicIP from 'react-native-public-ip';
@@ -31,4 +33,35 @@ const flashMessage = ({ message, description, type }: MessageOptions): void => {
 const formatDateFromSeconds = (seconds: number): string =>
   format(new Date(seconds * 1000), 'dd/MM/yyyy hh:mm:ss');
 
-export { getUserCurrentCountry, flashMessage, formatDateFromSeconds };
+/**
+ * Check if there was a crash in a previous section
+ */
+const checkCrash = async (): Promise<void> => {
+  const hasCrash = await hasCrashedInLastSession();
+
+  if (!hasCrash) {
+    return;
+  }
+
+  flashMessage({
+    message: 'Sorry for crash in a previous session',
+    type: 'info',
+    description: 'We are working on it',
+  });
+};
+
+/**
+ * Track AppCenter event
+ */
+const logEvent = (
+  eventName: string,
+  properties?: Record<string, string>,
+): void => void trackEvent(eventName, properties && properties);
+
+export {
+  getUserCurrentCountry,
+  flashMessage,
+  formatDateFromSeconds,
+  checkCrash,
+  logEvent,
+};

@@ -39,3 +39,7 @@ Hi everyone!
 ### Run android:
 
 `cd android && yarn android ///// npx react-native run-android (from the root folder)`
+
+IOS: [![Build status](https://build.appcenter.ms/v0.1/apps/2cf72726-e40a-4711-b824-c0642b2634fb/branches/main/badge)](https://appcenter.ms)
+
+Android: [![Build status](https://build.appcenter.ms/v0.1/apps/0af177fa-bc92-4082-8ee9-f5798f269d7e/branches/main/badge)](https://appcenter.ms)

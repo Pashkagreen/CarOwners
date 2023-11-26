@@ -12,12 +12,9 @@ const HistoryContainer = () => {
       user: { headerHeight },
     },
   } = useStore();
-
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  useEffect(() => {
-    void getVehiclesHistory();
-  }, [vehicles]);
+  useEffect(() => void getVehiclesHistory(), [vehicles]);
 
   const onRefresh = async (): Promise<void> => {
     setIsRefreshing(true);

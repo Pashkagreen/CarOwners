@@ -9,6 +9,9 @@ interface IUserLocation {
   country_code2: string;
 }
 
+/**
+ * Define user location by IP
+ */
 const getUserCurrentCountry = async (): Promise<string> => {
   const userLocation: IUserLocation = await fetch(
     `https://api.ipgeolocation.io/ipgeo?apiKey=${ACCESS_KEY}&ip=${await publicIP()}`,
@@ -21,6 +24,9 @@ const getUserCurrentCountry = async (): Promise<string> => {
   return userLocation?.country_code2?.toLowerCase();
 };
 
+/**
+ * Flash message
+ */
 const flashMessage = ({ message, description, type }: MessageOptions): void => {
   showMessage({
     message: message,
@@ -30,6 +36,9 @@ const flashMessage = ({ message, description, type }: MessageOptions): void => {
   });
 };
 
+/**
+ * Milliseconds to date
+ */
 const formatDateFromSeconds = (seconds: number): string =>
   format(new Date(seconds * 1000), 'dd/MM/yyyy hh:mm:ss');
 

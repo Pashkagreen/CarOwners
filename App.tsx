@@ -11,6 +11,9 @@ import FlashMessage from 'react-native-flash-message';
 import LottieSplashScreen from 'react-native-lottie-splash-screen';
 import { Provider as PaperProvider } from 'react-native-paper';
 
+/**
+ * Root App component
+ */
 const App = () => {
   /**
    * Rehydrate persisted stores & hide Splash screen & check crashes

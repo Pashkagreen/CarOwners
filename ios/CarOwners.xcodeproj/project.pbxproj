@@ -12,9 +12,10 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		216A39964EE96652E5462A49 /* Pods_CarOwners.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDCFECF8AB7E23DB642C3DDA /* Pods_CarOwners.framework */; };
-		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		827898842AF801C800F0B2B4 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 827898832AF801C800F0B2B4 /* AppCenter-Config.plist */; };
 		82EB60872AE12318004ABA61 /* blue_car.json in Resources */ = {isa = PBXBuildFile; fileRef = 82EB60862AE12318004ABA61 /* blue_car.json */; };
+		82FE08E12B0AA04C00282243 /* CarOwnersUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FE08E02B0AA04C00282243 /* CarOwnersUITests.m */; };
+		82FE08E32B0AA04C00282243 /* CarOwnersUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 82FE08E22B0AA04C00282243 /* CarOwnersUITestsLaunchTests.m */; };
 		CE7097C329DDA7F90055A875 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE7097C229DDA7F90055A875 /* GoogleService-Info.plist */; };
 		CE9A17AF2A210FF20067E6BA /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A17AE2A210FF20067E6BA /* Dynamic.swift */; };
 		EFAFC4EE4381306DDCF9CFD1 /* Pods_CarOwners_CarOwnersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4F4B77D5F3AF3B220645E1F /* Pods_CarOwners_CarOwnersTests.framework */; };
@@ -22,6 +23,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
+			remoteInfo = CarOwners;
+		};
+		82FE08E42B0AA04C00282243 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
@@ -41,9 +49,11 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CarOwners/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CarOwners/main.m; sourceTree = "<group>"; };
 		81840B9FA87231D828DFDDE0 /* Pods-CarOwners.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners.release.xcconfig"; path = "Target Support Files/Pods-CarOwners/Pods-CarOwners.release.xcconfig"; sourceTree = "<group>"; };
-		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CarOwners/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		827898832AF801C800F0B2B4 /* AppCenter-Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		82EB60862AE12318004ABA61 /* blue_car.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = blue_car.json; path = CarOwners/blue_car.json; sourceTree = SOURCE_ROOT; };
+		82FE08DE2B0AA04C00282243 /* CarOwnersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarOwnersUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		82FE08E02B0AA04C00282243 /* CarOwnersUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarOwnersUITests.m; sourceTree = "<group>"; };
+		82FE08E22B0AA04C00282243 /* CarOwnersUITestsLaunchTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarOwnersUITestsLaunchTests.m; sourceTree = "<group>"; };
 		98198DDB2193EC301E852E70 /* Pods-CarOwners.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners.debug.xcconfig"; path = "Target Support Files/Pods-CarOwners/Pods-CarOwners.debug.xcconfig"; sourceTree = "<group>"; };
 		AE336CA41DC3F2332F1F698E /* Pods-CarOwners-CarOwnersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners-CarOwnersTests.debug.xcconfig"; path = "Target Support Files/Pods-CarOwners-CarOwnersTests/Pods-CarOwners-CarOwnersTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C77B968040F37FB1FEE37355 /* Pods-CarOwners-CarOwnersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarOwners-CarOwnersTests.release.xcconfig"; path = "Target Support Files/Pods-CarOwners-CarOwnersTests/Pods-CarOwners-CarOwnersTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,6 +98,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82FE08DB2B0AA04C00282243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -117,7 +134,6 @@
 				CE9A17AE2A210FF20067E6BA /* Dynamic.swift */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				CE9A17AD2A210FF10067E6BA /* CarOwners-Bridging-Header.h */,
 			);
@@ -132,6 +148,15 @@
 				D4F4B77D5F3AF3B220645E1F /* Pods_CarOwners_CarOwnersTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		82FE08DF2B0AA04C00282243 /* CarOwnersUITests */ = {
+			isa = PBXGroup;
+			children = (
+				82FE08E02B0AA04C00282243 /* CarOwnersUITests.m */,
+				82FE08E22B0AA04C00282243 /* CarOwnersUITestsLaunchTests.m */,
+			);
+			path = CarOwnersUITests;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -150,6 +175,7 @@
 				13B07FAE1A68108700A75B9A /* CarOwners */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CarOwnersTests */,
+				82FE08DF2B0AA04C00282243 /* CarOwnersUITests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -164,6 +190,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* CarOwners.app */,
 				00E356EE1AD99517003FC87E /* CarOwnersTests.xctest */,
+				82FE08DE2B0AA04C00282243 /* CarOwnersUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -250,6 +277,24 @@
 			productReference = 13B07F961A680F5B00A75B9A /* CarOwners.app */;
 			productType = "com.apple.product-type.application";
 		};
+		82FE08DD2B0AA04C00282243 /* CarOwnersUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 82FE08E82B0AA04C00282243 /* Build configuration list for PBXNativeTarget "CarOwnersUITests" */;
+			buildPhases = (
+				82FE08DA2B0AA04C00282243 /* Sources */,
+				82FE08DB2B0AA04C00282243 /* Frameworks */,
+				82FE08DC2B0AA04C00282243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				82FE08E52B0AA04C00282243 /* PBXTargetDependency */,
+			);
+			name = CarOwnersUITests;
+			productName = CarOwnersUITests;
+			productReference = 82FE08DE2B0AA04C00282243 /* CarOwnersUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -264,6 +309,10 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1430;
+					};
+					82FE08DD2B0AA04C00282243 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 				};
 			};
@@ -282,6 +331,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* CarOwners */,
 				00E356ED1AD99517003FC87E /* CarOwnersTests */,
+				82FE08DD2B0AA04C00282243 /* CarOwnersUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -298,11 +348,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				827898842AF801C800F0B2B4 /* AppCenter-Config.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				82EB60872AE12318004ABA61 /* blue_car.json in Resources */,
 				CE7097C329DDA7F90055A875 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		82FE08DC2B0AA04C00282243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +546,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		82FE08DA2B0AA04C00282243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82FE08E12B0AA04C00282243 /* CarOwnersUITests.m in Sources */,
+				82FE08E32B0AA04C00282243 /* CarOwnersUITestsLaunchTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -497,6 +562,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* CarOwners */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		82FE08E52B0AA04C00282243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13B07F861A680F5B00A75B9A /* CarOwners */;
+			targetProxy = 82FE08E42B0AA04C00282243 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -560,9 +630,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = WU5YL8MKBY;
+				DEVELOPMENT_TEAM = 2VR5JM9P46;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CarOwners/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -575,8 +647,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pashkagreen.carowners;
 				PRODUCT_NAME = CarOwners;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CarOwners-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -590,9 +663,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 47SKLYUCJ5;
+				DEVELOPMENT_TEAM = 2VR5JM9P46;
 				INFOPLIST_FILE = CarOwners/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -604,11 +679,68 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pashkagreen.carowners;
 				PRODUCT_NAME = CarOwners;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "CarOwners-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		82FE08E62B0AA04C00282243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = WU5YL8MKBY;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paulgrin.CarOwnersUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarOwners;
+			};
+			name = Debug;
+		};
+		82FE08E72B0AA04C00282243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = WU5YL8MKBY;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.paulgrin.CarOwnersUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = CarOwners;
 			};
 			name = Release;
 		};
@@ -766,6 +898,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		82FE08E82B0AA04C00282243 /* Build configuration list for PBXNativeTarget "CarOwnersUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82FE08E62B0AA04C00282243 /* Debug */,
+				82FE08E72B0AA04C00282243 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

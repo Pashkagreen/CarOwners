@@ -6,25 +6,25 @@
 //
 
 import Foundation
-import UIKit
 import Lottie
+import react_native_lottie_splash_screen
+import UIKit
 
 @objc class Dynamic: NSObject {
-
   @objc func createAnimationView(rootView: UIView, lottieName: String) -> LottieAnimationView {
     let animationView = LottieAnimationView(name: lottieName)
     animationView.frame = rootView.frame
     animationView.center = rootView.center
-    animationView.backgroundColor = UIColor.white;
-    return animationView;
+    animationView.backgroundColor = UIColor.white
+    return animationView
   }
 
   @objc func play(animationView: LottieAnimationView) {
     animationView.play(
       fromProgress: 0.0, toProgress: 1.0, loopMode: LottieLoopMode.loop,
-      completion: { (success) in
+      completion: { _ in
         RNSplashScreen.setAnimationFinished(true)
       }
-    );
+    )
   }
 }
